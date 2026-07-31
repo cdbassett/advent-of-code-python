@@ -31,7 +31,7 @@ def run(inp1, inp2, is_real):
 
     def data_parse(inp):
         lines = inp.strip().split('\n')
-        parsed = seq(lines).map(compose(colon_space_splitter, second_elem, int))
+        parsed = seq(lines).map(compose(colon_space_splitter, itemgetter(1), int))
         return parsed
 
     def countdown(val):

@@ -74,7 +74,7 @@ def parse_data(inp):
 def parse_data2(inp):
     *numbers, ops = inp.strip().split("\n")
     ics(seq(numbers).transpose().map(sjoin).list())
-    return seq(numbers).transpose().map(sjoin).map(string_to_integers_list).split([]).level2_map_tuple(first_elem).list(), ops.split()
+    return seq(numbers).transpose().map(sjoin).map(string_to_integers_list).split([]).level2_map_tuple(itemgetter(0)).list(), ops.split()
     #return seq(numbers).transpose().map(sjoin).map(str.split).map(string_to_integers_list).list(), ops.split()
 
 

@@ -56,7 +56,7 @@ def run(inp1, inp2, is_real):
 
 #                if step < 10:
 #                    ic(cur_pos, color, turn, direction, adjustments[direction], len(painted))
-#                    print(get_vis_map_multiline_str(map_list(first_elem, painted), map_list(second_elem, painted), special_chars=[("@", cur_pos[0], cur_pos[1])]))
+#                    print(get_vis_map_multiline_str(map_list(itemgetter(0), painted), map_list(itemgetter(1), painted), special_chars=[("@", cur_pos[0], cur_pos[1])]))
 #                ic(cur_pos, adjustments[direction])
                 cur_pos = add_tuple(cur_pos, adjustments[direction])
 

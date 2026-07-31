@@ -79,7 +79,7 @@ def iter_route_complex(grid, pos, dir, get_new_pos = operator.add):
 
 # %%
 def pos_and_dir_to_pos(positions):
-    return seq(positions).map(first_elem).set()
+    return seq(positions).map(itemgetter(0)).set()
 
 
 # %%
@@ -148,7 +148,7 @@ def process2aex(parsed):
     
 
     if 0:
-        route = seq(positions).map(first_elem).map(complex_to_tuple).sorted()
+        route = seq(positions).map(itemgetter(0)).map(complex_to_tuple).sorted()
         points = sorted(map(complex_to_tuple, obstruction_positions))
         points = list(map(complex_to_tuple, obstruction_positions))
         ics(points)

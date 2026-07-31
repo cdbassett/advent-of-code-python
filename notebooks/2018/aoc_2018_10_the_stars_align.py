@@ -84,14 +84,14 @@ def process(parsed):
     points, movements = list(zip(*parsed))
     #ics(parsed, points, movements)
     positions = points[:]
-    #ics(maplist(second_elem, positions))
+    #ics(maplist(itemgetter(1), positions))
     iterations = 0
     min_d = sys.maxsize
     last_positions = positions
 
         # this is based on the observation that over time the points contract until the message and then expand again
         # so once we detect that they're epxanding again, go back to the previous position
-    while (d := analyze_dimension(map(second_elem, positions)))[0] <= min_d:
+    while (d := analyze_dimension(map(itemgetter(1), positions)))[0] <= min_d:
         min_d = min(min_d, d[0])
 
         if iterations % 1000 == 0:

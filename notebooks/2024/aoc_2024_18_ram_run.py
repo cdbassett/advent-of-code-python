@@ -95,7 +95,7 @@ def process(parsed, W, byte_count):
     ic(len(path))
     if is_sample:
         special_chars = [(graph_char_circle_cross, x, y) for x, y in path]
-        print(get_vis_map_multiline_str(map_list(first_elem, grid.walls), map_list(second_elem, grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
+        print(get_vis_map_multiline_str(map_list(itemgetter(0), grid.walls), map_list(itemgetter(1), grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
     return len(path)-1
 
 

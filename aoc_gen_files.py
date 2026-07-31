@@ -33,7 +33,7 @@ def run(inp1, inp2, is_real):
         lines = inp.strip().split('\n')
 
 #        parts = list(batched((list(c) for match, c in itertools.groupby(lines, str.isdigit)), 2))
-        parts = seq(lines).groupby(str.isdigit).map(second_elem).grouped(2)
+        parts = seq(lines).groupby(str.isdigit).map(itemgetter(1)).grouped(2)
         ics(parts)
 #        parsed = map_list(partial(str.split, sep=")"), lines)
         return parts

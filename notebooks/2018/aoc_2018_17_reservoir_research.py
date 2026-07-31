@@ -89,8 +89,8 @@ def process(parsed):
     #ics(parsed)
     ranges = parsed
     #ics(ranges)
-    min_x, max_x = seq(ranges).map(first_elem).map(min).min(), seq(ranges).map(first_elem).map(max).max()
-    min_y, max_y = seq(ranges).map(second_elem).map(min).min(), seq(ranges).map(second_elem).map(max).max()
+    min_x, max_x = seq(ranges).map(itemgetter(0)).map(min).min(), seq(ranges).map(itemgetter(0)).map(max).max()
+    min_y, max_y = seq(ranges).map(itemgetter(1)).map(min).min(), seq(ranges).map(itemgetter(1)).map(max).max()
     W, H = max_x - min_x + 1, max_y - min_y + 1
     ic(min_x, max_x, W)
     ic(min_y, max_y, H)

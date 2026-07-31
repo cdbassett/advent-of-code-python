@@ -149,7 +149,7 @@ def process2(parsed):
     #number_segments_by_length = seq(lcd_number_segments).map(len).zip(lcd_number_segments)
     number_segments_by_length = seq(lcd_number_segments).enumerate().group_by(lambda p: len(p[1]))
     ics(number_segments_by_length)
-    number_segment_bit_patterns_by_length = number_segments_by_length.smap(lambda l, patterns_for_length: (l, seq(patterns_for_length).map(second_elem).map(pattern_bits).reduce(operator.or_))).dict()
+    number_segment_bit_patterns_by_length = number_segments_by_length.smap(lambda l, patterns_for_length: (l, seq(patterns_for_length).map(itemgetter(1)).map(pattern_bits).reduce(operator.or_))).dict()
     ics(number_segment_bit_patterns_by_length)
     numbers_segment_is_in = 0
     
@@ -184,7 +184,7 @@ def process2(parsed):
         ics(bit_patterns_by_length)
         
         for l, number_segments_and_indices in number_segments_by_length:
-            combined_bits = seq(number_segments_and_indices).map(second_elem).map(pattern_bits).reduce(operator.or_)
+            combined_bits = seq(number_segments_and_indices).map(itemgetter(1)).map(pattern_bits).reduce(operator.or_)
             ics(l, combined_bits, number_segments_and_indices)
             s.add([X[n] & combined_bits) == X[n] for n in ])
             

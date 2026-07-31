@@ -178,7 +178,7 @@ def map_it(parsed):
     rooms_with_items = list(graph.rooms_with_items)
     rooms_with_items = seq(rooms_with_items).map(partial(distance, last)).zip(rooms_with_items).sorted(reverse=True)
     ic(rooms_with_items)
-    rooms_with_items = rooms_with_items.map(second_elem).list()
+    rooms_with_items = rooms_with_items.map(itemgetter(1)).list()
     
     # we're not worrying about optimal paths, just one that covers all 
     traverse_rooms = [start] + rooms_with_items + [check]

@@ -81,8 +81,8 @@ def parse(inp):
 def process(parsed):
     ics(parsed)
     #ic(seq(parsed).multimap(manhattan, manhattan, manhattan).map(reversed).map(list).zip_with_index().sorted()[:10])
-    #ic(seq(parsed).map(third_elem).map(manhattan).zip(seq(parsed).map(first_elem).map(manhattan)).zip_with_index().sorted()[:10])
-    return seq(parsed).map(third_elem).map(manhattan).zip_with_index().min()[1]
+    #ic(seq(parsed).map(itemgetter(2)).map(manhattan).zip(seq(parsed).map(itemgetter(0)).map(manhattan)).zip_with_index().sorted()[:10])
+    return seq(parsed).map(itemgetter(2)).map(manhattan).zip_with_index().min()[1]
 
 
 # %%

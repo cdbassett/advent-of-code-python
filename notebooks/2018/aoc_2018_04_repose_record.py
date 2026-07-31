@@ -133,10 +133,10 @@ def build_analysis(parsed):
 def process(parsed):
     guard_times, guard_sleep_time = build_analysis(parsed)
     ic(len(guard_sleep_time.items()))
-    guard = sorted(guard_sleep_time.items(), key=second_elem, reverse=True)[0][0]
+    guard = sorted(guard_sleep_time.items(), key=itemgetter(1), reverse=True)[0][0]
     guard_minute = guard_times[guard].most_common(1)[0][0] # most common, minute
     ics(guard, guard_minute)
-    #ics(sorted(guard_sleep_time.items(), key=second_elem, reverse=True))
+    #ics(sorted(guard_sleep_time.items(), key=itemgetter(1), reverse=True))
     #ics(guard_times)
     return guard * guard_minute
 

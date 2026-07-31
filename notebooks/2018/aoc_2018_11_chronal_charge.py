@@ -85,7 +85,7 @@ def max_power(parsed, square_width):
 
     grid_range = range(1, W+1)
     section_points = seq(product(sliding_window(grid_range, square_width), sliding_window(grid_range, square_width))).starmap(product).map(list).list()
-    section_topleft_points = seq(section_points).map(first_elem).list()
+    section_topleft_points = seq(section_points).map(itemgetter(0)).list()
 
     if 0:
         ics(section_points)

@@ -47,7 +47,7 @@ def run(inp1, inp2, is_real):
 #                return
 
             yield out
-#            index = first_elem(i for i, (left, right) in enumerate(zip(inp,out)) if left != right) + 1
+#            index = itemgetter(0)(i for i, (left, right) in enumerate(zip(inp,out)) if left != right) + 1
             ics(inp, step, out, before, after, index)
 
 

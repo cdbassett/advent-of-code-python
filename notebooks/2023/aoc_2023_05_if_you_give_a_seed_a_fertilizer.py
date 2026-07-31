@@ -97,13 +97,13 @@ def parse(inp):
 # %%
 def translate_ids(ids, working_map):
     #ics(working_map.entries)
-    translator = sorted(working_map.entries, key=second_elem)
+    translator = sorted(working_map.entries, key=itemgetter(1))
     #ics(translator)
     new_ids = []
 
     for id in ids:
         new_id = id
-        i = bisect_right(translator, id, key=second_elem)
+        i = bisect_right(translator, id, key=itemgetter(1))
 
         if i:
             entry = translator[i-1]
@@ -152,7 +152,7 @@ adjustEntry = namedtuple("AdjustEntry", "start,adjust")
 
 def translate_ids2(ids, working_map):
     #ics(working_map.entries)
-    translator = sorted(working_map.entries, key=second_elem)
+    translator = sorted(working_map.entries, key=itemgetter(1))
     intervals = []
     last = 0
 
@@ -177,7 +177,7 @@ def translate_ids2(ids, working_map):
         while start < end:
                 # all(val <= x for val in a[lo : i]) for the left side and
                 # all(val > x for val in a[i : hi]) for the right side.
-            i = bisect_right(intervals, start, key=first_elem)
+            i = bisect_right(intervals, start, key=itemgetter(0))
 
             if i:
                 found = intervals[i-1]
@@ -210,7 +210,7 @@ def process2(parsed):
         ids = translate_ids2(ids, working_map)
         map_from = working_map.dest
 
-    return seq(ids).grouped(2).min_by(first_elem)[0]
+    return seq(ids).grouped(2).min_by(itemgetter(0))[0]
 
 
 # %%

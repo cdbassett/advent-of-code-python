@@ -113,7 +113,7 @@ def calc_damage(attacking_group, defending_group):
 # returns [attacking initiative, attacking group, defending group]
 def pick_targets(attacking, defending):
     attackers = sorted(attacking, key = lambda a: (a[0] * a[1].attack, a[1].initiative), reverse=True)
-    remaining_defenders = seq(defending).map(third_elem).set()
+    remaining_defenders = seq(defending).map(itemgetter(2)).set()
     targets = []
 
     for attacker in attackers:
@@ -151,7 +151,7 @@ def battle(parsed, add_to_immune = 0):
 
     working_immunity_units = build_working_units(immunity_units, "immune")
     working_infection_units = build_working_units(infection_units, "infection")
-    alive = seq(working_immunity_units).concat(working_infection_units).map(third_elem).set()
+    alive = seq(working_immunity_units).concat(working_infection_units).map(itemgetter(2)).set()
     #ics(alive)
     last_immunity_health, last_infection_health = 0, 0
 

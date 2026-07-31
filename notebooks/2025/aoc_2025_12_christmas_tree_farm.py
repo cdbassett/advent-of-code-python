@@ -106,8 +106,8 @@ def process(parsed):
     counts = seq(shapes).map(pixel_count).list()
     shapes_with_counts = seq(shapes).zip(counts).list()
     ic(shapes_with_counts)
-    ic(seq(regions).map(first_elem).map(first_elem).max())
-    ic(seq(regions).map(first_elem).map(second_elem).max())
+    ic(seq(regions).map(itemgetter(0)).map(itemgetter(0)).max())
+    ic(seq(regions).map(itemgetter(0)).map(itemgetter(1)).max())
     ic(len(regions))
     # apparently we don't have to fit, if there's enough pixels, that line works
     return seq(regions).count(fits)

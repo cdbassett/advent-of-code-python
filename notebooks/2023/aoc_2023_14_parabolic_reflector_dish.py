@@ -86,7 +86,7 @@ def move_round_rocks_north(cube_rocks, round_rocks):
     new_round_positions = set()
 
         # process rocks with lowest y first
-    for p in sorted(round_rocks, key = second_elem):
+    for p in sorted(round_rocks, key = itemgetter(1)):
         new_p = move_rock_north(p, cube_rocks, new_round_positions)
         #ics(new_round_positions, new_p)
         #ics(new_p)

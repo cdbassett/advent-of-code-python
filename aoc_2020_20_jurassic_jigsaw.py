@@ -35,7 +35,7 @@ def run(inp1, inp2, is_real):
         lines = inp.strip().split('\n')
 #        lines = inp.strip("\n").split('\n')
         tile_parts = split_iterable(lines, "")
-        tiles = seq(tile_parts).map(head_tail).multimap(compose(first_elem, string_to_integers), identity).to_dict()
+        tiles = seq(tile_parts).map(head_tail).multimap(compose(itemgetter(0), string_to_integers), identity).to_dict()
 #        ics(tiles)
         return tiles
 
@@ -235,7 +235,7 @@ def run(inp1, inp2, is_real):
         assert round(side_size) == side_size
         side_size = round(side_size)
         ic(len(tiles_dict), len(values), side_size, len(values))
-#        ic(seq(values.items()).filter(compose(second_elem, partial(operator.eq, 1))).len())
+#        ic(seq(values.items()).filter(compose(itemgetter(1), partial(operator.eq, 1))).len())
         ic(seq(values.items()).starfilter(_2 == 1).len())
         ic(seq(values.items()).starfilter(_2 == 2).len())
 #        ic(side_size, len(tiles_dict)*8 - side_size * 4)

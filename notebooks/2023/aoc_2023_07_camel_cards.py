@@ -98,7 +98,7 @@ def hand_order(hand):
 
 def process(parsed):
     ics(parsed)
-    types = seq(parsed).map(first_elem).map(hand_type).zip(parsed).list()
+    types = seq(parsed).map(itemgetter(0)).map(hand_type).zip(parsed).list()
     #ics(types)
     ordered = seq(parsed).order_by(hand_order).reverse().enumerate(1).list()
     #ics(ordered)
@@ -149,7 +149,7 @@ def hand_order2(hand):
 
 def process2(parsed):
     ics(parsed)
-    types = seq(parsed).map(first_elem).map(hand_type2).zip(parsed).list()
+    types = seq(parsed).map(itemgetter(0)).map(hand_type2).zip(parsed).list()
     ics(types)
     ordered = seq(parsed).order_by(hand_order2).reverse().enumerate(1).list()
     ics(ordered)

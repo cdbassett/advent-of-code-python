@@ -65,7 +65,7 @@ def process(parsed):
             screen.discard(coord)
 
     if is_sample:
-        print(get_vis_map_multiline_str(map_list(first_elem, screen), map_list(second_elem, screen)))
+        print(get_vis_map_multiline_str(map_list(itemgetter(0), screen), map_list(itemgetter(1), screen)))
 
     return len(screen)
 
@@ -101,7 +101,7 @@ def process2(parsed):
 
         if x == y == 0:
             if walls:
-                print(get_vis_map_multiline_str(map_list(first_elem, walls), map_list(second_elem, walls), special_chars=special_chars))
+                print(get_vis_map_multiline_str(map_list(itemgetter(0), walls), map_list(itemgetter(1), walls), special_chars=special_chars))
                 ics(step, max_x, max_y, len(special_chars), len(walls))
                 walls = set()
                 special_chars = []
@@ -117,11 +117,11 @@ def process2(parsed):
             special_chars.append(("*", x, y))
 
     ics(step, min_x, min_y, max_x, max_y, len(special_chars), len(walls))
-    print(get_vis_map_multiline_str(map_list(first_elem, walls), map_list(second_elem, walls), special_chars=special_chars))
+    print(get_vis_map_multiline_str(map_list(itemgetter(0), walls), map_list(itemgetter(1), walls), special_chars=special_chars))
     screen_size = (max_x+1) * (max_y+1)
 
     #if is_sample:
-        #print(get_vis_map_multiline_str(map_list(first_elem, screen), map_list(second_elem, screen)))
+        #print(get_vis_map_multiline_str(map_list(itemgetter(0), screen), map_list(itemgetter(1), screen)))
 
     # proceed on assumption that we need an input every time the ball is painted
 

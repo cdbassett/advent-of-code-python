@@ -162,8 +162,8 @@ def process2(parsed):
 
     #ic(parsed[:2])
     ic(len(parsed))
-    #max_x = seq(parsed).max_by(first_elem)
-    #max_y = seq(parsed).max_by(second_elem)
+    #max_x = seq(parsed).max_by(itemgetter(0))
+    #max_y = seq(parsed).max_by(itemgetter(1))
     max_x = seq(parsed).max_by(lambda a: a.x)
     max_y = seq(parsed).max_by(lambda a: a.y)
     ic(max_x, max_y)

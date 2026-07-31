@@ -75,7 +75,7 @@ def run(inp1, inp2, is_real):
 
     def data_parse(inp):
         lines = inp.strip().split('\n')
-        parsed = seq(lines).map(compose(colon_space_splitter, second_elem, int))
+        parsed = seq(lines).map(compose(colon_space_splitter, itemgetter(1), int))
         return parsed
 
     def turns(attacker, defender):
@@ -94,9 +94,9 @@ def run(inp1, inp2, is_real):
     ics(player_wins(player, boss))
 
     def check_win(boss, player_hp, items):
-        cost = seq(items).sum(second_elem)
-        damage = seq(items).sum(third_elem)
-        armor = seq(items).sum(fourth_elem)
+        cost = seq(items).sum(itemgetter(1))
+        damage = seq(items).sum(itemgetter(2))
+        armor = seq(items).sum(itemgetter(3))
         player = char(player_hp, damage, armor)
         return cost, player_wins(boss, player)
 

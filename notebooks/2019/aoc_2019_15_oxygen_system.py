@@ -68,7 +68,7 @@ def build_map_and_grid(parsed):
     #ics(parsed[:20], parsed[-20:])
     def show_map(target):
         special_chars = [(graph_char_circle_cross, x, y) for x, y in visited] + [(graph_char_bullseye, target[0], target[1])]
-        print(get_vis_map_multiline_str(map_list(first_elem, walls), map_list(second_elem, walls), special_chars=special_chars, filled_char=graph_char_light_block))
+        print(get_vis_map_multiline_str(map_list(itemgetter(0), walls), map_list(itemgetter(1), walls), special_chars=special_chars, filled_char=graph_char_light_block))
 
     def move(direction):
         #ics("move", direction)
@@ -117,10 +117,10 @@ def build_map_and_grid(parsed):
 
     show_map(oxygen)
 
-    max_x = max(walls, key=first_elem)[0]
-    max_y = max(walls, key=second_elem)[1]
-    min_x = min(walls, key=first_elem)[0]
-    min_y = min(walls, key=second_elem)[1]
+    max_x = max(walls, key=itemgetter(0))[0]
+    max_y = max(walls, key=itemgetter(1))[1]
+    min_x = min(walls, key=itemgetter(0))[0]
+    min_y = min(walls, key=itemgetter(1))[1]
     # technically should be max_x+1 et.c but we know from drawn map that walls are a straight line
     grid = SquareGrid(max_x, max_y, min_x, min_y)
     grid.walls = walls
@@ -133,7 +133,7 @@ def process(parsed):
     path = reconstruct_path(came_from, start, oxygen)
     #ics(path)
     special_chars = [(graph_char_circle_cross, x, y) for x, y in path] + [(graph_char_bullseye, oxygen[0], oxygen[1])]
-    print(get_vis_map_multiline_str(map_list(first_elem, walls), map_list(second_elem, walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
+    print(get_vis_map_multiline_str(map_list(itemgetter(0), walls), map_list(itemgetter(1), walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
     #ic(path[:10], path[-10:])
     return len(path)
 

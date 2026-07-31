@@ -192,11 +192,11 @@ def map_it(parsed):
     
     final_paths = [pathfinding_redblob.reconstruct_path(came_from, check, goal) for goal in rooms_with_items]
     ic(final_paths)
-    ic(seq(final_paths).map(last_elem))
-    rooms_with_items = seq(final_paths).map(len).zip(seq(final_paths).map(last_elem)).sorted(reverse=True)
+    ic(seq(final_paths).map(itemgetter(-1)))
+    rooms_with_items = seq(final_paths).map(len).zip(seq(final_paths).map(itemgetter(-1))).sorted(reverse=True)
     #rooms_with_items = seq(rooms_with_items).map(partial(distance, last)).zip(rooms_with_items).sorted(reverse=True)
     ic(rooms_with_items)
-    rooms_with_items = rooms_with_items.map(second_elem).list()
+    rooms_with_items = rooms_with_items.map(itemgetter(1)).list()
     
     # we're not worrying about optimal paths, just one that covers all 
     traverse_rooms = [start] + rooms_with_items + [check]

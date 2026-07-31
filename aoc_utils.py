@@ -156,7 +156,7 @@ def get_aoc_url():
     return f"https://adventofcode.com/{aocd_year}/day/{aocd_day}"
 
 def split_example(example):
-    return seq(example).splitby(lambda s: s.startswith("--")).drop(1).grouped(3).map(first_elem).map(njoin).list()
+    return seq(example).splitby(lambda s: s.startswith("--")).drop(1).grouped(3).map(itemgetter(0)).map(njoin).list()
 
 def nothing(*msg, **kwargs):
     return msg[0] if msg else None
@@ -992,8 +992,8 @@ def analyze_dimension(numbers):
 
 # points is sequence of tuples
 def analyze_points(points):
-    max_x, min_x = max(points, key = first_elem)[0], min(points, key = first_elem)[0]
-    max_y, min_y = max(points, key = second_elem)[1], min(points, key = second_elem)[1]
+    max_x, min_x = max(points, key = itemgetter(0))[0], min(points, key = itemgetter(0))[0]
+    max_y, min_y = max(points, key = itemgetter(1))[1], min(points, key = itemgetter(1))[1]
     W, H = max_x - min_x + 1, max_y - min_y + 1
 #    ic(W, H, W*H, min_x, max_x, min_y, max_y)
     return W, H, min_x, min_y, max_x, max_y
@@ -1033,8 +1033,8 @@ def get_vis_map(dots, reversed = False, min_val=None, max_val=None):
         return -negative_x, max(15, positive_x - negative_x)
 
     assert(dots)
-    min_x, width = get_dim(map(first_elem, dots))
-    min_y, height = get_dim(map(second_elem, dots))
+    min_x, width = get_dim(map(itemgetter(0), dots))
+    min_y, height = get_dim(map(itemgetter(1), dots))
 #    ics(min_x, min_y)
     vis_map = [["."] * width for r in range(height)]
 
@@ -1087,9 +1087,9 @@ def get_vis_map_multiline_str(xs, ys, reversed = False, min_val=None, max_val=No
     dim_xs = list(xs)
     dim_ys = list(ys)
 
-    min_x, max_x, width = get_dim(dim_xs + maplist(second_elem, special_chars))
+    min_x, max_x, width = get_dim(dim_xs + maplist(itemgetter(1), special_chars))
 #    ic(min_x, max_x, width)
-    min_y, max_y, height = get_dim(dim_ys + maplist(third_elem, special_chars))
+    min_y, max_y, height = get_dim(dim_ys + maplist(itemgetter(2), special_chars))
 #    ic(min_y, max_y, height)
     vis_map = [[blank_char] * width for r in range(height)]
 
@@ -1117,7 +1117,7 @@ def get_vis_map_multiline_str_def(walls_tuples, path, end_pos=None):
     if end_pos:
         special_chars += [(graph_char_bullseye, end_pos[0], end_pos[1])]
 
-    return get_vis_map_multiline_str(map_list(first_elem, walls_tuples), map_list(second_elem, walls_tuples), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot)
+    return get_vis_map_multiline_str(map_list(itemgetter(0), walls_tuples), map_list(itemgetter(1), walls_tuples), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot)
 
 
 def get_double_axis_strings(min_val, max_val):
@@ -1153,8 +1153,8 @@ def get_edge_grid_map_multiline_str(edges, start=(0,0), special_chars=tuple(), b
     dim_xs = list(xs)
     dim_ys = list(ys)
 
-    min_x, max_x, width = get_dim(dim_xs + maplist(second_elem, special_chars))
-    min_y, max_y, height = get_dim(dim_ys + maplist(third_elem, special_chars))
+    min_x, max_x, width = get_dim(dim_xs + maplist(itemgetter(1), special_chars))
+    min_y, max_y, height = get_dim(dim_ys + maplist(itemgetter(2), special_chars))
     vis_map = [[blank_char] * width for r in range(height)]
 
     xbs, ybs = xs_and_ys(square_boundary_points(min_x, min_y, max_x, max_y))

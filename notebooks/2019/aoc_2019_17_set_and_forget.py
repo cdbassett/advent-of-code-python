@@ -160,7 +160,7 @@ def process2(parsed):
     last = robot_pos
 
     # skip in-between nodes
-    for v, nodes in groupby(path, key = third_elem):
+    for v, nodes in groupby(path, key = itemgetter(2)):
         nodes = list(nodes)
         reduced_path.append(nodes[-1][:2])
 

@@ -186,10 +186,10 @@ def process2(parsed):
     for p1, p2 in pairwise(parsed + parsed[0:1]):
         colored |= set(line_points(p1, p2))
 
-    max_x = seq(parsed).map(first_elem).max()
-    max_y = seq(parsed).map(second_elem).max()
-    min_x = seq(parsed).map(first_elem).min()
-    min_y = seq(parsed).map(second_elem).min()
+    max_x = seq(parsed).map(itemgetter(0)).max()
+    max_y = seq(parsed).map(itemgetter(1)).max()
+    min_x = seq(parsed).map(itemgetter(0)).min()
+    min_y = seq(parsed).map(itemgetter(1)).min()
     ic(min_x, max_x, min_y, max_y)                    
 
     #return seq(combinations(parsed, 2)).starfilter(inside_poly).starmap(area).max()

@@ -143,14 +143,14 @@ def process2old2(parsed):
 
     ics(intersections)
     ic(len(intersections))
-    ic(maplist(first_elem, intersections))
-    ic(seq(intersections).map(second_elem).map(len))
+    ic(maplist(itemgetter(0), intersections))
+    ic(seq(intersections).map(itemgetter(1)).map(len))
     primary_cuboid = seq(intersections).max_by(lambda e: len(e[1]))[0]
     ic(primary_cuboid)
-    ic(seq(intersections).map(first_elem).level2_map(first_elem).map(list))
-    ic(seq(intersections).map(first_elem).level2_map(first_elem).map(list).map(manhattan))
+    ic(seq(intersections).map(itemgetter(0)).level2_map(itemgetter(0)).map(list))
+    ic(seq(intersections).map(itemgetter(0)).level2_map(itemgetter(0)).map(list).map(manhattan))
     # assuming positive
-    p = maplist(first_elem, primary_cuboid)
+    p = maplist(itemgetter(0), primary_cuboid)
     ic(p)
     return sum(p)
 
@@ -275,7 +275,7 @@ def d3(a, b):
 
 bots = [tuple(map(int, list(re.findall(r'-?\d+', ln)))) for ln in data]
 
-maxradbot = max(bots, key=fourth_elem)
+maxradbot = max(bots, key=itemgetter(3))
 maxrad = maxradbot[-1]
 
 print("bots in range of maxrad bot", sum(1 for b in bots if d3(b, maxradbot) <= maxrad))
@@ -363,7 +363,7 @@ def heapq_solution2():
     Bot = namedtuple('Bot', 'x y z r')
     pattern = re.compile(r'pos=<(-?\d+),(-?\d+),(-?\d+)>, r=(\d+)')
     bots = [Bot(*map(int, pattern.match(line).groups())) for line in real_inp.split("\n")]
-    maxradbot = max(bots, key=fourth_elem)
+    maxradbot = max(bots, key=itemgetter(3))
     max_r = maxradbot.r
     print((sum(manhattan(b[:3], maxradbot[:3]) <= max_r for b in bots)))
 

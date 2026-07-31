@@ -40,7 +40,7 @@ def run(inp1, inp2, is_real):
 #        ics(mcl)
 #        ics(list((-b, a) for a, b in mcl))
 #        ics(sorted((-b, a) for a, b in mcl))
-        letters = sjoin(map(second_elem, sorted((-b, a) for a, b in mcl)))[:5]
+        letters = sjoin(map(itemgetter(1), sorted((-b, a) for a, b in mcl)))[:5]
         valid = letters == room[-1]
 #        ics(room, letters, valid)
         return valid

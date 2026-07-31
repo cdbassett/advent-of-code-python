@@ -123,8 +123,8 @@ def process2(parsed):
     ics(number_segments_by_length)
     digit_by_pattern = dict(zip(lcd_number_segments, range(10)))
     ics(digit_by_pattern)
-    number_segment_sums_by_length = number_segments_by_length.map(first_elem).zip(number_segments_by_length.map(second_elem).level2_map_tuple(segments_sum)).list()
-    #number_segment_sums_by_length = seq(lcd_number_segments).map(len).zip(seq(lcd_number_segments).map(segments_sum))).group_by(first_elem)
+    number_segment_sums_by_length = number_segments_by_length.map(itemgetter(0)).zip(number_segments_by_length.map(itemgetter(1)).level2_map_tuple(segments_sum)).list()
+    #number_segment_sums_by_length = seq(lcd_number_segments).map(len).zip(seq(lcd_number_segments).map(segments_sum))).group_by(itemgetter(0))
     ics(number_segment_sums_by_length)
     res = 0
     

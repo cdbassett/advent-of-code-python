@@ -76,7 +76,7 @@ def run(inp1, inp2, is_real):
     def part2(inp):
         ingred_and_allergen = data_parse(inp)
         ingred_to_allergen, all_ingredients, all_allergens = process(ingred_and_allergen)
-        result = ",".join(map(first_elem, sorted(ingred_to_allergen.items(), key=second_elem)))
+        result = ",".join(map(itemgetter(0), sorted(ingred_to_allergen.items(), key=itemgetter(1))))
         print_result(result)
 
     part1(inp1)

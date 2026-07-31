@@ -111,10 +111,10 @@ def get_light_min_button_presses(lights, buttons, joltages):
 # highest joltage is 286
 def process(parsed):
     ics(parsed)
-    #ic(seq(parsed).map(second_elem).level2_map(max).map(max).max())
-    #ic(seq(parsed).map(third_elem).map(max).max()) # highest joltage
-    #ic(seq(parsed).map(second_elem).map(len).max()) # max num of buttons
-    #ic(seq(parsed).map(first_elem).map(bin).map(len).max()-2) # max lights
+    #ic(seq(parsed).map(itemgetter(1)).level2_map(max).map(max).max())
+    #ic(seq(parsed).map(itemgetter(2)).map(max).max()) # highest joltage
+    #ic(seq(parsed).map(itemgetter(1)).map(len).max()) # max num of buttons
+    #ic(seq(parsed).map(itemgetter(0)).map(bin).map(len).max()-2) # max lights
     return seq(parsed).starmap(get_light_min_button_presses).sum()
 
 

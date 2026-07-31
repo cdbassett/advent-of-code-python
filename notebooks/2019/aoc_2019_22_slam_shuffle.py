@@ -81,7 +81,7 @@ for sample in sample_data1s:
 # %%
 def parse_data(inp):
     lines = inp.strip().split("\n")
-    return seq(lines).map(first_elem).zip(seq(lines).map(string_to_integers_list).map(first_element)).list()
+    return seq(lines).map(itemgetter(0)).zip(seq(lines).map(string_to_integers_list).map(first_element)).list()
 #string_to_integers_list("Asdasdas 7\n6\nsgdfn8")
 
 

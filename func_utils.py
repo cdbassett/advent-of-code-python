@@ -6,19 +6,19 @@ import iteration_utilities
 compose = iteration_utilities.chained
 
 # use these for simple mapping
-def first_elem(args):
+def itemgetter(0)(args):
     return args[0]
 
-def second_elem(args):
+def itemgetter(1)(args):
     return args[1]
 
-def third_elem(args):
+def itemgetter(2)(args):
     return args[2]
 
-def fourth_elem(args):
+def itemgetter(3)(args):
     return args[3]
 
-def last_elem(args):
+def itemgetter(-1)(args):
     return args[-1]
 
 # examples:

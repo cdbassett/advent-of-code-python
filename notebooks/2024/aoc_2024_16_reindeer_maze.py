@@ -130,7 +130,7 @@ def process(parsed):
         path = pf.reconstruct_path(came_from, start_pos, end_pos)
         #ics(path)
         special_chars = [(graph_char_circle_cross, x, y) for x, y in path] + [(graph_char_bullseye, end_pos[0], end_pos[1])]
-        print(get_vis_map_multiline_str(map_list(first_elem, grid.walls), map_list(second_elem, grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
+        print(get_vis_map_multiline_str(map_list(itemgetter(0), grid.walls), map_list(itemgetter(1), grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
     ics(cost_so_far[end_pos])
     return cost_so_far[end_pos]
 
@@ -244,7 +244,7 @@ def process2(parsed):
     corners = set([p for p, c in points_dict.items() if is_juncture(p, c)] + [start_pos, end_pos])
     #ics(parsed)
     special_chars = [(graph_char_circle_cross, x, y) for x, y in corners]
-    print(get_vis_map_multiline_str(map_list(first_elem, grid.walls), map_list(second_elem, grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
+    print(get_vis_map_multiline_str(map_list(itemgetter(0), grid.walls), map_list(itemgetter(1), grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
     #ics(corners)
 
     #costs = dict()
@@ -328,7 +328,7 @@ def process2(parsed):
                     nodes.update(plot_path(a, b))
 
         special_chars = [(graph_char_circle_cross, x, y) for x, y in nodes]
-        print(get_vis_map_multiline_str(map_list(first_elem, grid.walls), map_list(second_elem, grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
+        print(get_vis_map_multiline_str(map_list(itemgetter(0), grid.walls), map_list(itemgetter(1), grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
         return len(nodes)
 
 
@@ -424,7 +424,7 @@ def process2(parsed):
     best_len = cost_so_far[end_pos]
     ics(best_len)
     special_chars = [(graph_char_circle_cross, x, y) for x, y in path] + [(graph_char_bullseye, end_pos[0], end_pos[1])]
-    print(get_vis_map_multiline_str(map_list(first_elem, grid.walls), map_list(second_elem, grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
+    print(get_vis_map_multiline_str(map_list(itemgetter(0), grid.walls), map_list(itemgetter(1), grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
     #pf.draw_grid(grid, point_to=came_from, start=start_pos, path=path, goal=end_pos)
     #ics(equal_branches)
     count_nodes = set(path)
@@ -437,7 +437,7 @@ def process2(parsed):
 
     #ics(count_nodes)
     special_chars = [(graph_char_circle_cross, x, y) for x, y in count_nodes] + [(graph_char_bullseye, end_pos[0], end_pos[1])]
-    print(get_vis_map_multiline_str(map_list(first_elem, grid.walls), map_list(second_elem, grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
+    print(get_vis_map_multiline_str(map_list(itemgetter(0), grid.walls), map_list(itemgetter(1), grid.walls), special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
     
     return len(count_nodes)
 
