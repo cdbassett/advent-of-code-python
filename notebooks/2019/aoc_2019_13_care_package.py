@@ -33,7 +33,7 @@ from icecream import ic
 # import and reload these automatically
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions, func_utils, aoc_2019_intcode
 from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
+from utilities import *
 from iter_utils import *
 from aoc_2019_intcode import process_intcodes, parse_intcodes
 import seq_extensions # when running standalone, apparently need this import explicitly in main module

@@ -38,7 +38,7 @@ import iteration_utilities as it_ut
 # import and reload these automatically
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions, func_utils
 from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
+from utilities import *
 from iter_utils import *
 import seq_extensions # when running standalone, apparently need this import explicitly in main module
 

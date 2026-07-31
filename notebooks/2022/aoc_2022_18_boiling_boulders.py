@@ -33,7 +33,7 @@ from icecream import ic
 # import and reload these automatically
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions, func_utils, pathfinding_redblob
 from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
+from utilities import *
 from iter_utils import *
 import seq_extensions # when running standalone, apparently need this import explicitly in main module
 import pathfinding_redblob as pf

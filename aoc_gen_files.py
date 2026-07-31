@@ -19,7 +19,7 @@ from icecream import ic
 
 from timer_utils import timefunction
 from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
+from utilities import *
 import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 import shutil
