@@ -116,65 +116,19 @@ def run(inp1, inp2, is_real):
     part2(inp2)
 
 def main():
-    if 1:
-        if samp_inps:
-            for samp_inp in samp_inps:
-                print(f"{Fore.GREEN}{Style.BRIGHT}Sample:{Style.RESET_ALL}")
-                run(samp_inp1, samp_inp2, False)
-        else:
-            print(f"{Fore.BLUE}{Style.BRIGHT}Sample:{Style.RESET_ALL}")
-#            print("Sample:")
-            run(samp_inp1, samp_inp2, False)
+    example = get_aocd_example()
+    samp_inps = split_example(example)
+
+    for n, samp_inp in enumerate(samp_inps, 1):
+        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+        run(samp_inp, samp_inp, False)
 
     if 1:
-        print(f"{Fore.YELLOW}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
-#        print("Actual:")
-            # needs env var AOC_SESSION
-        real_inp = aocd.data # supposed to work if filename is clear enough (year would need to be 4-digit)
+        print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
+        # needs env var AOC_SESSION
+        real_inp = get_aocd_data()
         run(real_inp, real_inp, True)
 #        aocd.submit(my_answer)
-
-
-
-
-samp_inp1 = r"""
-class: 1-3 or 5-7
-row: 6-11 or 33-44
-seat: 13-40 or 45-50
-
-your ticket:
-7,1,14
-
-nearby tickets:
-7,3,47
-40,4,50
-55,2,20
-38,6,12
-"""
-
-samp_inp2 = r"""
-class: 0-1 or 4-19
-row: 0-5 or 8-19
-seat: 0-13 or 16-19
-
-your ticket:
-11,12,13
-
-nearby tickets:
-3,9,18
-15,1,5
-5,14,9
-"""
-
-
-short_samp = """
-"""
-
-
-samp_inps = [
-#    short_samp,
-#    samp_inp,
-    ]
 
 
 main()

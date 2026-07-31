@@ -102,35 +102,21 @@ def run(inp1, inp2, is_real):
     part2(inp2)
 
 def main():
-    if 1:
-        if samp_inps:
-            for n, samp_inp in enumerate(samp_inps, 1):
-                print_preface(False, n)
-                run(samp_inp, samp_inp, False)
-        elif samp_inp1.strip():
-            print_preface(False)
-            run(samp_inp1, samp_inp2, False)
+    example = get_aocd_example()
+    samp_inps = split_example(example)
+
+    for n, samp_inp in enumerate(samp_inps, 1):
+        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+        run(samp_inp, samp_inp, False)
 
     if 1:
-        print_preface(True)
+        print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
+        # needs env var AOC_SESSION
         real_inp = get_aocd_data()
         run(real_inp, real_inp, True)
 #        aocd.submit(my_answer)
 
 
-samp_inp1 = r"""
-"""
-
-samp_inp2 = ""
-
-
-#R2, L3
-#R2, R2, R2
-samp_inps = """
-R5, L5, R5, R3
-R8, R4, R4, R8
-""".strip().split("\n")
-#samp_inps = []
 
 main()
 

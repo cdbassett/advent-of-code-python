@@ -108,38 +108,18 @@ def run(inp1, inp2, is_real):
     part2(inp2)
 
 def main():
-    if 1:
-        if samp_inps and samp_inps[0]:
-            for n, samp_inp in enumerate(samp_inps, 1):
-                print_preface(False, n)
-                run(samp_inp, samp_inp, False)
-        else:
-            print_preface(False)
-            run(samp_inp1, samp_inp2, False)
+    example = get_aocd_example()
+    samp_inps = split_example(example)
+
+    for n, samp_inp in enumerate(samp_inps, 1):
+        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+        run(samp_inp, samp_inp, False)
 
     if 1:
-        print_preface(True)
+        print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
+        # needs env var AOC_SESSION
         real_inp = get_aocd_data()
         run(real_inp, real_inp, True)
-
-
-
-samp_inp1 = r"""
-Bogus1: capacity 0, durability 0, flavor 0, texture 0, calories 0
-Bogus2: capacity 0, durability 0, flavor 0, texture 0, calories 0
-Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
-Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3
-"""
-
-samp_inp2 = samp_inp1
-#samp_inp2 = r"""
-#"""
-
-
-samp_inps = \
-"""
-""".strip().split("\n")
-
 
 main()
 

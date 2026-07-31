@@ -78,48 +78,19 @@ def run(inp1, inp2, is_real):
     part2(inp2)
 
 def main():
-    if 1:
-        if samp_inps and samp_inps[0]:
-            for n, samp_inp in enumerate(samp_inps, 1):
-                print_preface(False, n)
-                run(samp_inp, samp_inp, False)
-        else:
-            print_preface(False)
-            run(samp_inp1, samp_inp2, False)
+    example = get_aocd_example()
+    samp_inps = split_example(example)
+
+    for n, samp_inp in enumerate(samp_inps, 1):
+        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+        run(samp_inp, samp_inp, False)
 
     if 1:
-        print_preface(True)
-            # needs env var AOC_SESSION
-        real_inp = aocd.data # supposed to work if filename is clear enough (year would need to be 4-digit)
+        print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
+        # needs env var AOC_SESSION
+        real_inp = get_aocd_data()
         run(real_inp, real_inp, True)
 #        aocd.submit(my_answer)
-
-
-
-
-samp_inp1 = r"""
-Alice would gain 54 happiness units by sitting next to Bob.
-Alice would lose 79 happiness units by sitting next to Carol.
-Alice would lose 2 happiness units by sitting next to David.
-Bob would gain 83 happiness units by sitting next to Alice.
-Bob would lose 7 happiness units by sitting next to Carol.
-Bob would lose 63 happiness units by sitting next to David.
-Carol would lose 62 happiness units by sitting next to Alice.
-Carol would gain 60 happiness units by sitting next to Bob.
-Carol would gain 55 happiness units by sitting next to David.
-David would gain 46 happiness units by sitting next to Alice.
-David would lose 7 happiness units by sitting next to Bob.
-David would gain 41 happiness units by sitting next to Carol.
-"""
-
-samp_inp2 = samp_inp1
-#samp_inp2 = r"""
-#"""
-
-
-samp_inps = \
-"""
-""".strip().split("\n")
 
 
 main()
