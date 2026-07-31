@@ -1,5 +1,40 @@
 # advent-of-code-python
-My solutions to the [Advent of Code](https://adventofcode.com) puzzles. They use the `aocd` library to automatically fetch puzzle inputs. Some solutions are command line scripts, some are **JupyterLab** notebooks. Some are in both formats. 
+My solutions to the [Advent of Code](https://adventofcode.com) puzzles. They use the `aocd` library to automatically fetch puzzle inputs. Some solutions are command line scripts (the scripts fodler), some are **JupyterLab** notebooks (the notebooks folder). Some are in both formats.
+
+
+
+# Setup Instructions
+
+1\. Clone the Repository
+
+
+```
+git clone https://github.com/cdbassett/advent-of-code-python.git
+```
+
+
+2\. Install Dependencies
+
+It is recommended to use a virtual environment. 
+
+
+```
+# Change to the root folder of the project
+cd advent-of-code-python
+
+# Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+
+# Install the required packages and make the utilties modules available
+pip install -e . 
+```
+
+If you also want to use the notebooks, you will need to install JupyterLab and Jupytext:
+
+```
+pip install jupyterlab jupytext
+```
 
 Standard Jupyter Notebooks (`.ipynb`) contain heavy JSON metadata and output data, making Git diffs messy. To solve this, this repository uses **Jupytext** to pair every notebook with a standard Python script (`.py`).
 
@@ -8,79 +43,19 @@ Standard Jupyter Notebooks (`.ipynb`) contain heavy JSON metadata and output dat
 *   **Version Control:** Only the clean, human-readable `.py` files are tracked in Git. 
 
 
-# Setup Instructions
-
-1\. Clone the Repository
-
-bash
-
-```
-git clone https://github.com/cdbassett/advent-of-code-python.git
-cd advent-of-code-python
-```
-
-
-2\. Install Dependencies
-
-It is recommended to use a virtual environment. 
-
-bash
-
-```
-# Create and activate a virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
-
-# Install the required packages
-pip install -r requirements.txt
-```
-
-Use code with caution.
-
 3\. Configure Your Session Token
 
 The `aocd` package needs your Advent of Code session cookie to download your personalized inputs. 
 
-- Open your browser and log into Advent of Code.
+- Open your browser and log into [Advent of Code](https://adventofcode.com).
 
-- Open the browser Developer Tools (F12) and go to the **Application** (Chrome) or **Storage** (Firefox) tab.
-
-- Under **Cookies**, select `https://adventofcode.com`.
-
-- Find the cookie named `session` and copy its long hex string value. 
-
-On Linux / macOS: 
-
-Add the token to your shell profile (e.g., `~/.bashrc` or `~/.zshrc`): 
-
-bash
+- From the terminal, use this utlity which is part of the aocd package:
 
 ```
-export AOC_SESSION="your_session_cookie_here"
+$ aocd-token > ~/.config/aocd/token
 ```
 
-Use code with caution.
+For further instructions and alternative methods to set up the session token, see:
 
-On Windows (Command Prompt): 
+[Advent of Code Data](https://github.com/wimglenn/advent-of-code-data#quickstart)
 
-cmd
-
-```
-setx AOC_SESSION "your_session_cookie_here"
-```
-
-Use code with caution.
-
-Alternative (.env file): 
-
-If you prefer using a `.env` file, create a file named `.env` in the root of this project: 
-
-text
-
-```
-AOC_SESSION=your_session_cookie_here
-```
-
-Use code with caution.
-
-_Note: Ensure your code loads this environment variable (e.g., using `python-dotenv`) before importing `aocd`._
