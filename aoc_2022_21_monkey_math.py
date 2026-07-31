@@ -8,12 +8,7 @@ from builtins import pow
 import pyperclip
 import operator
 from icecream import ic
-#import numpy as np
-#import shapely
-#import shapely.ops
 from timer_utils import timefunction
-#import matplotlib.pyplot as plt
-#from construct import *
 from typing import Callable
 from sympy import *
 

@@ -1,14 +1,11 @@
 from functools import *
 from collections import *
-#from sympy import *
 from itertools import *
 from math import *
 from statistics import *
 from builtins import pow
-#import numpy as np
 from timer_utils import timefunction
 
-#from sympy import *
 
 from functional import seq # https://github.com/EntilZha/PyFunctional
 import iteration_utilities as it_ut # https://pypi.org/project/iteration-utilities/

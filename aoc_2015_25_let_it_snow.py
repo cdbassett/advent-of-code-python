@@ -6,9 +6,6 @@ from statistics import *
 from builtins import pow
 from timer_utils import timefunction
 
-#import numpy as np
-#import sympy
-#from sympy import *
 from colorama import Fore, Style
 from functional import seq # https://github.com/EntilZha/PyFunctional
 import iteration_utilities as it_ut # https://pypi.org/project/iteration-utilities/
@@ -22,9 +19,7 @@ import aocd # https://github.com/wimglenn/advent-of-code-data
 from aoc_utils import * # this includes adding c:\ut to sys.path
 from Utilities import *
 import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
-#from fz import _1
 from quicklambda import _1, _2
-#from mini_lambda import s, _, x
 
 
 

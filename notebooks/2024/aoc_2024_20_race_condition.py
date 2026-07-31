@@ -200,7 +200,6 @@ part2(real_inp) # 982425
 def solve():
     from collections import deque
     from aocd.models import Puzzle
-    #from util import grid, directions, manhattan_distance, manhattan_distance_neighbors
     
     aoc_puzzle = Puzzle(year=2024, day=20)
     lines = aoc_puzzle.input_data.split('\n')

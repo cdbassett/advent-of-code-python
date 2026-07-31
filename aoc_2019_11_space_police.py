@@ -1,11 +1,9 @@
 from functools import *
 from collections import *
-#from sympy import *
 from itertools import *
 from math import *
 from statistics import *
 from builtins import pow
-#import numpy as np
 from timer_utils import timefunction
 
 from sympy import *

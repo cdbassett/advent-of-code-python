@@ -1,20 +1,7 @@
-# from https://github.com/IsaacG/Advent-of-Code/blob/main/pylib/aoc.py#L99
 
 #!/bin/python
-#from __future__ import annotations
 #
-#import contextlib
-#import dataclasses
-#import functools
-#import itertools
-#import pathlib
-#import re
-#import time
-#from typing import Any, Callable, Generator, Iterable, List, Optional, Sequence
 #
-#from .parsers import *
-#from . import parsers
-#from . import site
 
 
 COLOR_SOLID = '█'
@@ -72,9 +59,6 @@ OCR_MAP = {
 }
 
 
-#from collections.abc import Iterable
-#from collections.abc import Iterator
-#from typing import TypeVar
 #
 #
 #T = TypeVar('T')

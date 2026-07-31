@@ -1,20 +1,11 @@
 from functools import *
 from collections import *
-#from sympy import *
 from itertools import *
 from math import *
 from statistics import *
 from builtins import pow
-#import numpy as np
-#import shapely
-#import shapely.ops
 from timer_utils import timefunction
-#import networkx as nx
-#import matplotlib.pyplot as plt
-#from construct import *
 
-#from Levenshtein import distance as levenshtein_distance
-#from sympy import *
 
 from functional import seq # https://github.com/EntilZha/PyFunctional
 import iteration_utilities as it_ut # https://pypi.org/project/iteration-utilities/
@@ -30,7 +21,6 @@ import aocd # https://github.com/wimglenn/advent-of-code-data
 from aoc_utils import * # this includes adding c:\ut to sys.path
 from Utilities import *
 import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
-#from fz import _1
 from quicklambda import _1
 
 

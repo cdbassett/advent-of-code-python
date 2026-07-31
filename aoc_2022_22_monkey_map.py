@@ -7,13 +7,8 @@ from statistics import *
 from builtins import pow
 import pyperclip
 from icecream import ic
-#import numpy as np
 import copy
-#import shapely
-#import shapely.ops
 from timer_utils import timefunction
-#import matplotlib.pyplot as plt
-#from construct import *
 
 from aoc_utils import * # this includes adding c:\ut to sys.path
 from Utilities import *

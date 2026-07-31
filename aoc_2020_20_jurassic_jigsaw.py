@@ -1,6 +1,5 @@
 from functools import *
 from collections import *
-#from sympy import *
 from itertools import *
 from math import *
 from statistics import *
@@ -101,7 +100,6 @@ def run(inp1, inp2, is_real):
         return reg_borders + tuple(flip_horiz(reg_borders))
 #        return get_top_and_bottom(tile) + get_top_and_bottom(transposed_tile)
 
-        # from border, to border - > transform function
     transformations = {
         (TOP, LEFT): rotate_left,
         (BOT, LEFT): rotate_right,

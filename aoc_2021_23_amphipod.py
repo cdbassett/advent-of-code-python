@@ -5,10 +5,7 @@ from math import *
 from statistics import *
 from builtins import pow
 from timer_utils import timefunction
-#import matplotlib.pyplot as plt
-#from construct import *
 
-#from functional import seq
 import pyperclip
 from icecream import ic
 

@@ -266,7 +266,6 @@ def ocr_aoc_letters(s):
 
 
 
-# from https://github.com/IsaacG/Advent-of-Code/blob/main/pylib/aoc.py#L99
 
 
 # =========================================
@@ -288,7 +287,6 @@ njoin = "\n".join
 #    whitespace = ' \t\n\r\x0b\x0c'
 
 
-#import aocd # https://github.com/wimglenn/advent-of-code-data
 
 # taken from aocd after they removed it
 def string_to_integers(data):

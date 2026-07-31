@@ -8,13 +8,9 @@ from builtins import pow
 import pyperclip
 from icecream import ic
 import numpy as np
-#import shapely
-#import shapely.ops
 from timer_utils import timefunction
 from construct import *
 
-#from fz import _f, _1, _2, _3
-#from quicklambda import *
 from functional import seq
 from mini_lambda import x, s, _, InputVar
 l = InputVar('l')

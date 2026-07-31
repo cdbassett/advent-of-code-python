@@ -29,7 +29,6 @@ from collections import *
 import re
 
 from icecream import ic
-#import sympy as sp
 import z3
 from z3 import Int, Optimize, If, Real, Solver, Or, And, Xor, BitVec, BitVecs, sat
 

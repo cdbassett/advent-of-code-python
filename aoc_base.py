@@ -12,9 +12,6 @@ import operator
 from typing import Callable
 import copy
 
-#import numpy as np
-#import sympy
-#from sympy import *
 from colorama import Fore, Style
 from functional import seq # https://github.com/EntilZha/PyFunctional
 import iteration_utilities as it_ut # https://pypi.org/project/iteration-utilities/

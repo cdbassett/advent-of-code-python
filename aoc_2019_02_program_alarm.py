@@ -1,19 +1,11 @@
 from functools import *
 from collections import *
-#from sympy import *
 from itertools import *
 from math import *
 from statistics import *
 from builtins import pow
-#import numpy as np
-#import shapely
-#import shapely.ops
 from timer_utils import timefunction
-#import networkx as nx
-#import matplotlib.pyplot as plt
-#from construct import *
 
-#from Levenshtein import distance as levenshtein_distance
 from sympy import *
 
 from colorama import Fore, Style
@@ -25,9 +17,7 @@ from icecream import ic
 from aoc_utils import * # this includes adding c:\ut to sys.path
 from Utilities import *
 import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
-#from fz import _1
 from quicklambda import _1, _2
-#from mini_lambda import s, _, x
 
 
 

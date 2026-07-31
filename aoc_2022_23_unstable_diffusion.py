@@ -7,7 +7,6 @@ from statistics import *
 from builtins import pow
 import pyperclip
 from icecream import ic
-#import numpy as np
 from timer_utils import timefunction
 
 from aoc_utils import * # this includes adding c:\ut to sys.path

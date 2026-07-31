@@ -9,7 +9,6 @@ from icecream import ic
 from timer_utils import timefunction
 import matplotlib.pyplot as plt
 from construct import *
-#import binascii
 
 from aoc_utils import * # this includes adding c:\ut to sys.path
 from Utilities import *

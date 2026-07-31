@@ -1,6 +1,5 @@
 from functools import *
 from collections import *
-#from sympy import *
 from itertools import *
 from math import *
 from statistics import *
@@ -15,9 +14,7 @@ from icecream import ic
 from aoc_utils import * # this includes adding c:\ut to sys.path
 from Utilities import *
 import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
-#from fz import _1
 from quicklambda import _1, _2
-#from mini_lambda import s, _, x
 
 
 

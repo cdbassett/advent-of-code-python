@@ -557,7 +557,6 @@ z3_solution_3()
 
 # %%
 # https://www.reddit.com/r/adventofcode/comments/a8s17l/comment/ecdbux2/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-#from util import get_data
 import re
 
 def gan(s):
