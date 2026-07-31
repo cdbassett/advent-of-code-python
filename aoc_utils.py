@@ -26,11 +26,7 @@ import z3
 # this code executes just by being imported
 # =========================================
 
-# token is kept in C:\Users\cbassett\.config\aocd\token
-
-
-ut_dir = 'C:/ut'
-if ut_dir not in sys.path: sys.path.append(ut_dir) # make modules in ut directory available
+# token is kept in ~\.config\aocd\token
 
 #print("loaded aoc_utils")
 
