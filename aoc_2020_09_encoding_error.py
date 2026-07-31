@@ -83,9 +83,8 @@ def main():
 
     if 1:
         print("Actual:")
-#        real_inp = aocd.get_data(day=25, year=2021)
             # needs env var AOC_SESSION
-        real_inp = aocd.data # supposed to work if filename is clear enough (year would need to be 4-digit)
+        real_inp = get_aocd_data() # supposed to work if filename is clear enough (year would need to be 4-digit)
         run(real_inp, True)
 #        aocd.submit(my_answer)
 
