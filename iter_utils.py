@@ -55,16 +55,6 @@ iteration_utilities.minmax(iterable, /, key=None, default=None)
 
 
 # convert a new sequence to the same type as the old sequence if possible
-def as_type(seq, old_seq):
-    try:
-        len(old_seq)
-    except:
-        return it
-    else:
-        return type(old_seq)(seq)
-
-# for seq can use grouped
-# batched is very similar
 def chunks_of_n(iterable, n):
     iterable = iter(iterable)
     return iter(lambda: tuple(itertools.islice(iterable, n)), ())
@@ -91,12 +81,6 @@ def multimap(it, *functions, fillvalue=it_ut.return_identity):
 #    ic(functions)
     return (tuple(f(t) for t, f in itertools.zip_longest(tup, functions, fillvalue=fillvalue)) for tup in it)
 
-def multimap_tuple(it, *functions, fillvalue=it_ut.return_identity):
-    return tuple(multimap(it, *functions, fillvalue=fillvalue))
-
-def multimaptuple(it, *functions, fillvalue=it_ut.return_identity):
-    return tuple(multimap(it, *functions, fillvalue=fillvalue))
-
 def map_list(func, it):
     return list(map(func, it))
 
@@ -119,29 +103,6 @@ def starmaplist(func, it):
 def starmap_tuple(func, it):
     return tuple(starmap(func, it))
 
-def starmaptuple(func, it):
-    return tuple(starmap(func, it))
-
-# performs map on each element of it
-# untested!
-def mapmap(func, it):
-    return map(map(func, el) for el in it)
-
-
-def foreach(func, it):
-    """
-    Executes func on each element of the sequence.
-
-    >>> l = []
-    >>> seq([1, 2, 3, 4]).for_each(l.append)
-    >>> l
-    [1, 2, 3, 4]
-
-    :param func: function to execute
-    """
-    for e in it:
-        func(e)
-
 def starforeach(func, it):
     """
     Executes func on each element of the sequence.
@@ -159,17 +120,6 @@ def starforeach(func, it):
 
 
     # like map but preserves type if it's a sequence
-def map_type(func, seq):
-    it = map(func, seq)
-
-    try:
-        len(seq)
-    except:
-        return it
-    else:
-        return type(seq)(it)
-
-
 def all_set_operation(sets, method):
     try:
         len(sets)
@@ -200,27 +150,6 @@ def flatten(iterables):
 
 
 # handles nested, fast http://rightfootin.blogspot.com/2006/09/more-on-python-flatten.html
-def flatten_full(l, ltypes=(list, tuple)):
-    ltype = type(l)
-    l = list(l)
-    i = 0
-
-    while i < len(l):
-        while isinstance(l[i], ltypes):
-            if not l[i]:
-                l.pop(i)
-                i -= 1
-                break
-            else:
-                l[i:i + 1] = l[i]
-
-        i += 1
-
-    return ltype(l)
-
-   # returns list with duplicate entries removed
-   # order preserving
-   # if idFun is passed will use that to determine what value of item is unique
 def uniqued_list(seq, idFun=None):
     if idFun is None:
         def idFun(x): return x
@@ -259,42 +188,6 @@ def repeats(iterable):
 
     return False
 
-def find_loop(iterable):
-    values = set()
-
-    for value in iterable:
-        if value in values:
-            return values
-
-        values.add(value)
-
-    return None
-
-
-def previous_current_next(iterable):
-    """Make an iterator that yields an (previous, current, next) tuple per element.
-
-    Returns None if the value does not make sense (i.e. previous before
-    first and next after last).
-    """
-    iterable=iter(iterable)
-    prv = None
-    cur = iterable.next()
-
-    try:
-        while True:
-            nxt = iterable.next()
-            yield (prv,cur,nxt)
-            prv = cur
-            cur = nxt
-    except StopIteration:
-        yield (prv,cur,None)
-
-
-
-
-    # return first "True" element from iterable
-    # taken from https://github.com/hynek/first/
 def first_true(iterable, default=None, key=None):
     if key is None:
         for el in iterable:
@@ -336,11 +229,6 @@ def last_element(iterable, default=None):
     return el
 
     # return tuple with one element replaced
-def new_tuple(t, index, val):
-    return t[0:index] + (val,) + t[index+1:]
-
-
-# given a tuple or list, yield removed element and tuple/list with that element removed
 def tuples_without(t):
     for i in range(len(t)):
         yield t[i], t[:i]+t[i+1:]
@@ -361,16 +249,6 @@ def new_list(l, index, val):
     return l
 
 
-def dict_with_entry(dct, k, v):
-    return {**dct, k: v}
-
-def dict_with(dct, d2):
-    return dct | d2
-    #raise Exception("use d1 | d2 syntax to achieve this")
-
-
-# dct: dictionary to remove values if present from
-# d2: dictionary or iterable (preferably set for performance) that contains values we want removed
 def dict_without(dct, d2):
     return dict((k, v) for k, v in dct if k not in d2)
     #raise Exception("use d1 | d2 syntax to achieve this")
@@ -390,11 +268,6 @@ def dict_diff(d1, d2):
 def set_without(s, *i):
     return s.difference(i)
 
-def set_without_seq(s, l):
-    return s.difference(l)
-
-
-# Return the longest prefix of all list elements.
 def commonprefix(m):
     "Given a list of strings, returns the longest common leading component"
     if not m: return ''
@@ -409,13 +282,6 @@ def commonprefix(m):
     return s1
 
 # Return the longest suffix of all list elements.
-def commonsuffix(m):
-    "Given a list of strings, returns the longest common trailing component"
-        # we just reverse each string and use common prefix, then reverse that
-    return commonprefix([s[::-1] for s in m])[::-1]
-
-# internally a nested list, allows index by tuple of indexes
-# taken from google ai seasrch result for "python subclass list index by tuple"
 class TupleIndexedList(list):
     """
     # Example usage:
@@ -515,18 +381,6 @@ def multiply_tuple(*iterables):
 def multiply_scalar_tuple(a, b):
     return tuple(aa * b for aa in a)
 
-def divide_scalar_tuple(a, b):
-    return tuple(aa / b for aa in a)
-
-def true_divide_scalar_tuple(a, b):
-    return tuple(aa // b for aa in a)
-
-
-    # let's you perform operations on all elements of a tuple
-    # e.g. materials + robots * wait - robot_cost
-    # other sequence of same length or scalar
-    # could also handle and, or, xor, not, inversion, ordering, negation, modulo, shifting, exponent, round, floor, ceil,
-    # could do another class based on array that also allows +=, -=, etc.
 class arithtuple(tuple):
     def __add__(self, other):
         try:
@@ -634,10 +488,6 @@ def build_arithmetic_namedtuple(_class):
     return arithmetic_namedtuple
 
     # return sequence of max values of each sub-sequence
-def seq_max(seq):
-    return (max(subseq[n] for subseq in seq) for n in range(len(seq[0])))
-
-# can use int.bit_count() to count number of bits
 def iterate_set_bits(n):
     """
     Iterates through the positions of set bits in an integer.
@@ -667,10 +517,6 @@ def prepend(value, iterator):
     return chain([value], iterator)
 
 # itertools recipes has tabulate, but that has name collision with very useful library
-def iter_tabulate(function, start=0):
-    "Return function(0), function(1), ..."
-    return map(function, count(start))
-
 def successive(function, start=0):
     "Return function(0), function(1), ..."
     return map(function, count(start))
@@ -785,10 +631,6 @@ if 0: # already have a grouper function above with different params
             return zip(*args)
         else:
             raise ValueError('Expected fill, strict, or ignore')
-
-def sumprodtuples(tuples):
-    "Compute a sum of products."
-    return sum(map(math.prod, tuples))
 
 def sumprod(vec1, vec2):
     "Compute a sum of products."
