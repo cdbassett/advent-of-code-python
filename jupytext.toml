@@ -1,0 +1,2 @@
+# Auto-pair notebook files to percent-formatted python scripts
+formats = "ipynb,py:percent"

@@ -1,7 +1,14 @@
 # advent-of-code-python
-My solutions to the Advent of Code puzzles. They use the `aocd` library to automatically fetch puzzle inputs.
+My solutions to the [Advent of Code](https://adventofcode.com) puzzles. They use the `aocd` library to automatically fetch puzzle inputs. Some solutions are command line scripts, some are **JupyterLab** notebooks. Some are in both formats. 
 
-Setup Instructions
+Standard Jupyter Notebooks (`.ipynb`) contain heavy JSON metadata and output data, making Git diffs messy. To solve this, this repository uses **Jupytext** to pair every notebook with a standard Python script (`.py`).
+
+*   **Coding:** Open and edit the `.ipynb` files interactively in JupyterLab. If there is no `.ipynb`, open the `.py` file instead.
+*   **Saving:** JupyterLab automatically saves a mirrored `.py` file alongside it.
+*   **Version Control:** Only the clean, human-readable `.py` files are tracked in Git. 
+
+
+# Setup Instructions
 
 1\. Clone the Repository
 
@@ -25,7 +32,7 @@ python -m venv venv
 source venv/bin/activate  # On Windows use: venv\Scripts\activate
 
 # Install the required packages
-pip install advent-of-code-data
+pip install -r requirements.txt
 ```
 
 Use code with caution.
