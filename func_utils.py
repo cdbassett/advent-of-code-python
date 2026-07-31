@@ -6,20 +6,7 @@ import iteration_utilities
 compose = iteration_utilities.chained
 
 # use these for simple mapping
-def itemgetter(0)(args):
-    return args[0]
-
-def itemgetter(1)(args):
-    return args[1]
-
-def itemgetter(2)(args):
-    return args[2]
-
-def itemgetter(3)(args):
-    return args[3]
-
-def itemgetter(-1)(args):
-    return args[-1]
+from operator import itemgetter
 
 # examples:
 #def foo(a, b, c, /, *, d):
