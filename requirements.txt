@@ -16,3 +16,4 @@ shapely
 sympy
 tabulate
 z3-solver
+mini_lambda
