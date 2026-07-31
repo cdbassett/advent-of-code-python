@@ -132,35 +132,16 @@ def run(inp, is_real):
     part2()
 
 def main():
-#    print(real_inp)
+    example = get_aocd_example()
+    samp_inps = split_example(example)
+
+    for n, samp_inp in enumerate(samp_inps, 1):
+        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+        run(samp_inp, False)
 
     if 1:
-        for samp_inp in samp_inps:
-            print("Sample:")
-            run(samp_inp, False)
-
-    print("Actual:")
-    run(real_inp, True)
-
-
-
-
-samp_inp = r"""
-"""
-
-short_samp = """
-"""
-
-
-samp_inps = [
-#    short_samp,
-    samp_inp,
-    ]
-
-
-
-real_inp = r"""
-"""
+        print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
+        real_inp = get_aocd_data()
+        run(real_inp, True)
 
 main()
-

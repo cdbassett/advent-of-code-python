@@ -33,28 +33,18 @@ def run(inp, is_real):
     part2()
 
 def main():
-    print("Sample:")
-    run(samp_inp, False)
+    example = get_aocd_example()
+    samp_inps = split_example(example)
 
-    print("Actual:")
-    real_inp = aocd.data # supposed to work if filename is clear enough (year would need to be 4-digit)
-    run(real_inp, True)
+    for n, samp_inp in enumerate(samp_inps, 1):
+        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+        run(samp_inp, False)
 
-
-
-
-samp_inp = r"""
-199
-200
-208
-210
-200
-207
-240
-269
-260
-263
-"""
+    if 1:
+        print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
+        real_inp = get_aocd_data()
+        run(real_inp, True)
+#        aocd.submit(my_answer)
 
 main()
 
