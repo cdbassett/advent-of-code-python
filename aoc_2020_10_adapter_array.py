@@ -79,63 +79,19 @@ def run(inp, is_real):
     part2()
 
 def main():
-    if 1:
-        for samp_inp in samp_inps:
-            print("Sample:")
-            run(samp_inp, False)
+    example = get_aocd_example()
+    samp_inps = split_example(example)
+
+    for n, samp_inp in enumerate(samp_inps, 1):
+        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+        run(samp_inp, False)
 
     if 1:
-        print("Actual:")
-        real_inp = get_aocd_data() # supposed to work if filename is clear enough (year would need to be 4-digit), needs env var AOC_SESSION
+        print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
+        # needs env var AOC_SESSION
+        real_inp = get_aocd_data()
         run(real_inp, True)
 #        aocd.submit(my_answer)
-
-
-
-
-samp_inp = r"""
-28
-33
-18
-42
-31
-14
-46
-20
-48
-47
-24
-23
-49
-45
-19
-38
-39
-11
-1
-32
-25
-35
-8
-17
-7
-9
-4
-2
-34
-10
-3
-"""
-
-
-short_samp = """
-"""
-
-
-samp_inps = [
-#    short_samp,
-    samp_inp,
-    ]
 
 
 main()

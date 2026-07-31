@@ -60,43 +60,19 @@ def run(inp, is_real):
     part2()
 
 def main():
-    if 1:
-        for samp_inp in samp_inps:
-            print("Sample:")
-            run(samp_inp, False)
+    example = get_aocd_example()
+    samp_inps = split_example(example)
+
+    for n, samp_inp in enumerate(samp_inps, 1):
+        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+        run(samp_inp, False)
 
     if 1:
-        print("Actual:")
-            # needs env var AOC_SESSION
+        print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
+        # needs env var AOC_SESSION
         real_inp = get_aocd_data()
         run(real_inp, True)
 #        aocd.submit(my_answer)
-
-
-
-
-samp_inp = r"""
-..##.......
-#...#...#..
-.#....#..#.
-..#.#...#.#
-.#...##..#.
-..#.##.....
-.#.#.#....#
-.#........#
-#.##...#...
-#...##....#
-.#..#...#.#
-"""
-
-short_samp = """
-"""
-
-
-samp_inps = [
-#    short_samp,
-    samp_inp,
-    ]
 
 
 main()
