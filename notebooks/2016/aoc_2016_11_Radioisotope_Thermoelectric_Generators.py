@@ -14,7 +14,7 @@
 # ---
 
 # %% editable=false jupyter={"source_hidden": true}
-from aoc_utils import *
+from utils.aoc_utils import *
 if is_notebook():
     print(get_aoc_url())
 
@@ -31,10 +31,10 @@ import pyperclip
 # %autoreload explicit
 # import and reload these automatically
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from utilities import *
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
 from iter_utils import *
-import seq_extensions # when running standalone, apparently need this import explicitly in main module
+import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 
 
 # %%
@@ -349,7 +349,7 @@ def plotstate(canvas, step):
 # %%
 if is_notebook():
     from ipycanvas import Canvas, hold_canvas
-    import aoc_vis
+    import utils.aoc_vis as aoc_vis
     canvas = Canvas(width=1000, height=200)
     canvas.font = "32px monospace"
     canvas.fill_style = "green"

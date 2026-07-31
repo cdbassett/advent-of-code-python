@@ -14,7 +14,7 @@
 # ---
 
 # %% editable=false jupyter={"source_hidden": true}
-from aoc_utils import *
+from utils.aoc_utils import *
 if is_notebook():
     print(get_aoc_url())
 
@@ -34,9 +34,9 @@ from icecream import ic
 # import and reload these automatically
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions
 from iter_utils import *
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from utilities import *
-import seq_extensions # when running standalone, apparently need this import explicitly in main module
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
+import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 
 # %% [markdown]
 # # Sample Data

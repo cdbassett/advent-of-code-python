@@ -14,7 +14,7 @@
 # ---
 
 # %% editable=false jupyter={"source_hidden": true}
-from aoc_utils import *
+from utils.aoc_utils import *
 if is_notebook():
     print(get_aoc_url())
 
@@ -35,10 +35,10 @@ from colorama import Fore, Style
 # %autoreload explicit
 # import and reload these automatically
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions, func_utils, pathfinding_redblob
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from utilities import *
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
 from iter_utils import *
-import seq_extensions # when running standalone, apparently need this import explicitly in main module
+import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 import pathfinding_redblob
 
 # %% [markdown]
@@ -217,7 +217,7 @@ part2(sample_data2)
 # # Actual data
 
 # %% editable=true slideshow={"slide_type": ""}
-from aoc_utils import *
+from utils.aoc_utils import *
 real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 part1(real_inp) # 10115

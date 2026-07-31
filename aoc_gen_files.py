@@ -17,10 +17,10 @@ from functional import seq # https://github.com/EntilZha/PyFunctional
 import iteration_utilities as it_ut # https://pypi.org/project/iteration-utilities/
 from icecream import ic
 
-from timer_utils import timefunction
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from utilities import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+from utils.timer_utils import timefunction
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
+import utils.seq_extensions as seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 import shutil
 

@@ -13,10 +13,10 @@ def _():
     from functional import seq
     from colorama import Fore, Style
 
-    import seq_extensions
-    import aoc_utils
-    from aoc_utils import get_aocd_example, split_example, insert_sample_functions, get_aocd_data
-    import timer_utils
+    import utils.seq_extensions as seq_extensions
+    import utils.aoc_utils as aoc_utils
+    from utils.aoc_utils import get_aocd_example, split_example, insert_sample_functions, get_aocd_data
+    import utils.timer_utils as timer_utils
     return (
         get_aocd_data,
         get_aocd_example,

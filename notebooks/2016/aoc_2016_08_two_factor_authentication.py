@@ -14,7 +14,7 @@
 # ---
 
 # %% editable=false jupyter={"source_hidden": true}
-from aoc_utils import *
+from utils.aoc_utils import *
 if is_notebook():
     print(get_aoc_url())
 
@@ -25,10 +25,10 @@ from collections import *
 import numpy as np
 from icecream import ic
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from utilities import *
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
 from iter_utils import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+import utils.seq_extensions as seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 # %%
 # %load_ext autoreload
@@ -121,7 +121,7 @@ def image_frame(canvas, i):
 
 # %% editable=true slideshow={"slide_type": ""}
 if is_notebook():
-    import aoc_vis
+    import utils.aoc_vis as aoc_vis
     from ipycanvas import RoughCanvas, hold_canvas
     canvas = RoughCanvas(width=(W + 2) * scale, height=(H + 2) * scale)
     aoc_vis.canvas_animation(canvas, len(frames), image_frame)

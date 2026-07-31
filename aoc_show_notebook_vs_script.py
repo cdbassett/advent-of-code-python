@@ -21,8 +21,8 @@ def _():
     from functional import seq # https://github.com/EntilZha/PyFunctional
     from icecream import ic
 
-    import seq_extensions
-    from aoc_utils import get_aocd_example # this includes adding c:\ut to sys.path
+    import utils.seq_extensions as seq_extensions
+    from utils.aoc_utils import get_aocd_example # this includes adding c:\ut to sys.path
     return glob, mo, os, seq
 
 

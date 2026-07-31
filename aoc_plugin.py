@@ -30,7 +30,7 @@ def aoc_plugin(year, day, data):
     old_stdout = sys.stdout
     sys.stdout = out = io.StringIO()
     try:
-        import aoc_utils
+        import utils.aoc_utils as aoc_utils
         aoc_utils.aoc_runner_data = data
         runpy.run_module(mod_name, run_name="__main__")
     finally:

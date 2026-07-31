@@ -15,7 +15,7 @@ from operator import itemgetter
 # ---
 
 # %% editable=false jupyter={"source_hidden": true}
-from aoc_utils import *
+from utils.aoc_utils import *
 if is_notebook():
     print(get_aoc_url())
 
@@ -31,10 +31,10 @@ from icecream import ic
 # %autoreload explicit
 # import and reload these automatically
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from utilities import *
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
 from iter_utils import *
-import seq_extensions # when running standalone, apparently need this import explicitly in main module
+import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 
 # %%
 sample_data1 = """

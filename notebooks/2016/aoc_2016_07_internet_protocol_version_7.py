@@ -36,10 +36,10 @@
 from collections import *
 
 from icecream import ic
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from utilities import *
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
 from iter_utils import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+import utils.seq_extensions as seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 
 # %%

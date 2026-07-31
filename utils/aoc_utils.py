@@ -32,7 +32,7 @@ import z3
 
 from func_utils import *
 from iter_utils import *
-from timer_utils import timefunction
+from utils.timer_utils import timefunction
 
 try:
     ic.lineWrapWidth = os.get_terminal_size()[0] # make icecream take advantage of wider terminal
