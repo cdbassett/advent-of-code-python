@@ -1,0 +1,219 @@
+from functools import *
+from collections import *
+from itertools import *
+from math import *
+from statistics import *
+from builtins import pow
+import pyperclip
+import operator
+from icecream import ic
+import shapely
+import shapely.ops
+from timer_utils import timefunction
+import matplotlib.pyplot as plt
+
+from aoc_utils import * # this includes adding c:\ut to sys.path
+from Utilities import *
+import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+
+Materials = namedtuple("Materials", "ore,clay,obsidian,geodes")
+Blueprint = namedtuple("Blueprint", "ore_robot_cost,clay_robot_cost,obsidian_robot_cost,geode_robot_cost,max_costs,index")
+
+ore, clay, obsidian, geodes = range(4)
+
+def build_materials(ore=0, clay=0, obsidian=0, geodes=0): # actually used
+    return Materials(ore,clay,obsidian,geodes)
+
+
+def run(inp, is_real):
+    ics = nothing if is_real else ic
+    print_result = partial(print_result_aoc, is_real)
+
+    inp = inp.strip().split('\n')
+
+    costs = [tuple(map(int, (p for p in line.split() if p.isnumeric()))) for line in inp]
+#    ics(costs)
+
+    blueprints = []
+    robot_costs = []
+
+    for n, e in enumerate(costs):
+        build = [
+            build_materials(e[0]), # ore_robot_cost
+            build_materials(e[1]), # clay_robot_cost
+            build_materials(e[2],e[3]), # obsidian_robot_cost
+            Materials(e[4],0,e[5],0), # obsidian_robot_cost
+        ]
+        max_costs = Materials(*(max(m[n] for m in build) for n in range(4)))
+
+        blueprints.append(
+            Blueprint(*(build + [max_costs, n]))
+            )
+
+#    ics(blueprints)
+
+    def adjusted(p, adjust):
+        return tuple(a + b for a, b in zip(p, adjust))
+
+    def is_in(p, adjust):
+        check = adjusted(p, adjust)
+        return check in points
+
+
+
+    """
+    """
+
+    max_geodes = []
+    starting_robots = build_materials(1)
+    starting_materials = build_materials()
+
+    @cache
+    def time_for_resources(costs, materials, robots):
+        max_time = 0
+
+        for cost, robot, material in zip(costs, robots, materials):
+            if not cost:
+                continue;
+
+            if not robot:
+                return 1000; # Y'know, infinity.
+
+            max_time = max(max_time, (cost - material - 1 + robot) // robot)
+
+        return max_time
+
+        # can't cache bc first check is against running max
+    def calc_best_output(blueprint, materials, robots, time):
+        if not time:
+            return 0
+
+            # don't continue if we can't beat best time already
+            # https://en.wikipedia.org/wiki/Triangular_number
+        if (time * time - time) / 2 + robots.geodes * time <= max_geodes[blueprint.index] - materials.geodes:
+            return 0
+
+        max_mined_geodes = materials.geodes + robots.geodes * time # start with how many we'd mine if we built no more
+
+            # each loop build one robot, waiting long enough for that robot to be built
+        for n_robot, robot_cost in enumerate(blueprint[:-2]):
+                # don't bother building more of this robot if we already have enough to cover max cost of resource it produces
+            if n_robot < 3 and robots[n_robot] >= blueprint.max_costs[n_robot]:
+#                ics(n_robot, robots[n_robot], blueprint.max_costs[n_robot])
+                continue
+
+            wait = time_for_resources(robot_cost, materials, robots) + 1
+
+            if time - wait < 1:
+                continue
+
+            materials_copy = list(materials)
+            robots_copy = list(robots)
+
+            for j in range(4):
+                materials_copy[j] += robots[j] * wait
+
+            for j in range(3):
+                materials_copy[j] -= robot_cost[j]
+
+            robots_copy[n_robot] += 1
+            max_mined_geodes = max(max_mined_geodes, calc_best_output(blueprint, Materials(*materials_copy), Materials(*robots_copy), time - wait))
+
+        max_geodes[blueprint.index] = max(max_geodes[blueprint.index], max_mined_geodes)
+        return max_mined_geodes;
+
+
+    @timefunction
+    def part1():
+        max_geodes[:] = [0] * len(blueprints)
+
+        for blueprint in blueprints:
+            calc_best_output(blueprint, starting_materials, starting_robots, 24)
+
+        ics(max_geodes)
+        result = sum(m*n for n, m in enumerate(max_geodes, 1))
+        print_result(result)
+
+
+
+    @timefunction
+    def part2():
+        use_blueprints = blueprints[:3]
+        max_geodes[:] = [0] * len(use_blueprints)
+
+        for blueprint in use_blueprints:
+            calc_best_output(blueprint, starting_materials, starting_robots, 32)
+
+        ics(max_geodes)
+        result = reduce(operator.mul, max_geodes)
+        print_result(result)
+
+    part1()
+    part2()
+
+def main():
+    for samp_inp in samp_inps:
+        print("Sample:")
+        run(samp_inp, False)
+
+    print("Actual:")
+    run(real_inp, True)
+
+
+
+
+samp_inp = r"""
+Blueprint 1: Each ore robot costs 4 ore. Each clay robot costs 2 ore. Each obsidian robot costs 3 ore and 14 clay. Each geode robot costs 2 ore and 7 obsidian.
+Blueprint 2: Each ore robot costs 2 ore. Each clay robot costs 3 ore. Each obsidian robot costs 3 ore and 8 clay. Each geode robot costs 3 ore and 12 obsidian.
+"""
+
+short_samp = """
+1,1,1
+2,1,1
+
+"""
+
+
+samp_inps = [
+#    short_samp,
+    samp_inp,
+    ]
+
+
+
+real_inp = r"""
+Blueprint 1: Each ore robot costs 3 ore. Each clay robot costs 4 ore. Each obsidian robot costs 3 ore and 19 clay. Each geode robot costs 3 ore and 8 obsidian.
+Blueprint 2: Each ore robot costs 3 ore. Each clay robot costs 3 ore. Each obsidian robot costs 3 ore and 9 clay. Each geode robot costs 2 ore and 10 obsidian.
+Blueprint 3: Each ore robot costs 4 ore. Each clay robot costs 4 ore. Each obsidian robot costs 4 ore and 20 clay. Each geode robot costs 2 ore and 12 obsidian.
+Blueprint 4: Each ore robot costs 4 ore. Each clay robot costs 3 ore. Each obsidian robot costs 2 ore and 19 clay. Each geode robot costs 3 ore and 13 obsidian.
+Blueprint 5: Each ore robot costs 3 ore. Each clay robot costs 4 ore. Each obsidian robot costs 3 ore and 16 clay. Each geode robot costs 3 ore and 14 obsidian.
+Blueprint 6: Each ore robot costs 4 ore. Each clay robot costs 4 ore. Each obsidian robot costs 2 ore and 18 clay. Each geode robot costs 4 ore and 20 obsidian.
+Blueprint 7: Each ore robot costs 4 ore. Each clay robot costs 4 ore. Each obsidian robot costs 4 ore and 11 clay. Each geode robot costs 4 ore and 12 obsidian.
+Blueprint 8: Each ore robot costs 3 ore. Each clay robot costs 3 ore. Each obsidian robot costs 2 ore and 20 clay. Each geode robot costs 2 ore and 20 obsidian.
+Blueprint 9: Each ore robot costs 4 ore. Each clay robot costs 4 ore. Each obsidian robot costs 2 ore and 11 clay. Each geode robot costs 4 ore and 8 obsidian.
+Blueprint 10: Each ore robot costs 4 ore. Each clay robot costs 4 ore. Each obsidian robot costs 4 ore and 5 clay. Each geode robot costs 3 ore and 15 obsidian.
+Blueprint 11: Each ore robot costs 2 ore. Each clay robot costs 4 ore. Each obsidian robot costs 4 ore and 15 clay. Each geode robot costs 2 ore and 15 obsidian.
+Blueprint 12: Each ore robot costs 4 ore. Each clay robot costs 3 ore. Each obsidian robot costs 2 ore and 19 clay. Each geode robot costs 3 ore and 10 obsidian.
+Blueprint 13: Each ore robot costs 3 ore. Each clay robot costs 3 ore. Each obsidian robot costs 2 ore and 16 clay. Each geode robot costs 2 ore and 18 obsidian.
+Blueprint 14: Each ore robot costs 4 ore. Each clay robot costs 3 ore. Each obsidian robot costs 3 ore and 11 clay. Each geode robot costs 4 ore and 7 obsidian.
+Blueprint 15: Each ore robot costs 4 ore. Each clay robot costs 3 ore. Each obsidian robot costs 4 ore and 18 clay. Each geode robot costs 3 ore and 13 obsidian.
+Blueprint 16: Each ore robot costs 4 ore. Each clay robot costs 4 ore. Each obsidian robot costs 4 ore and 14 clay. Each geode robot costs 3 ore and 16 obsidian.
+Blueprint 17: Each ore robot costs 3 ore. Each clay robot costs 4 ore. Each obsidian robot costs 4 ore and 6 clay. Each geode robot costs 3 ore and 16 obsidian.
+Blueprint 18: Each ore robot costs 2 ore. Each clay robot costs 4 ore. Each obsidian robot costs 3 ore and 19 clay. Each geode robot costs 4 ore and 12 obsidian.
+Blueprint 19: Each ore robot costs 2 ore. Each clay robot costs 4 ore. Each obsidian robot costs 3 ore and 17 clay. Each geode robot costs 4 ore and 20 obsidian.
+Blueprint 20: Each ore robot costs 3 ore. Each clay robot costs 4 ore. Each obsidian robot costs 4 ore and 16 clay. Each geode robot costs 3 ore and 15 obsidian.
+Blueprint 21: Each ore robot costs 3 ore. Each clay robot costs 3 ore. Each obsidian robot costs 3 ore and 19 clay. Each geode robot costs 2 ore and 9 obsidian.
+Blueprint 22: Each ore robot costs 2 ore. Each clay robot costs 4 ore. Each obsidian robot costs 3 ore and 20 clay. Each geode robot costs 2 ore and 17 obsidian.
+Blueprint 23: Each ore robot costs 4 ore. Each clay robot costs 4 ore. Each obsidian robot costs 3 ore and 7 clay. Each geode robot costs 4 ore and 11 obsidian.
+Blueprint 24: Each ore robot costs 4 ore. Each clay robot costs 4 ore. Each obsidian robot costs 4 ore and 9 clay. Each geode robot costs 3 ore and 9 obsidian.
+Blueprint 25: Each ore robot costs 4 ore. Each clay robot costs 3 ore. Each obsidian robot costs 2 ore and 15 clay. Each geode robot costs 2 ore and 8 obsidian.
+Blueprint 26: Each ore robot costs 2 ore. Each clay robot costs 4 ore. Each obsidian robot costs 4 ore and 16 clay. Each geode robot costs 3 ore and 13 obsidian.
+Blueprint 27: Each ore robot costs 4 ore. Each clay robot costs 3 ore. Each obsidian robot costs 4 ore and 18 clay. Each geode robot costs 4 ore and 11 obsidian.
+Blueprint 28: Each ore robot costs 4 ore. Each clay robot costs 3 ore. Each obsidian robot costs 4 ore and 8 clay. Each geode robot costs 3 ore and 7 obsidian.
+Blueprint 29: Each ore robot costs 2 ore. Each clay robot costs 4 ore. Each obsidian robot costs 4 ore and 20 clay. Each geode robot costs 3 ore and 14 obsidian.
+Blueprint 30: Each ore robot costs 4 ore. Each clay robot costs 4 ore. Each obsidian robot costs 3 ore and 11 clay. Each geode robot costs 3 ore and 8 obsidian.
+
+"""
+
+main()
+

@@ -1,0 +1,56 @@
+# C is IP
+
+         jmp label17
+label1:         # A is now 0, but F depndes on initial value of A
+    for (E = 1; E <= F; E++)
+        for (B = 1; B <= F; B++)
+            if F == E * B:
+                A += E
+
+    exit
+
+         E = 1
+
+    outer:
+    |            B = 1
+    |
+    |   inner:
+    |            if F == E * B:
+    |                A += E
+    |
+    |            B += 1
+    |
+    |            if B <= F:
+    |                jmp inner
+    |
+    |        E += 1
+    |
+    |        if E > F:  # repeat until outer loop
+    |           exit
+    |
+    |        jmp outer
+
+label17:
+         F += 2
+
+         F *= F
+         F *= C
+         F *= 11 # F = F * F * C * 11
+
+         D += 8
+         D *= C
+         D += 5
+         F += D  # F += 8 * C * 5
+         jmp label26 + A
+
+label26:
+         jmp label1
+         D = C
+         D *= C
+         D += C
+         D *= C
+         D *= 14
+         D *= C
+         F += D  # F += (C * C + C) * C * 14 * C
+         A = 0
+         jmp label1

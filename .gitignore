@@ -1,0 +1,3 @@
+# Ignore local Jupyter notebooks to let Jupytext manage plain text tracking
+*.ipynb
+.ipynb_checkpoints/
