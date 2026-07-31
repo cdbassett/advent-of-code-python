@@ -34,9 +34,9 @@ from icecream import ic
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions, func_utils, pathfinding_redblob
 from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
-from iter_utils import *
+from utils.iter_utils import *
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
-import pathfinding_redblob
+import utils.pathfinding_redblob
 
 # %% [markdown]
 # # Sample Data
@@ -114,7 +114,7 @@ def part1(inp):
 # # Process2
 
 # %%
-from pathfinding_redblob import *
+from utils.pathfinding_redblob import *
 
 def process2(parsed, min_path_length=1000):
     @cache

@@ -35,9 +35,9 @@ from icecream import ic
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions, pathfinding_redblob
 from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
-from iter_utils import *
+from utils.iter_utils import *
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
-import pathfinding_redblob
+import utils.pathfinding_redblob
 
 # %% [markdown]
 # # Sample Data
@@ -112,7 +112,7 @@ connections = {
     (1, 0): cnct_east,
     (-1, 0): cnct_west,
 }
-from pathfinding_redblob import *
+from utils.pathfinding_redblob import *
 
 class PipeGrid(SquareGrid):
     def __init__(self, width: int, height: int, parsed):

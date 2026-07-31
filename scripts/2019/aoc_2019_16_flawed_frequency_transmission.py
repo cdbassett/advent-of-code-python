@@ -12,10 +12,10 @@ import pyperclip
 from icecream import ic
 
 #print(sys.path)
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from timer_utils import timefunction
-from Utilities import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.timer_utils import timefunction
+from utils.utilities import *
+import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 
 

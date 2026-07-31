@@ -6,9 +6,9 @@ from builtins import pow
 from icecream import ic
 import iteration_utilities as it_ut
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
+import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 def run(inp, is_real):
     insert_sample_functions(is_real, globals())

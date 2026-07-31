@@ -5,7 +5,7 @@ from math import *
 from statistics import *
 from builtins import pow
 import copy
-from timer_utils import timefunction
+from utils.timer_utils import timefunction
 
 from colorama import Fore, Style
 from functional import seq # https://github.com/EntilZha/PyFunctional
@@ -13,9 +13,9 @@ import iteration_utilities as it_ut # https://pypi.org/project/iteration-utiliti
 from icecream import ic
 
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
+import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 icf = ic.format
 

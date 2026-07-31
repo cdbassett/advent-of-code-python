@@ -8,12 +8,12 @@ import pyperclip
 from icecream import ic
 import shapely
 import shapely.ops
-from timer_utils import timefunction
+from utils.timer_utils import timefunction
 import matplotlib.pyplot as plt
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
+import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 
 def run(inp, is_real):

@@ -40,7 +40,7 @@ from icecream import ic
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions, func_utils
 from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
-from iter_utils import *
+from utils.iter_utils import *
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 
 # %% [markdown]

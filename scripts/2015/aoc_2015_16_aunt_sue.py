@@ -5,7 +5,7 @@ from math import *
 from statistics import *
 from builtins import pow
 import operator
-from timer_utils import timefunction
+from utils.timer_utils import timefunction
 
 
 from colorama import Fore, Style
@@ -18,9 +18,9 @@ import aocd # https://github.com/wimglenn/advent-of-code-data
 # aocd.numbers # uses regex pattern -?\d+ to extract integers from data
 
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
+import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 from mini_lambda import s, _, x
 
 aunt_attrs = seq("""

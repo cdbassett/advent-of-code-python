@@ -7,13 +7,13 @@ from builtins import pow
 import pyperclip
 import operator
 from icecream import ic
-from timer_utils import timefunction
+from utils.timer_utils import timefunction
 import matplotlib.pyplot as plt
 from construct import *
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
+import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 Packet = namedtuple("Packet", "V,T,body,bits_used,extra")
 

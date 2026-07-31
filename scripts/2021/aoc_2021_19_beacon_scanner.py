@@ -8,7 +8,7 @@ from builtins import pow
 import pyperclip
 from icecream import ic
 import numpy as np
-from timer_utils import timefunction
+from utils.timer_utils import timefunction
 from construct import *
 
 from functional import seq
@@ -18,9 +18,9 @@ l = InputVar('l')
 import scipy
 
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
+import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 
 

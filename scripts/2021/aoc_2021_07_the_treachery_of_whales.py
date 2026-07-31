@@ -6,8 +6,8 @@ from statistics import *
 
 from icecream import ic
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
 
 
 def run(inp, is_real):

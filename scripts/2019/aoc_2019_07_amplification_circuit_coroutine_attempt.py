@@ -4,7 +4,7 @@ from itertools import *
 from math import *
 from statistics import *
 from builtins import pow
-from timer_utils import timefunction
+from utils.timer_utils import timefunction
 
 
 from colorama import Fore, Style
@@ -14,10 +14,10 @@ import pyperclip
 from icecream import ic
 from aoc_2019_intcode import process_intcodes, parse_intcodes
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
-from quicklambda import _1, _2
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
+import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+from utils.quicklambda import _1, _2
 
 # doesn't seem to work with generators because each call to send returns the next yield value,
 # and we need to send two values (phase and input) before outputting anything

@@ -5,9 +5,9 @@ import os
 import itertools
 from icecream import ic
 
-from YAMLUtils import *
-from StringUtils import *
-from iter_utils import *
+from utils.yaml_utils import *
+from utils.string_utils import *
+from utils.iter_utils import *
 
 def get_integers_from_string(s):
     return (int("".join(c)) for match, c in itertools.groupby(s, lambda c: c.isdigit() or c =="-") if match)

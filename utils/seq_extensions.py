@@ -5,7 +5,7 @@ from icecream import ic
 from functional import seq
 
 
-import func_utils
+import utils.func_utils
 
 """
 functional.pipeline.extend(func=None, aslist=False, final=False, name=None, parallel=False)[source]

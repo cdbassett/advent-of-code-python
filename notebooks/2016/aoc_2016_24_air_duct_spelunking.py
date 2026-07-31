@@ -36,9 +36,9 @@ from icecream import ic
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions, pathfinding_redblob
 from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
-from iter_utils import *
+from utils.iter_utils import *
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
-import pathfinding_redblob
+import utils.pathfinding_redblob
 
 # %% [markdown]
 # # Sample Data
@@ -69,7 +69,7 @@ def parse(inp):
 # * first calculate costs for each node pair, then use that as graph - maybe with dijkstra, supposed to be good for multiple destinations
 
 # %%
-from pathfinding_redblob import *
+from utils.pathfinding_redblob import *
 @dataclass
 class ReducedGrid:
     junctions: dict # id -> dict(id) (id -> cost)

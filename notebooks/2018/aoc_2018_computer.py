@@ -3,7 +3,7 @@ from collections import *
 
 from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
-from iter_utils import *
+from utils.iter_utils import *
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 
 def parse_line(line):

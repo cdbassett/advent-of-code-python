@@ -35,10 +35,10 @@ from scipy import ndimage
 # %aimport aoc_utils, Utilities, iter_utils, seq_extensions, func_utils, aoc_2019_intcode, pathfinding_redblob
 from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
-from iter_utils import *
+from utils.iter_utils import *
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 from aoc_2019_intcode import process_intcodes, parse_intcodes
-from pathfinding_redblob import *
+from utils.pathfinding_redblob import *
 
 
 # %% [markdown]

@@ -4,16 +4,16 @@ from itertools import *
 from math import *
 from statistics import *
 from builtins import pow
-from timer_utils import timefunction
+from utils.timer_utils import timefunction
 
 from functional import seq # https://github.com/EntilZha/PyFunctional
 import iteration_utilities as it_ut # https://pypi.org/project/iteration-utilities/
 from icecream import ic
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
-from quicklambda import _1
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
+import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+from utils.quicklambda import _1
 
 
 @timefunction

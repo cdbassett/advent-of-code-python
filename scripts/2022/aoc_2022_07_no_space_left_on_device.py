@@ -7,9 +7,9 @@ from builtins import pow
 import pyperclip
 from icecream import ic
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
-from Utilities import *
-import seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.utilities import *
+import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 dir_entry = namedtuple("dir_entry", "name,size")
 file_entry = namedtuple("file_entry", "name,size")

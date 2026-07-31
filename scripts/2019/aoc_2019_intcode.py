@@ -8,7 +8,7 @@ import operator
 import queue
 
 
-from aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 
 print("loaded aoc_2019_intcode")
 from icecream import ic

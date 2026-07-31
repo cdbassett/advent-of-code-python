@@ -20,7 +20,7 @@ import numpy as np
 import iteration_utilities
 from functional import seq # https://github.com/EntilZha/PyFunctional
 import aocd
-import seq_extensions
+import utils.seq_extensions
 import z3
 
 # this code executes just by being imported
@@ -30,8 +30,8 @@ import z3
 
 #print("loaded aoc_utils")
 
-from func_utils import *
-from iter_utils import *
+from utils.func_utils import *
+from utils.iter_utils import *
 from utils.timer_utils import timefunction
 
 try:
@@ -254,7 +254,7 @@ def ocr_aoc_letters(s):
         #    return convert_array_6(array, fill_pixel=1, empty_pixel=0)
         return convert_6(s)
     else:
-        from aoc_ocr import OCR
+        from utils.aoc_ocr import OCR
         array = build_numpy_array_from_string_graph(s).T
         use = (array == "#").tolist()
         ocr = OCR(use)
