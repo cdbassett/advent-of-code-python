@@ -41,11 +41,10 @@ def run(inp1, inp2, is_real):
     process2 = process1
 
     def process2(parsed):
-#        if is_sample:
-#            return "na"
-
-        ics(seq(parsed).accumulate().enumerate())
-        return seq(parsed).accumulate().enumerate().find(lambda x: x[1] == -1)[0]+1
+        res = seq(parsed).accumulate().enumerate().find(lambda x: x[1] == -1)
+        if res is None:
+            return None
+        return res[0] + 1
 
     @timefunction
     def part2(inp):
@@ -58,14 +57,12 @@ def run(inp1, inp2, is_real):
     part2(inp2)
 
 def main():
-    if 1:
-        if samp_inps:
-            for n, samp_inp in enumerate(samp_inps, 1):
-                print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
-                run(samp_inp, samp_inp, False)
-        else:
-            print(f"{Fore.BLUE}{Style.BRIGHT}Sample:{Style.RESET_ALL}")
-            run(samp_inp1, samp_inp2, False)
+    example = get_aocd_example()
+    samp_inps = split_example(example)
+
+    for n, samp_inp in enumerate(samp_inps, 1):
+        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+        run(samp_inp, samp_inp, False)
 
     if 1:
         print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
@@ -75,21 +72,6 @@ def main():
 #        aocd.submit(my_answer)
 
 
-
-
-samp_inp1 = r"""
-(()(()(
-"""
-
-samp_inp2 = samp_inp1
-samp_inp2 = r"""
-(()(()())))()()()))((((()(
-"""
-
-
-samp_inps = [
-    ]
-
-
 main()
+
 
