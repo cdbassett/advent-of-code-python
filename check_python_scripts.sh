@@ -10,7 +10,7 @@ touch "$TRACK_FILE"
 touch "$TIMEOUT_LOG"
 
 # Find and loop through all Python scripts
-find . -name "*.py" | while read -r f; do
+find . -name "aoc_????_*.py" | while read -r f; do
     
     # Skip scripts that succeeded in a previous run
     if grep -qxF "$f" "$TRACK_FILE"; then
