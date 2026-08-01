@@ -36,10 +36,12 @@ from utils.iter_utils import *
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 
 # %%
-sample_data1 = """
-Disc #1 has 5 positions; at time=0, it is at position 4.
-Disc #2 has 2 positions; at time=0, it is at position 1.
-"""
+if "example" not in dir() or not example:
+    example = get_aocd_example()
+
+# %%
+sample_data1s = split_example(example)
+sample_data1 = sample_data1s[0]
 sample_data2 = sample_data1
 
 # %%

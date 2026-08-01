@@ -39,17 +39,6 @@ from utils.utilities import *
 from utils.iter_utils import *
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 
-# %% [markdown]
-# # Sample Data
-
-# %%
-sample_data1 = """
-broadcaster -> a
-%a -> inv, con
-&inv -> b
-%b -> con
-&con -> output"""
-sample_data2 = sample_data1
 
 # %%
 if "example" not in dir() or not example:

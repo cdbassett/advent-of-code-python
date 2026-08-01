@@ -41,12 +41,12 @@ import utils.seq_extensions as seq_extensions # when running standalone, apparen
 # # Sample Data
 
 # %%
-sample_data1 = """
-32T3K 765
-T55J5 684
-KK677 28
-KTJJT 220
-QQQJA 483"""
+if "example" not in dir() or not example:
+    example = get_aocd_example()
+
+# %%
+sample_data1s = split_example(example)
+sample_data1 = sample_data1s[0]
 sample_data2 = sample_data1
 
 # %% [markdown]

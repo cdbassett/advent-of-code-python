@@ -41,14 +41,12 @@ import utils.seq_extensions as seq_extensions # when running standalone, apparen
 # # Sample Data
 
 # %%
-sample_data1 = """
-???.### 1,1,3
-.??..??...?##. 1,1,3
-?#?#?#?#?#?#?#? 1,3,1,6
-????.#...#... 4,1,1
-????.######..#####. 1,6,5
-?###???????? 3,2,1
-"""
+if "example" not in dir() or not example:
+    example = get_aocd_example()
+
+# %%
+sample_data1s = split_example(example)
+sample_data1 = sample_data1s[0]
 sample_data2 = sample_data1
 
 

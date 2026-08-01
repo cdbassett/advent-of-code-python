@@ -48,17 +48,12 @@ if "example" not in dir() or not example:
 example
 
 # %%
-sample_data1 = """
-MMMSXXMASM
-MSAMXMSMSA
-AMXSXMAAMM
-MSAMASMSMX
-XMASAMXAMM
-XXAMMXXAMA
-SMSMSASXSS
-SAXAMASAAA
-MAMMMXMMMM
-MXMXAXMASX""".strip()
+if "example" not in dir() or not example:
+    example = get_aocd_example()
+
+# %%
+sample_data1s = split_example(example)
+sample_data1 = sample_data1s[0]
 sample_data2 = sample_data1
 sample_data1s = [sample_data1]
 

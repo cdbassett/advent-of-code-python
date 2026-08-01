@@ -37,31 +37,12 @@ from utils.iter_utils import *
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 
 # %%
-sample_data1 = """
-467..114..
-...*......
-..35..633.
-......#...
-617*......
-.....+.58.
-..592.....
-......755.
-...$.*....
-.664.598.."""
-sample_data1 = """
-12.......*..
-+.........34
-.......-12..
-..78........
-..*....60...
-78..........
-.......23...
-....90*12...
-............
-2.2......12.
-.*.........*
-1.1.......56
-"""
+if "example" not in dir() or not example:
+    example = get_aocd_example()
+
+# %%
+sample_data1s = split_example(example)
+sample_data1 = sample_data1s[0]
 sample_data2 = sample_data1
 
 
