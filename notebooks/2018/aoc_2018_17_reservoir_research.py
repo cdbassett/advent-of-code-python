@@ -214,26 +214,6 @@ def part2(inp):
 
 # %%
 insert_sample_functions(False, globals())
-if 0:
-    sample_data1 = get_aocd_data()
-elif 1:
-    sample_data1 = sample_data1s[0]
-elif 1:
-    sample_data1 = \
-    """x=492, y=2..11
-y=11, x=492..509
-x=509, y=3..11
-x=502, y=5..8
-x=504, y=5..8"""
-else:
-    sample_data1 = \
-    """x=495, y=3..7
-y=7, x=495..501
-x=501, y=3..7
-x=506, y=1..2
-x=498, y=10..13
-x=504, y=10..13
-y=13, x=498..504"""
 
 part1(sample_data1, lambda r: r[1].stop < 140)
 part2(sample_data2)
