@@ -133,7 +133,7 @@ def process2aex(parsed):
     up = -1j
     _, positions = plot_routea(grid, guard_pos, up)
     obstruction_positions = set()
-    checks = pas_and_dir_to_pos(positions)
+    checks = pos_and_dir_to_pos(positions)
     ics(checks)
 
     checks.discard(guard_pos)
@@ -304,9 +304,9 @@ org_ob_positions = seq(build_complex_points(parsed, sig_char="#")).map(complex_t
 ob_pos = 8+4j
 
 infinitea, new_positionsa = plot_routea(grida, guard_pos, -1j, ob_pos)
-new_positionsa = seq(pas_and_dir_to_pos(new_positionsa)).map(complex_to_tuple).set()
-infiniteb, new_positionsb = plot_route(gridb, guard_pos, -1j, ob_pos)
-new_positionsb = seq(pas_and_dir_to_pos(new_positionsb)).map(complex_to_tuple).set()
+new_positionsa = seq(pos_and_dir_to_pos(new_positionsa)).map(complex_to_tuple).set()
+infiniteb, new_positionsb = plot_routea(gridb, guard_pos, -1j, ob_pos)
+new_positionsb = seq(pos_and_dir_to_pos(new_positionsb)).map(complex_to_tuple).set()
 #ic(infinitea, infiniteb, new_positionsa - new_positionsb, new_positionsb - new_positionsa)
 #ic(seq(new_positionsb).where(lambda p: not isinstance(p, complex)).first())
 #assert all(isinstance(p, complex) for p in new_positionsb)

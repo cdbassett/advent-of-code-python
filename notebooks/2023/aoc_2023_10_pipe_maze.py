@@ -38,6 +38,7 @@ from utils.utilities import *
 from utils.iter_utils import *
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 import utils.pathfinding_redblob as pathfinding_redblob
+from utils.pathfinding_redblob import *
 
 # %% [markdown]
 # # Sample Data
@@ -112,7 +113,6 @@ connections = {
     (1, 0): cnct_east,
     (-1, 0): cnct_west,
 }
-from utils.pathfinding_redblob import *
 
 class PipeGrid(SquareGrid):
     def __init__(self, width: int, height: int, parsed):

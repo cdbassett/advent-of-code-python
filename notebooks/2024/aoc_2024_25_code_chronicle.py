@@ -107,8 +107,6 @@ insert_sample_functions(False, globals())
 for sample_data1 in sample_data1s:
     part1(sample_data1)
 
-part2(sample_data2)
-
 # %% [markdown]
 # # Actual data
 
@@ -116,7 +114,6 @@ part2(sample_data2)
 real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 part1(real_inp)
-part2(real_inp)
 
 # %% [markdown]
 # # Others' solutions

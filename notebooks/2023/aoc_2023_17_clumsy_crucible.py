@@ -26,6 +26,7 @@ if is_notebook():
 
 # %%
 from collections import *
+from typing import Protocol, Iterator, Tuple, TypeVar, Optional
 
 from icecream import ic
 

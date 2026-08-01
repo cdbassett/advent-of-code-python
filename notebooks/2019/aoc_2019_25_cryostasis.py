@@ -37,7 +37,7 @@ from utils.utilities import *
 from utils.iter_utils import *
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 import utils.pathfinding_redblob as pathfinding_redblob
-from aoc_2019_intcode import process_intcodes, parse_intcodes, send_and_receive_intcode_string, retrieve_state_id, IntCodeState
+from utils.aoc_2019_intcode import process_intcodes, parse_intcodes, send_and_receive_intcode_string, retrieve_state_id, IntCodeState
 
 
 # %% [markdown]

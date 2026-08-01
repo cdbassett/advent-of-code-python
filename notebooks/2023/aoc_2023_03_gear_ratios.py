@@ -149,7 +149,7 @@ def gear_numbers(numbers, star_pos):
     return numbers_for_gears.filter(lambda e: len(e) == 2).map(lambda e: [a[0] for a in e]).map(tuple).list()
 
 def process2(parsed):
-    numbers = seq(enumerate(parsed)).starmap(number_positions).flatten().build() # build creates new sequence based on list of sequence so far
+    numbers = seq(enumerate(parsed)).starmap(number_positions).flatten().cache() # build creates new sequence based on list of sequence so far
     #ics(numbers._lineage)
     star_pos = star_positions(parsed)
     ics(star_pos)

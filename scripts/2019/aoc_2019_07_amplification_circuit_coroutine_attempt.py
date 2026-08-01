@@ -12,7 +12,7 @@ from functional import seq # https://github.com/EntilZha/PyFunctional
 import iteration_utilities as it_ut # https://pypi.org/project/iteration-utilities/
 import pyperclip
 from icecream import ic
-from aoc_2019_intcode import process_intcodes, parse_intcodes
+from utils.aoc_2019_intcode import process_intcodes, parse_intcodes
 
 from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *

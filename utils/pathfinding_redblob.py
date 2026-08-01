@@ -612,7 +612,8 @@ def breadth_first_search_all_paths(graph: Graph, start: Location, goal: Location
     final_paths = []
     current: Location
     iterations = 0
-    is_goal = is_goal or getattr(graph, "is_goal", lambda c, g: c == g)
+    is_goal = is_goal or (lambda c, g, _: c == g) # can't use standard is_goal from base class of Graph as we're usign different params
+    #is_goal = is_goal or getattr(graph, "is_goal", None) or (lambda c, g, _: c == g)
     check_visited = check_visited or (lambda next, path_set: next in path_set)
 #    ic(goal)
 

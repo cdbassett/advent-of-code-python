@@ -18,7 +18,7 @@ from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
-from aoc_2019_intcode import process_intcodes, parse_intcodes
+from utils.aoc_2019_intcode import process_intcodes, parse_intcodes
 
 
 @timefunction
