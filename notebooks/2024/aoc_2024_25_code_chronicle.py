@@ -114,6 +114,3 @@ for sample_data1 in sample_data1s:
 real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 part1(real_inp)
-
-# %% [markdown]
-# # Others' solutions

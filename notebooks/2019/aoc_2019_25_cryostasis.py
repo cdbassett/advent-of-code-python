@@ -305,26 +305,3 @@ real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 part1(real_inp)
 # 262848 is wrong
-
-# %% [markdown]
-# # Others' solutions
-
-# %%
-def solve1():
-    import utils
-    from intcode import IntCodeProgram
-    load = utils.year_load(2019)
-
-    program = IntCodeProgram(load(25, "np"), inputs=[])
-    
-    def run():
-        for char in program.run():
-            if program.state != 1:
-                print(chr(char), end="")
-            else:
-                s = input().strip()
-                program.inputs += [ord(x) for x in s + "\n"]
-    run()                
-solve1()                
-
-# %%

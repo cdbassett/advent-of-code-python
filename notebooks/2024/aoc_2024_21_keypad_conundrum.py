@@ -190,6 +190,3 @@ real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 part1(real_inp) # 97482 is too high
 part2(real_inp)
-
-# %% [markdown]
-# # Others' solutions

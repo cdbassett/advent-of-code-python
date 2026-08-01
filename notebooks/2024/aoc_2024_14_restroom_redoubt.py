@@ -202,10 +202,3 @@ if is_notebook():
     
     aoc_vis.canvas_animation(canvas, 1000, plotstate)
     print("test2")
-
-# %% [markdown]
-# # Others' solutions
-
-# %%
-if "example" not in dir() or not example:
-    example = get_aocd_example()

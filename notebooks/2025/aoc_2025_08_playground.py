@@ -191,6 +191,3 @@ ic(real_inp.split("\n")[:3])
 insert_sample_functions(True, globals())
 part1(real_inp, 1000) # not 2744, 900, 1452
 part2(real_inp)
-
-# %% [markdown]
-# # Others' solutions

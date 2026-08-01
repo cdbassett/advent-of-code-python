@@ -490,8 +490,3 @@ real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 part1(real_inp) # answers in sample data were 1000 too high
 part2(real_inp) # 65436 is not the right answer, too high
-
-# %% [markdown]
-# # Others' solutions
-
-# %%

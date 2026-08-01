@@ -149,6 +149,3 @@ insert_sample_functions(True, globals())
 part1(real_inp, 71, 1024)
 
 part2(real_inp, 71, 1024) # 2902 is wrong
-
-# %% [markdown]
-# # Others' solutions

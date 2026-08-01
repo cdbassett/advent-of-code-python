@@ -171,29 +171,3 @@ real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 part1(real_inp)
 part2(real_inp)
-
-# %% [markdown]
-# # Others' solutions
-
-# %%
-# https://old.reddit.com/r/adventofcode/comments/1hau6hl/2024_day_10_solutions/m1blpww/
-# used this to make sure my results from sample were wrong and not aoc
-from collections import deque
-data = get_aocd_data()
-data = sample_data2
-heights = {x+y*1j: int(c) for y, line in enumerate(data.split("\n")) for x, c in enumerate(line) if c != '\n'}
-adjecents = {pos: [pos+d for d in (1, -1, 1j, -1j) if heights.get(pos+d, -1) == heights[pos] + 1] for pos in heights}
-
-class nullset:
-    def __contains__(self, item): return False
-    def add(self, item): pass
-
-def trails_from(que: deque, visited: set):
-    while que:
-        que.extend(adjecents[node := que.popleft()])
-        if node not in visited:
-            visited.add(node)
-            yield heights[node] == 9
-
-print(sum(sum(trails_from(deque([pos]), visited=set())) for pos, c in heights.items() if c == 0))
-#print(sum(sum(trails_from(deque([pos]), visited=nullset())) for pos, c in heights.items() if c == 0))

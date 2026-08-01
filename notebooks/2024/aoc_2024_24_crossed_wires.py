@@ -381,6 +381,3 @@ z39,jctz21,rcb
 wbw, is AND of noninput, should be XOR of input
 gwh, is XOR of noninput, should be OR of noninput
 """
-
-# %% [markdown]
-# # Others' solutions

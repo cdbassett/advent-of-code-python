@@ -252,19 +252,3 @@ insert_sample_functions(True, globals())
 #part1(real_inp)
 part2(real_inp) # 10180726
 # 10230829 is too high, 10230730 is too high, 4670368 is too low
-
-# %% [markdown]
-# # Others' solutions
-
-# %%
-# https://github.com/ephemient/aoc2019/blob/py/src/aoc2019/day19.py
-def solve1():
-    mem = parse_data(real_inp)
-    x, y = 0, 99
-    while True:
-        while not get_on(mem, x, y):
-            x += 1
-        if get_on(mem, x + 99, y - 99):
-            return 10000 * x + y - 99
-        y += 1
-print(solve1())        

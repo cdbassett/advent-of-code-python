@@ -253,6 +253,3 @@ part2(real_inp)
 insert_sample_functions(False, globals())
 part1(real_inp)
 part2(real_inp)
-
-# %% [markdown]
-# # Others' solutions

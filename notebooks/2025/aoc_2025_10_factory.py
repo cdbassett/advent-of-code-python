@@ -240,6 +240,3 @@ part2(real_inp)
 # %%
 int("0110",2)
 int("0110",2).bit_count()
-
-# %% [markdown]
-# # Others' solutions

@@ -164,6 +164,3 @@ insert_sample_functions(True, globals())
 #ic(real_inp)
 part1(real_inp)
 part2(real_inp)
-
-# %% [markdown]
-# # Others' solutions

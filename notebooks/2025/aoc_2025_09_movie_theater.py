@@ -221,6 +221,3 @@ real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 part1(real_inp)
 part2(real_inp) # 1569262188
-
-# %% [markdown]
-# # Others' solutions

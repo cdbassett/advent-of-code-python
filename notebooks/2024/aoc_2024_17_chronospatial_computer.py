@@ -288,25 +288,3 @@ a,b = 2321, 5
 # %%
 n = 256
 n // 8, n >> 3
-
-
-# %% [markdown]
-# # Others' solutions
-
-# %%
-def solve():
-    def run(a, b, c):
-        return list(process_intcodes(a, b, c, program))
-    
-    parsed = parse_data(get_aocd_data())
-    [a], [b], [c], prog = parsed
-    todo = [(len(prog)-1, 0)]
-    for pos, val in todo:
-        for a in range(val*8, val*8+8):
-            if run(a, 0, 0) == prog[pos:]:
-                todo += [(pos-1, a)]
-                if pos == 0: 
-                    print(a)
-                    return
-                ic(pos, val, a)                    
-solve()
