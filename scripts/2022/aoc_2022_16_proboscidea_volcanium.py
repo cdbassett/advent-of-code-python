@@ -46,7 +46,7 @@ def run(inp, is_real):
            g.add_edge(valve.key, conn)
 
     paths  = nx.shortest_path(g)
-#    ics(paths)
+    paths = dict(paths)
     needed_paths = dict((start_key, dict((target_key, path) for target_key, path in paths_dict.items() if target_key in valves_with_rates and target_key != start_key)) for start_key, paths_dict in paths.items() if start_key=="AA" or start_key in valves_with_rates)
     ics(needed_paths)
 

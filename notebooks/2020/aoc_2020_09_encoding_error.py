@@ -98,7 +98,7 @@ def part1(inp, preamble=25):
 # %%
 def process2(parsed):
     
-    def find_sum(start, stop):
+    # def find_sum(start, stop):
         
     #ics(parsed)
     num = process(parsed)

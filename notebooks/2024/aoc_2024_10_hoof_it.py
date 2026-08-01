@@ -102,7 +102,7 @@ def setup(parsed):
     W, H = width_height(parsed)
     grid = GridWithSlopes(W, H, numbers)
     total = 0
-    is_goal = lambda current, goal: current in ends
+    is_goal = lambda current, goal, _: current in ends
     return numbers, starts, ends, W, H, grid, is_goal
 
 def process(parsed):

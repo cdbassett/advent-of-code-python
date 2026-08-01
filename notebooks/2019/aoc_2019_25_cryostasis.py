@@ -112,7 +112,7 @@ class ShipGraph(pathfinding_redblob.Graph):
         self.generator.send(from_room.state)
         #ic(cmd)
         s = send_and_receive_intcode_string(self.generator, cmd+"\n")
-        mem_state = self.generator.send(retrieve_state)
+        mem_state = self.generator.send(retrieve_state_id)
         room = process_room(s, mem_state)
 
         if 1:
@@ -170,7 +170,8 @@ class ShipGraph(pathfinding_redblob.Graph):
 def map_it(parsed):
     generator = process_intcodes(parsed)
     s = send_and_receive_intcode_string(generator)
-    mem_state = generator.send(retrieve_state)
+    mem_state = generator.send(retrieve_state_id)
+    # mem_state = generator.send(retrieve_state)
     start_room = process_room(s, mem_state)
     start = start_room.title
     graph = ShipGraph(generator, start_room)
@@ -232,7 +233,7 @@ def map_it(parsed):
     ic(held_items)
     s = send_and_receive_intcode_string(generator, "inv\n")
     print(s)                
-    mem_state = generator.send(retrieve_state)
+    mem_state = generator.send(retrieve_state_id)
     ic(check, last, graph.rooms[check].rooms_by_doors)
     cmd = seq(graph.rooms[check].rooms_by_doors.items()).find(lambda e: e[1] == last)[0] + "\n"
     #cmd = reverse_compass[subtract_tuple(last, check)] + "\n"

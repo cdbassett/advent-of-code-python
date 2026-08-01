@@ -1,5 +1,5 @@
 from matplotlib import animation
-from matplotlib.cm import get_cmap
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 
 def make_bw_anim(frame_gen_func, num_frames):
@@ -10,7 +10,7 @@ def make_bw_anim(frame_gen_func, num_frames):
     fig, ax = plt.subplots(figsize=(12, 12 * (H / W)), facecolor='black', frameon=True)
     ax.set_axis_off()
     fig.subplots_adjust(left=0, bottom=0, right=1, top=1)
-    h = ax.imshow(data, vmin=0, vmax=1, cmap=get_cmap('binary').reversed())
+    h = ax.imshow(data, vmin=0, vmax=1, cmap=mpl.colormaps('binary').reversed())
     plt.close()
 
     def make_frame(n):

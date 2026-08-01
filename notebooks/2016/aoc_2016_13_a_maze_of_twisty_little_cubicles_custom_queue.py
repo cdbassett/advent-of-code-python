@@ -92,7 +92,7 @@ def process(parsed, x, y):
     queue = []
     final_state = (x, y)
     ic(repr_state(final_state))
-    setup_repr(final_state)
+    # setup_repr(final_state)
     put, get = get_queue_functions_smallest(queue)
     put((heuristic(initial_state, final_state), initial_state))
     iterations = 0

@@ -62,7 +62,7 @@ class CubiclesGrid(pf.SquareGrid):
 
     def passable(self, from_id: pf.GridLocation, id: pf.GridLocation) -> bool:
         x, y, *_ = id
-        return is_valid_location(x, y, fav_num)
+        return is_valid_location(x, y, self.fav_num)
 
 def process(parsed, x, y):
     start = initial_state = (1,1)
