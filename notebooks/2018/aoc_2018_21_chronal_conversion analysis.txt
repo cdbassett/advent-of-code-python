@@ -1,0 +1,56 @@
+# E is IP
+
+################################ ignore
+         D = 123
+    label1:
+             D &= 456
+             D = D == 72
+             jmp label4 + D
+    label4:
+             jmp label1
+#########################################
+         D = 0
+
+    outer:
+             C = D | 65536
+             D = 7637914
+
+(((7637914 + 65536 & 255) & 16777215) * 65899) & 16777215
+        inner:
+                 B = C & 255
+
+                 D += B
+                 D &= 16777215
+                 D *= 65899
+                 D &= 16777215 # D = (((D + C & 255) & 16777215) * 65899) & 16777215
+
+                 B = 256 > C
+                 jmp label15 + B
+        label15:
+                 jmp label17 # if 256 <= C -> C >= 256
+                 jmp label28 # if 256 > C  -> C < 256
+
+        label17:        # if we get here, C >= 256
+                 B = 0  # starting at 0, increment B until C < (B + 1) * 256
+
+            innermost:
+                     F = B + 1
+                     F *= 256   # F = (B + 1) * 256
+                     F = F > C
+                     jmp label22 + F
+            label22:
+                     jmp label24 # if (B + 1) * 256 <= C
+                     jmp label26 # if (B + 1) * 256 > C
+            label24:
+                     B += 1
+                     jmp innermost
+
+        label26:
+                 C = B
+                 jmp inner
+
+    label28:
+             B = D == A         # everything repeats until D == A, first time throough D is 2792537
+             jmp label30 + B
+    label30:
+             jmp outer

@@ -1,0 +1,204 @@
+=== Error in ./scripts/2022/aoc_2022_17_pyroclastic_flow.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./scripts/2022/aoc_2022_17_pyroclastic_flow.py", line 560, in <module>
+    main()
+  File "/home/clark/projects/advent-of-code-python/./scripts/2022/aoc_2022_17_pyroclastic_flow.py", line 558, in main
+    run(real_inp, True)
+  File "/home/clark/projects/advent-of-code-python/./scripts/2022/aoc_2022_17_pyroclastic_flow.py", line 544, in run
+    part1()
+  File "/home/clark/projects/advent-of-code-python/./scripts/2022/aoc_2022_17_pyroclastic_flow.py", line 348, in part1
+    rocks_count += next_stage(rock, jets_iter, tunnel)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./scripts/2022/aoc_2022_17_pyroclastic_flow.py", line 322, in next_stage
+    if collision(tunnel, rock, left_add, top_rock_row):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./scripts/2022/aoc_2022_17_pyroclastic_flow.py", line 83, in collision
+    tunnel_row = tunnel[top_rock_row + index - rock_height]
+                 ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+IndexError: list index out of range
+
+
+=== Error in ./scripts/2021/aoc_2021_19_beacon_scanner.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./scripts/2021/aoc_2021_19_beacon_scanner.py", line 210, in <module>
+    main()
+  File "/home/clark/projects/advent-of-code-python/./scripts/2021/aoc_2021_19_beacon_scanner.py", line 208, in main
+    run(real_inp, True)
+  File "/home/clark/projects/advent-of-code-python/utils/timer_utils.py", line 96, in wrapped
+    out = f(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./scripts/2021/aoc_2021_19_beacon_scanner.py", line 155, in run
+    R, t = get_rotation_and_translation(base_beacons, scanner_beacons)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./scripts/2021/aoc_2021_19_beacon_scanner.py", line 116, in get_rotation_and_translation
+    assert False, "Couldn't find rotation and translation"
+           ^^^^^
+AssertionError: Couldn't find rotation and translation
+
+
+=== Error in ./scripts/2021/aoc_2021_03_binary_diagnostic.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./scripts/2021/aoc_2021_03_binary_diagnostic.py", line 89, in <module>
+    main()
+  File "/home/clark/projects/advent-of-code-python/./scripts/2021/aoc_2021_03_binary_diagnostic.py", line 87, in main
+    run(real_inp, True)
+  File "/home/clark/projects/advent-of-code-python/./scripts/2021/aoc_2021_03_binary_diagnostic.py", line 73, in run
+    part2()
+  File "/home/clark/projects/advent-of-code-python/./scripts/2021/aoc_2021_03_binary_diagnostic.py", line 65, in part2
+    oxygen = find_rating(0)
+             ^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./scripts/2021/aoc_2021_03_binary_diagnostic.py", line 53, in find_rating
+    mce = most_common[n_pos]
+          ~~~~~~~~~~~^^^^^^^
+IndexError: list index out of range
+
+
+=== Error in ./notebooks/2024/aoc_2024_06_guard_gallivant.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2024/aoc_2024_06_guard_gallivant.py", line 308, in <module>
+    infiniteb, new_positionsb = plot_routea(gridb, guard_pos, -1j, ob_pos)
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2024/aoc_2024_06_guard_gallivant.py", line 117, in plot_routea
+    if new_pos == add_pos or grid[new_pos] == "#":
+                             ~~~~^^^^^^^^^
+KeyError: (130+3j)
+
+
+=== Error in ./notebooks/2024/aoc_2024_24_crossed_wires.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2024/aoc_2024_24_crossed_wires.py", line 379, in <module>
+    part2(real_inp)
+  File "/home/clark/projects/advent-of-code-python/utils/timer_utils.py", line 96, in wrapped
+    out = f(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2024/aoc_2024_24_crossed_wires.py", line 356, in part2
+    result = process2(parsed, oper)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2024/aoc_2024_24_crossed_wires.py", line 339, in process2
+    swap("z39", "jct")
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2024/aoc_2024_24_crossed_wires.py", line 337, in swap
+    gates_dict[a], gates_dict[b] = gates_dict[b], gates_dict[a]
+                                   ~~~~~~~~~~^^^
+KeyError: 'jct'
+
+
+=== Error in ./notebooks/2023/aoc_2023_23_a_long_walk.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2023/aoc_2023_23_a_long_walk.py", line 213, in <module>
+    part1(sample_data1) # 94
+    ^^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/utils/timer_utils.py", line 96, in wrapped
+    out = f(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2023/aoc_2023_23_a_long_walk.py", line 135, in part1
+    result = process(parsed)
+             ^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2023/aoc_2023_23_a_long_walk.py", line 129, in process
+    return max(lengths)
+           ^^^^^^^^^^^^
+ValueError: max() iterable argument is empty
+
+
+=== Error in ./notebooks/2019/aoc_2019_24_planet_of_discord.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2019/aoc_2019_24_planet_of_discord.py", line 261, in <module>
+    part2(sample_data1)
+  File "/home/clark/projects/advent-of-code-python/utils/timer_utils.py", line 96, in wrapped
+    out = f(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2019/aoc_2019_24_planet_of_discord.py", line 247, in part2
+    result = process2(parsed)
+             ^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2019/aoc_2019_24_planet_of_discord.py", line 203, in process2
+    ones = set((int(n), 0) for n in positions)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2019/aoc_2019_24_planet_of_discord.py", line 203, in <genexpr>
+    ones = set((int(n), 0) for n in positions)
+                ^^^^^^
+TypeError: only 0-dimensional arrays can be converted to Python scalars
+
+
+=== Error in ./notebooks/2019/aoc_2019_17_set_and_forget.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2019/aoc_2019_17_set_and_forget.py", line 247, in <module>
+    part2(real_inp)
+  File "/home/clark/projects/advent-of-code-python/utils/timer_utils.py", line 96, in wrapped
+    out = f(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2019/aoc_2019_17_set_and_forget.py", line 236, in part2
+    result = process2(parsed)
+             ^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2019/aoc_2019_17_set_and_forget.py", line 199, in process2
+    assert full == calced_full
+           ^^^^^^^^^^^^^^^^^^^
+AssertionError
+
+
+=== Error in ./notebooks/2016/aoc_2016_11_Radioisotope_Thermoelectric_Generators.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2016/aoc_2016_11_Radioisotope_Thermoelectric_Generators.py", line 326, in <module>
+    state_seq = part1(real_inp)
+                ^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/utils/timer_utils.py", line 96, in wrapped
+    out = f(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2016/aoc_2016_11_Radioisotope_Thermoelectric_Generators.py", line 279, in part1
+    parsed = parse(inp)
+             ^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2016/aoc_2016_11_Radioisotope_Thermoelectric_Generators.py", line 48, in parse
+    return seq(inp.strip().split("\n")).take(3).map(parse_line).list()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/venv/lib/python3.12/site-packages/functional/pipeline.py", line 1418, in list
+    return self.to_list(n=n)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/venv/lib/python3.12/site-packages/functional/pipeline.py", line 1397, in to_list
+    self.cache()
+  File "/home/clark/projects/venv/lib/python3.12/site-packages/functional/pipeline.py", line 231, in cache
+    self._base_sequence = list(self._evaluate())
+                          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2016/aoc_2016_11_Radioisotope_Thermoelectric_Generators.py", line 42, in parse_line
+    pieces = line.strip(".").replace("-compatible microchip", "M").replace(" generator", "G").replace(", and a", ", a").replace(" and a", ", a").split("contains a ")[1].split(", a ")
+             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+
+=== Error in ./notebooks/2018/aoc_2018_22_mode_maze.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2018/aoc_2018_22_mode_maze.py", line 224, in <module>
+    part2(real_inp) # 984 is too low
+    ^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/utils/timer_utils.py", line 96, in wrapped
+    out = f(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2018/aoc_2018_22_mode_maze.py", line 201, in part2
+    result = process2(parsed)
+             ^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2018/aoc_2018_22_mode_maze.py", line 193, in process2
+    special_chars = [(tool_colors[t]+sig_chars[arr[x, y]]+post, x, y) for x, y, t in path] + [("T", target[0], target[1])]
+                                               ~~~^^^^^^
+IndexError: index 728 is out of bounds for axis 1 with size 728
+
+
+=== Error in ./notebooks/2020/.ipynb_checkpoints/aoc_2020_-checkpoint.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./notebooks/2020/.ipynb_checkpoints/aoc_2020_-checkpoint.py", line 56, in <module>
+    example = get_aocd_example()
+              ^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/utils/aoc_utils.py", line 124, in get_aocd_example
+    res = get_aocd_day_and_year()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/advent-of-code-python/utils/aoc_utils.py", line 119, in get_aocd_day_and_year
+    return aocd.get.get_day_and_year()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/clark/projects/venv/lib/python3.12/site-packages/aocd/get.py", line 202, in get_day_and_year
+    raise giveup("Failed introspection of day")
+aocd.exceptions.AocdError: Failed introspection of day
+
+
+=== Error in ./aoc_show_notebook_vs_script.py ===
+Traceback (most recent call last):
+  File "/home/clark/projects/advent-of-code-python/./aoc_show_notebook_vs_script.py", line 1, in <module>
+    import marimo
+ModuleNotFoundError: No module named 'marimo'
+
+

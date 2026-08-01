@@ -1,0 +1,5 @@
+# Ignore local Jupyter notebooks to let Jupytext manage plain text tracking
+*.ipynb
+.ipynb_checkpoints/
+__pycache__/
+cdbassett_advent_of_code_python.egg-info/
