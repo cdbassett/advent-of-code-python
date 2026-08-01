@@ -162,21 +162,16 @@ def run(inp, is_real):
                 link_map[y][x] = str(faces[y][x]) if link else " "
                 continue
 
-
-
             check_link = link[direction]
 
 #            if direction == rotation:
 #                link_map[y][x] = r"%\o/%"[check_link + 2]
 #                continue
 
-
-
             right_link, down_link, left_link, up_link, rot = link
             movement = movements[direction]
             arrow = arrows[direction]
 
-#            link_map_el =
             axes = (0, 1, 0, 1)
             axis = axes[direction]
             edge_markers = "|-"
@@ -199,8 +194,6 @@ def run(inp, is_real):
         print(dir_text[direction])
         print(get_vis_link_map(links, direction))
 
-
-#    ics(left_arrows)
 
     @timefunction
     def part1():

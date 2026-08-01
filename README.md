@@ -33,7 +33,7 @@ pip install -e .
 If you also want to use the notebooks, you will need to install JupyterLab and Jupytext:
 
 ```
-pip install jupyterlab jupytext
+pip install jupyterlab jupytext ipywidgets
 ```
 
 Standard Jupyter Notebooks (`.ipynb`) contain heavy JSON metadata and output data, making Git diffs messy. To solve this, this repository uses **Jupytext** to pair every notebook with a standard Python script (`.py`).

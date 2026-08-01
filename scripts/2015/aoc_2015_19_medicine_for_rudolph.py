@@ -17,7 +17,6 @@ import utils.seq_extensions # these extend PyFunctional seq objects, don't need 
 from utils.quicklambda import _1, _2
 
 
-
 @timefunction
 def run(inp1, inp2, is_real):
     insert_sample_functions(is_real, globals())
@@ -40,14 +39,7 @@ def run(inp1, inp2, is_real):
             index = pos + 1
             out = out = inp[:pos] + after + inp[pos+len(before):]
 
-
-#            out = inp[:index] + inp[index:].replace(from, after, 1)
-
-#            if out == inp:
-#                return
-
             yield out
-#            index = itemgetter(0)(i for i, (left, right) in enumerate(zip(inp,out)) if left != right) + 1
             ics(inp, step, out, before, after, index)
 
 
@@ -98,7 +90,7 @@ def run(inp1, inp2, is_real):
 
 
         return found
-
+# TODO: takes too long
     def process2(parsed):
         medicine, pairs = parsed
         pairs_by_length = sorted(((len(b), b, a) for a, b in pairs), reverse=True)
@@ -136,7 +128,6 @@ def main():
 
     if 1:
         print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
-        # needs env var AOC_SESSION
         real_inp = get_aocd_data()
         run(real_inp, real_inp, True)
 #        aocd.submit(my_answer)
