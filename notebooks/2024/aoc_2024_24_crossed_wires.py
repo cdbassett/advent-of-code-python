@@ -366,7 +366,8 @@ insert_sample_functions(False, globals())
 #for sample_data1 in sample_data1s:
 #    part1(sample_data1)
 
-part2(sample_data2, oper=operator.and_)
+if 0: # samples from aocd don't work yet, replaced from hardcoded to put on github
+    part2(sample_data2, oper=operator.and_)
 
 # %% [markdown]
 # # Actual data
@@ -374,10 +375,6 @@ part2(sample_data2, oper=operator.and_)
 # %% editable=true slideshow={"slide_type": ""}
 real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
-#part1(real_inp)
+part1(real_inp)
 part2(real_inp)
-c="""
-z39,jctz21,rcb
-wbw, is AND of noninput, should be XOR of input
-gwh, is XOR of noninput, should be OR of noninput
-"""
+

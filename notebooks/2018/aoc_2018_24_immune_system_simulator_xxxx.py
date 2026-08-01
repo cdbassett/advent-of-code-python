@@ -44,15 +44,11 @@ import utils.aoc_utils as aoc_utils
 # # Sample Data
 
 # %%
-sample_data1 = \
-"""Immune System:
-17 units each with 5390 hit points (weak to radiation, bludgeoning) with an attack that does 4507 fire damage at initiative 2
-989 units each with 1274 hit points (immune to fire; weak to bludgeoning, slashing) with an attack that does 25 slashing damage at initiative 3
+if "example" not in dir() or not example:
+    example = get_aocd_example()
 
-Infection:
-801 units each with 4706 hit points (weak to radiation) with an attack that does 116 bludgeoning damage at initiative 1
-4485 units each with 2961 hit points (immune to radiation; weak to fire, cold) with an attack that does 12 slashing damage at initiative 4"""
-sample_data1s = [sample_data1]
+sample_data1s = split_example(example)
+sample_data1 = sample_data1s[0]
 sample_data2 = sample_data1
 
 # %% [markdown]

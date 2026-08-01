@@ -29,7 +29,6 @@ def run(inp, is_real):
     ics = nothing if is_real else ic
     print_result = partial(print_result_aoc, is_real)
 
-#    inp = inp.strip().split('\n')
     inp = inp.strip("\n").split('\n')
 #    ic(inp[:5])
 #    ic(list(line[:60] for line in inp[:5]))
@@ -103,11 +102,6 @@ def run(inp, is_real):
         print_result(result)
 
 
-#        5704 is too high
-#        5562 is too high
-
-
-
     @timefunction
     def part2():
         working_image = image
@@ -123,12 +117,13 @@ def run(inp, is_real):
     part2()
 
 def main():
-    example = get_aocd_example()
-    samp_inps = split_example(example)
+    if 0: # samples from aocd don't work yet, replaced from hardcoded to put on github
+        example = get_aocd_example()
+        samp_inps = split_example(example)
 
-    for n, samp_inp in enumerate(samp_inps, 1):
-        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
-        run(samp_inp, False)
+        for n, samp_inp in enumerate(samp_inps, 1):
+            print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+            run(samp_inp, False)
 
     if 1:
         print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")

@@ -88,16 +88,16 @@ def run(inp, is_real):
     part2()
 
 def main():
-    example = get_aocd_example()
-    samp_inps = split_example(example)
+    if 0: # samples from aocd don't work yet, replaced from hardcoded to put on github
+        example = get_aocd_example()
+        samp_inps = split_example(example)
 
-    for n, samp_inp in enumerate(samp_inps, 1):
-        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
-        run(samp_inp, False)
+        for n, samp_inp in enumerate(samp_inps, 1):
+            print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+            run(samp_inp, False)
 
     if 1:
         print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
-        # needs env var AOC_SESSION
         real_inp = get_aocd_data()
         run(real_inp, True)
 #        aocd.submit(my_answer)

@@ -26,6 +26,7 @@ if is_notebook():
 
 # %%
 from collections import *
+from typing import Protocol, Iterator, Tuple, TypeVar, Optional
 
 from icecream import ic
 
@@ -207,9 +208,10 @@ def part2(inp):
 # # Sample data
 
 # %%
-insert_sample_functions(False, globals())
-part1(sample_data1) # 94
-part2(sample_data2) # 154
+if 1: # samples from aocd don't work yet, replaced from hardcoded to put on github
+    insert_sample_functions(False, globals())
+    part1(sample_data1) # 94
+    part2(sample_data2) # 154
 
 # %% [markdown]
 # # Actual data
@@ -217,5 +219,5 @@ part2(sample_data2) # 154
 # %% editable=true slideshow={"slide_type": ""}
 real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
-part1(real_inp) # 2250
-part2(real_inp) # 6470
+part1(real_inp)
+part2(real_inp)

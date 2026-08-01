@@ -174,17 +174,17 @@ def part2(inp):
 # # Sample data
 
 # %%
-insert_sample_functions(False, globals())
-print_preface_notebook()
-assert part1(sample_data1, 6) == 16
+if 1: # samples from aocd don't work yet, replaced from hardcoded to put on github
+    insert_sample_functions(False, globals())
+    print_preface_notebook()
+    assert part1(sample_data1, 6) == 16
 
-step_counts = [6, 10, 20, 50, 100, 500]
-sample_answers = [16, 50, 216, 1594, 6536, 167004]
+    step_counts = [6, 10, 20, 50, 100, 500]
+    sample_answers = [16, 50, 216, 1594, 6536, 167004]
 
-for sample_step_count, sample_answer in zip(step_counts, sample_answers):
-    assert part1(sample_data1,sample_step_count) == sample_answer
+    for sample_step_count, sample_answer in zip(step_counts, sample_answers):
+        assert part1(sample_data1,sample_step_count) == sample_answer
 
-#part2(sample_data2)
 
 # %% [markdown]
 # # Actual data
@@ -193,7 +193,5 @@ for sample_step_count, sample_answer in zip(step_counts, sample_answers):
 real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 print_preface_notebook()
-
-assert part1(real_inp, 64) == 3764
 
 part2(real_inp)

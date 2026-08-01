@@ -28,7 +28,6 @@ def run(inp1, inp2, is_real):
 #        ics(data)
         return data
 
-
     def process1(parsed):
 #        names, *values = zip(*parsed)
         names = None
@@ -54,7 +53,6 @@ def run(inp1, inp2, is_real):
                     best_total = max(best_total, total)
 
         return best_total
-
 
 
     @timefunction
@@ -108,12 +106,13 @@ def run(inp1, inp2, is_real):
     part2(inp2)
 
 def main():
-    example = get_aocd_example()
-    samp_inps = split_example(example)
+    if 0: # samples fro maocd don't work yet, replaced from hardcoded to put on github
+        example = get_aocd_example()
+        samp_inps = split_example(example)
 
-    for n, samp_inp in enumerate(samp_inps, 1):
-        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
-        run(samp_inp, samp_inp, False)
+        for n, samp_inp in enumerate(samp_inps, 1):
+            print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
+            run(samp_inp, samp_inp, False)
 
     if 1:
         print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")

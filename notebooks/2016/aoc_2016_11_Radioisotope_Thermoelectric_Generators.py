@@ -301,17 +301,17 @@ def part2(inp):
 
 # %%
 insert_sample_functions(False, globals())
-samp_inp1 = """
-The first floor contains a hydrogen-compatible microchip and a lithium-compatible microchip.
-The second floor contains a hydrogen generator.
-The third floor contains a lithium generator.
-The fourth floor contains nothing relevant.
-"""
-is_sample = True
-#for line in samp_inp1.strip().split("\n"):
-#    part1(line)
-state_seq = part1(samp_inp1)
-state_seq = part2(samp_inp1)
+if 0: # samples from aocd don't work yet, replaced from hardcoded to put on github
+    if "example" not in dir() or not example:
+        example = get_aocd_example()
+
+    sample_data1s = split_example(example)
+    samp_inp1 = sample_data1s[0]
+    is_sample = True
+    #for line in samp_inp1.strip().split("\n"):
+    #    part1(line)
+    state_seq = part1(samp_inp1)
+    state_seq = part2(samp_inp1)
 
 # %% [markdown]
 # Claim is that to move n objects up one floor, it costs 2 * n - 3

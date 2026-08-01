@@ -156,12 +156,13 @@ def part2(inp):
 # # Sample data processing
 
 # %%
-insert_sample_functions(False, globals())
+if 1: # samples from aocd don't work yet, replaced from hardcoded to put on github
+    insert_sample_functions(False, globals())
 
-for sample_data1 in sample_data1s:
-    part1(sample_data1)
+    for sample_data1 in sample_data1s:
+        part1(sample_data1)
 
-part2(sample_data2)
+    part2(sample_data2)
 
 # %% [markdown]
 # # Actual data
