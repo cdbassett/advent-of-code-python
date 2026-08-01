@@ -4,8 +4,8 @@ from itertools import *
 from math import *
 from statistics import *
 from builtins import pow
+import json
 from utils.timer_utils import timefunction
-
 
 from colorama import Fore, Style
 from functional import seq # https://github.com/EntilZha/PyFunctional
@@ -13,15 +13,11 @@ import iteration_utilities as it_ut # https://pypi.org/project/iteration-utiliti
 import pyperclip
 from icecream import ic
 import aocd # https://github.com/wimglenn/advent-of-code-data
-# aocd.lines  # like data.splitlines()
-# aocd.numbers # uses regex pattern -?\d+ to extract integers from data
-
 
 from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 from utils.quicklambda import _1, _2
-
 
 
 @timefunction
@@ -55,7 +51,6 @@ def run(inp1, inp2, is_real):
         return json_total(parsed, should_process)
 
 
-
     @timefunction
     def part1(inp):
         parsed = data_parse(inp)
@@ -63,7 +58,6 @@ def run(inp1, inp2, is_real):
         print_result(result)
 
     process2 = process1
-
 
     @timefunction
     def part2(inp):

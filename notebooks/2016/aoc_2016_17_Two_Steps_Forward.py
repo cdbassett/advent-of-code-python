@@ -38,7 +38,7 @@ from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
 from utils.iter_utils import *
 from utils.pathfinding_redblob import *
-import utils.pathfinding_redblob
+import utils.pathfinding_redblob as pathfinding_redblob
 import utils.seq_extensions as seq_extensions # when running standalone, apparently need this import explicitly in main module
 
 # %% [markdown]

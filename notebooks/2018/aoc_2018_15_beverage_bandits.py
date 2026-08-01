@@ -80,7 +80,7 @@ def parse(inp):
 
 # %%
 from utils.aoc_utils import *
-import utils.pathfinding_redblob
+import utils.pathfinding_redblob as pathfinding_redblob
 from utils.pathfinding_redblob import *
 from tabulate import tabulate
 
