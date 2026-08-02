@@ -152,7 +152,7 @@ def get_aoc_url():
     return f"https://adventofcode.com/{aocd_year}/day/{aocd_day}"
 
 def split_example(example):
-    return seq(example).splitby(lambda s: s.startswith("--")).drop(1).grouped(3).map(itemgetter(0)).map(njoin).list()
+    return seq(example).splitby(lambda s: s.startswith("-------")).drop(1).grouped(3).map(itemgetter(0)).map(njoin).list()
 
 def nothing(*msg, **kwargs):
     return msg[0] if msg else None

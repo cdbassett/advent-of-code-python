@@ -185,8 +185,10 @@ def process2(parsed):
     #came_from, cost_so_far, current = pathfinding_redblob.dijkstra_search(grid, start, goal, callback_step=1, callback=callback) # gave same result but took 27s instead of 5
     ics(goal, current, cost_so_far[current])
 
-    arr = np.fromfunction(risk_level_v, (16, 16) if is_sample else (35,728), dtype="uint32")
     path = pathfinding_redblob.reconstruct_path(came_from, start, goal)
+    max_width, max_height = (max(path, key=itemgetter(n))[n]+1 for n in range(2))
+    ic(max_width, max_height)
+    arr = np.fromfunction(risk_level_v, (max_width, max_height), dtype="uint32")
     ic(len(path))
     pre, post = Fore.YELLOW+Style.BRIGHT, Style.RESET_ALL
     tool_colors = {
@@ -224,136 +226,6 @@ part2(sample_data2)
 from utils.aoc_utils import *
 real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
-part1(real_inp) # 10115
-part2(real_inp) # 984 is too low
+part1(real_inp) 
+part2(real_inp) 
 
-# %% [markdown]
-# # Other's Solutions
-
-# %%
-# https://www.reddit.com/r/adventofcode/comments/a8i1cy/comment/ecax3s5/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-# curiously gives same wrong answer as mine does
-from functools import lru_cache
-from heapq import heappush, heappop
-
-MOD = 20183
-depth, (tx, ty) = parse(real_inp)
-
-@lru_cache(None)
-def gindex(x, y):
-    if x == y == 0: return 0
-    if x == tx and y == ty: return 0
-    if y == 0: return x * 16807 % MOD
-    if x == 0: return y * 48271 % MOD
-    return ((gindex(x-1, y) + depth) *
-            (gindex(x, y-1) + depth) % MOD)
-
-def region(x, y):
-    return (gindex(x, y) + depth) % MOD % 3
-
-ans1 = sum(region(x, y) for x in range(tx+1) for y in range(ty+1))
-
-def neighbors(x, y, e):
-    for nx, ny in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
-        if 0 <= nx and 0 <= ny:
-            r = region(nx, ny)
-
-            for ne in range(3):
-                if r != ne:
-                    yield nx, ny, ne, 8 if e != ne else 1
-
-# rocky - neither [0]
-# wet - torch [1]
-# narrow - climb [2]
-pq = [(0, 0, 0, 1)]
-dist = {(0, 0, 1): 0}
-
-while pq:
-    d, x, y, e = heappop(pq)
-
-    if (x, y, e) == (tx, ty, 1):
-        print(f'Answer: {d}')
-
-    if x > 3 * tx or y > 3 * ty: continue
-
-    if dist.get((x, y, e)) < d: continue
-
-    for nx, ny, ne, nw in neighbors(x, y, e):
-        if d + nw < dist.get((nx, ny, ne), float('inf')):
-            dist[nx, ny, ne] = d + nw
-            heappush(pq, (d + nw, nx, ny, ne))
-
-
-# %%
-# https://www.reddit.com/r/adventofcode/comments/a8i1cy/comment/ecax2bg/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
-def ints(s):
-    return list(map(int, re.findall(r"-?\d+", s)))  # thanks mserrano!
-
-inp = real_inp
-#depth, (tx, ty) = parse(real_inp)
-lines = inp.splitlines()
-depth = ints(lines[0])[0]
-tx, ty = tuple(ints(lines[1]))
-dp = [[None for _ in range(ty+1000)] for _ in range(tx+1000)]
-
-def erosion(x, y):
-    if dp[x][y] is not None:
-        return dp[x][y]
-
-    geo = None
-
-    if y == 0:
-        geo = x * 16807
-    elif x == 0:
-        geo = y * 48271
-    elif (x, y) == (tx, ty):
-        geo = 0
-    else:
-        geo = erosion(x-1, y) * erosion(x, y-1)
-
-    dp[x][y] = (geo + depth) % 20183
-    return dp[x][y]
-
-def risk(x, y):
-    return erosion(x, y) % 3
-
-print(sum(erosion(x, y) % 3 for x in range(tx+1) for y in range(ty+1)))
-
-# torch = 1
-import heapq
-queue = [(0, 0, 0, 1)] # (minutes, x, y, cannot)
-best = dict() # (x, y, cannot) : minutes
-target = (tx, ty, 1)
-
-while queue:
-    minutes, x, y, cannot = heapq.heappop(queue)
-    best_key = (x, y, cannot)
-
-    if best_key in best and best[best_key] <= minutes:
-        continue
-
-    best[best_key] = minutes
-
-    if best_key == target:
-        print(minutes)
-        break
-
-    for i in range(3):
-        if i != cannot and i != risk(x, y):
-            heapq.heappush(queue, (minutes + 7, x, y, i))
-
-    # try going up down left right
-    for dx, dy in [[-1, 0], [1, 0], [0, -1], [0, 1]]:
-        newx = x + dx
-        newy = y + dy
-
-        if newx < 0:
-            continue
-
-        if newy < 0:
-            continue
-
-        if risk(newx, newy) == cannot:
-            continue
-
-        heapq.heappush(queue, (minutes + 1, newx, newy, cannot))

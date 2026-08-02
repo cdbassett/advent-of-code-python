@@ -203,8 +203,8 @@ def process2(parsed):
     minutes = 10 if is_sample else 200
     flat = parsed.T.flatten()
     positions = np.argwhere(flat == 1)+1
-    #ics(flat, positions)
-    ones = set((int(n), 0) for n in positions)
+    ic(flat, positions, int(positions[0][0]))
+    ones = set((int(n[0]), 0) for n in positions)
     #ics(ones)
 
     for step in range(minutes):

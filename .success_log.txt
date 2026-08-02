@@ -268,3 +268,9 @@
 ./notebooks/2025/aoc_2025_05_cafeteria.py
 ./notebooks/2020/aoc_2020_09_encoding_error.py
 ./notebooks/2019/aoc_2019_25_cryostasis.py
+./scripts/2022/aoc_2022_17_pyroclastic_flow.py
+./scripts/2021/aoc_2021_03_binary_diagnostic.py
+./notebooks/2024/aoc_2024_06_guard_gallivant.py
+./notebooks/2019/aoc_2019_24_planet_of_discord.py
+./notebooks/2019/aoc_2019_17_set_and_forget.py
+./notebooks/2018/aoc_2018_22_mode_maze.py

@@ -1,8 +1,7 @@
 # advent-of-code-python
 My Python solutions to the [Advent of Code](https://adventofcode.com) puzzles. They use the `aocd` library to automatically fetch puzzle inputs. Some solutions are command line scripts (the scripts folder), some are **JupyterLab** notebooks (the notebooks folder). Some are in both formats.
 
-Most puzzles run. A few don't currently. I will correct them as I have time. The file errors.txt contains the errors for the 12 out of 285 that currently don't run properly. After I get them all running again, I will test for correctness again (they all passed at the time I wrote them).
-
+Most puzzles run. A few don't currently. I will correct them as I have time. The file errors.txt contains the errors for the 2 out of 285 that currently don't run properly. After I get them all running again, I will test for correctness again (they all passed at the time I wrote them, but sometimes solutions can fail with different inputs). Lastly will be attempting to get all runtimes under 30 seconds (currently about 20 take too long).
 
 
 # Setup Instructions

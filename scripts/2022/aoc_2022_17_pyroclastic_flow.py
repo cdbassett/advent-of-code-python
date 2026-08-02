@@ -65,25 +65,20 @@ def run(inp, is_real):
             up on screen is increasing y axis
     """
 
-    def build_rows(rock, left_add):
-        rock_width = width(rock)
-        right_add = 7 - rock_width - left_add
-        return [[0] * left_add + r + [0] * right_add for r in rock]
-
-
-#    ics(build_rows(rocks[0], 2))
-#    ics(build_rows(rocks[1], 2))
-#    ics(build_rows(rocks[2], 2))
-
     def blank_row():
         return [0] * 7
 
     def collision(tunnel, rock, left_add, top_rock_row):
         rock_width = width(rock)
         rock_height = height(rock)
+        # assert(top_rock_row >= 0, f"top_rock_row is negative, {ic.format(rock_height)}")
 
         for index, rock_line in zip(count(), rock):
-            tunnel_row = tunnel[top_rock_row + index - rock_height]
+            try:
+                tunnel_row = tunnel[top_rock_row + index - rock_height]
+            except IndexError:
+                ic(rock_width, rock_height, len(tunnel), top_rock_row, index)
+                raise
 
             for tr_n, rn in zip(range(left_add, 7), range(rock_width)):
                 if tunnel_row[tr_n] + rock_line[rn] > 1:
@@ -133,7 +128,6 @@ def run(inp, is_real):
                 filled[n] |= tunnel_row[n]
 
 #            ics(check_index, tunnel[check_index])
-
             keep_rows += 1
 
             if sum(filled) == 7:
@@ -143,8 +137,6 @@ def run(inp, is_real):
 
         tunnel[:-keep_rows] = []
 #        ics(keep_rows, tunnel_rep(tunnel))
-
-
 
     rep_chars = ".#"
 
@@ -169,128 +161,6 @@ def run(inp, is_real):
         return tunnel_rep(tunnel)
 
 
-    def part1():
-        jets_iter = iter(cycle(inp))
-        tunnel = [[1] * 7]    # problem doesn't call for rock bottom but we'll add for simpler dectection and remvoe later
-
-        for n, rock in zip(range(2022), cycle(rocks)):
-#        for n, rock in zip(range(10), cycle(rocks)):
-            rock_height = height(rock)
-            rock_width = width(rock)
-            tunnel = tunnel + [blank_row() for _ in range(3 + rock_height)]
-
-#            if n < 10:
-#                ics("new", tunnel_rep(tunnel))
-
-            left_add = 2
-            right_add = 7 - rock_width - left_add
-            top_rock_row = height(tunnel) - 1
-#            ics(top_rock_row)
-
-            jet = next(jets_iter)
-#            ics(jet)
-            left_add, right_add = process_jet(jet, left_add, right_add)
-
-            for nj, jet in enumerate(jets_iter):
-#                ics(nj, jet)
-
-                    # gas push
-                old_left, old_right = left_add, right_add
-                left_add, right_add = process_jet(jet, left_add, right_add)
-
-                if collision(tunnel, rock, left_add, top_rock_row):
-                    left_add, right_add = old_left, old_right
-
-                    # drop
-                top_rock_row -= 1
-
-#                ics(rep_applied_rock(tunnel, rock, left_add, top_rock_row))
-
-                    # check
-                if collision(tunnel, rock, left_add, top_rock_row):
-                    top_rock_row += 1
-#                    ics(tunnel_rep(tunnel))
-                    apply_rock(tunnel, rock, left_add, top_rock_row)
-#                    ics("apply", tunnel_rep(tunnel))
-                    clear_tunnel_top(tunnel)
-#                    ics("clear", tunnel_rep(tunnel))
-                    break
-
-
-        clear_tunnel_top(tunnel)
-#        ics("done", tunnel_rep(tunnel))
-        result = height(tunnel) - 1 # accouint for rock line at bottom
-        print_result(result)
-
-
-
-        # only tracking top n rows works but is much too slow, on actual data, didn't finish 1000th in one hour
-    def part2():
-        jets_iter = iter(cycle(inp))
-        tunnel = [[1] * 7]    # problem doesn't call for rock bottom but we'll add for simpler dectection and remove later
-        rocks_count = -1
-        prog_step = 1000000000000 // 1000
-
-#        for n, rock in zip(range(2022), cycle(rocks)):
-        for n, rock in zip(range(1000000000000), cycle(rocks)):
-#        for n, rock in zip(range(10), cycle(rocks)):
-            rock_height = height(rock)
-            rock_width = width(rock)
-            tunnel = tunnel + [blank_row() for _ in range(3 + rock_height)]
-
-            if not (n % prog_step):
-                print(n)
-
-#            if n < 10:
-#                ics("new", tunnel_rep(tunnel))
-
-            left_add = 2
-            right_add = 7 - rock_width - left_add
-            top_rock_row = height(tunnel) - 1
-#            ics(top_rock_row)
-
-            jet = next(jets_iter)
-#            ics(jet)
-            left_add, right_add = process_jet(jet, left_add, right_add)
-
-            for nj, jet in enumerate(jets_iter):
-#                ics(nj, jet)
-
-                    # gas push
-                old_left, old_right = left_add, right_add
-                left_add, right_add = process_jet(jet, left_add, right_add)
-
-                if collision(tunnel, rock, left_add, top_rock_row):
-                    left_add, right_add = old_left, old_right
-
-                    # drop
-                top_rock_row -= 1
-
-#                ics(rep_applied_rock(tunnel, rock, left_add, top_rock_row))
-
-                    # check
-                if collision(tunnel, rock, left_add, top_rock_row):
-                    top_rock_row += 1
-#                    ics(tunnel_rep(tunnel))
-                    apply_rock(tunnel, rock, left_add, top_rock_row)
-#                    ics("apply", tunnel_rep(tunnel))
-                    clear_tunnel_top(tunnel)
-
-                    if len(tunnel) > 15:
-                        remove_count = len(tunnel) - 10
-                        rocks_count += remove_count
-                        tunnel = tunnel[-10:]
-
-#                    ics("clear", tunnel_rep(tunnel))
-                    break
-
-
-        clear_tunnel_top(tunnel)
-#        ics("done", tunnel_rep(tunnel))
-        result = height(tunnel) + rocks_count
-        print_result(result)
-
-
         # returns tunnel stage after rock is processed
     def next_stage(rock, jets_iter, tunnel):
         rock_height = height(rock)
@@ -299,16 +169,14 @@ def run(inp, is_real):
         tunnel.extend(blank_row() for _ in range(3 + rock_height))
         left_add = 2
         right_add = 7 - rock_width - left_add
-        top_rock_row = height(tunnel) - 1
-#            ics(top_rock_row)
-
+        top_rock_row = height(tunnel) - 1 # higher numbers are higher in the tunnel
+        # ic(top_rock_row)
         jet = next(jets_iter)
-#            ics(jet)
+        # ic(jet)
         left_add, right_add = process_jet(jet, left_add, right_add)
 
         for nj, jet in enumerate(jets_iter):
 #                ics(nj, jet)
-
                 # gas push
             old_left, old_right = left_add, right_add
             left_add, right_add = process_jet(jet, left_add, right_add)
@@ -316,13 +184,12 @@ def run(inp, is_real):
             if collision(tunnel, rock, left_add, top_rock_row):
                 left_add, right_add = old_left, old_right
 
-                # drop
+#                ics(rep_applied_rock(tunnel, rock, left_add, top_rock_row))
+            # drop
             top_rock_row -= 1
 
-#                ics(rep_applied_rock(tunnel, rock, left_add, top_rock_row))
-
                 # check
-            if collision(tunnel, rock, left_add, top_rock_row):
+            if top_rock_row == rock_height - 1 or collision(tunnel, rock, left_add, top_rock_row):
                 top_rock_row += 1
 #                ics("collision", tunnel_rep(tunnel))
                 apply_rock(tunnel, rock, left_add, top_rock_row)
@@ -335,6 +202,12 @@ def run(inp, is_real):
                 new_rocks = height(tunnel)
                 rocks_count += (prev_rocks - new_rocks)
                 break
+
+
+            if 0 and top_rock_row == rock_height - 1:
+                apply_rock(tunnel, rock, left_add, top_rock_row)
+                # rocks_count += rock_height
+                break
         else:
             clear_tunnel_top(tunnel)
 
@@ -343,8 +216,9 @@ def run(inp, is_real):
 
         # implementation of part 1 keeping only relevant bottom part
     def part1():
+        # ic(inp)
         jets_iter = iter(cycle(inp))
-        tunnel = [[1] * 7]    # problem doesn't call for rock bottom but we'll add for simpler dectection and remvoe later
+        tunnel = [[1] * 7]    # problem doesn't call for rock bottom but we'll add for simpler detection and remove later
         rocks_count = -1
 
         for n, rock in zip(range(2022), cycle(rocks)):
@@ -353,93 +227,8 @@ def run(inp, is_real):
 
         ics("done", n, tunnel_rep(tunnel))
         result = height(tunnel) + rocks_count
-        print_result(result)
+        print_result(result) # 3086 is too high
 
-    def get_compact_tunnel_rep(tunnel):
-        return tuple(it_ut.flatten(tunnel))
-
-    def part2():
-        jets_iter = iter(cycle(inp))
-        rocks_iter = iter(cycle(rocks))
-        tunnel = [[1] * 7]    # problem doesn't call for rock bottom but we'll add for simpler dectection and remvoe later
-        rocks_count = -1 # -1 accounts for added line of rocks at the bottom
-        all_rocks_count = 1000000000000 if is_real else 2022
-        jets_count = len(inp)
-        prog_step = all_rocks_count // 1000
-        cycle_size = jets_count * len(rocks)
-        ic(cycle_size)
-        track_tunnel_states = [None] * cycle_size
-
-        for n_rock, rock in zip(range(cycle_size), rocks_iter):
-            added = next_stage(rock, jets_iter, tunnel)
-            rocks_count += added
-
-            if added:
-#                ics(n_rock) # first rock where able to remove chunk
-                break
-#            ics(n, tunnel_rep(tunnel))
-
-        n_cycle_begin = n_rock
-        ics(n_cycle_begin)
-
-        for n_rock, rock in zip(range(n_cycle_begin, n_cycle_begin + cycle_size), rocks_iter):
-            added = next_stage(rock, jets_iter, tunnel)
-            rocks_count += added
-            track_tunnel_states[n_rock - n_cycle_begin] = get_compact_tunnel_rep(tunnel)
-
-        next_cycle_begin = n_cycle_begin + cycle_size
-        ics(next_cycle_begin)
-
-        for n_rock, rock in zip(range(next_cycle_begin, next_cycle_begin + cycle_size), rocks_iter):
-            added = next_stage(rock, jets_iter, tunnel)
-            rocks_count += added
-
-            if track_tunnel_states[n_rock - next_cycle_begin] == get_compact_tunnel_rep(tunnel):
-                repeating_rock = n_rock
-                ics(repeating_rock)
-                break
-
-
-        ics("done", n_rock, tunnel_rep(tunnel))
-        result = height(tunnel) + rocks_count
-        print_result(result)
-
-        # maybe only need state at begining of new cycle
-    def part2_no():
-        jets_iter = iter(cycle(inp))
-        rocks_iter = iter(cycle(rocks))
-        tunnel = [[1] * 7]    # problem doesn't call for rock bottom but we'll add for simpler dectection and remvoe later
-        rocks_count = -1 # -1 accounts for added line of rocks at the bottom
-        all_rocks_count = 1000000000000 if is_real else 2022
-        jets_count = len(inp)
-        prog_step = all_rocks_count // 1000
-        cycle_size = jets_count * len(rocks)
-        ic(cycle_size)
-        track_tunnel_states = [None] * cycle_size
-
-        for n_rock, rock in zip(range(cycle_size), rocks_iter):
-            added = next_stage(rock, jets_iter, tunnel)
-            rocks_count += added
-
-        start_cycle_state = get_compact_tunnel_rep(tunnel)
-        repeating_rock = 0
-
-#        for n_rock, rock in zip(range(cycle_size, all_rocks_count), rocks_iter):
-        for n_rock, rock in zip(range(cycle_size, cycle_size * 100), rocks_iter):
-            if not (n_rock % cycle_size):
-                ic(n_rock)
-
-                if n_rock > cycle_size and get_compact_tunnel_rep(tunnel) == start_cycle_state:
-                    repeating_rock = n_rock
-                    ic(repeating_rock)
-                    break
-
-            added = next_stage(rock, jets_iter, tunnel)
-            rocks_count += added
-
-        ics("done", n_rock, tunnel_rep(tunnel))
-        result = height(tunnel) + rocks_count
-        print_result(result)
 
         # returns tunnel stage after rock is processed
     def next_stage2(rock, jets_iter, tunnel):
@@ -451,14 +240,11 @@ def run(inp, is_real):
         right_add = 7 - rock_width - left_add
         top_rock_row = height(tunnel) - 1
 #            ics(top_rock_row)
-
         jet_index, jet  = next(jets_iter)
 #            ics(jet)
         left_add, right_add = process_jet(jet, left_add, right_add)
 
-        for nj, (jet_index, jet) in enumerate(jets_iter):
-#                ics(nj, jet)
-
+        for jet_index, jet in jets_iter:
                 # gas push
             old_left, old_right = left_add, right_add
             left_add, right_add = process_jet(jet, left_add, right_add)
@@ -468,11 +254,10 @@ def run(inp, is_real):
 
                 # drop
             top_rock_row -= 1
-
 #                ics(rep_applied_rock(tunnel, rock, left_add, top_rock_row))
 
                 # check
-            if collision(tunnel, rock, left_add, top_rock_row):
+            if top_rock_row == rock_height - 1 or collision(tunnel, rock, left_add, top_rock_row):
                 top_rock_row += 1
 #                ics("collision", tunnel_rep(tunnel))
                 apply_rock(tunnel, rock, left_add, top_rock_row)
@@ -490,6 +275,8 @@ def run(inp, is_real):
 
         return jet_index, rocks_count
 
+        # only tracking top n rows works but is much too slow, on actual data, didn't finish 1000th in one hour
+        # thus this implementation
     def part2():
         jets_iter = iter(cycle(enumerate(inp)))
         rocks_iter = iter(cycle(enumerate(rocks)))
@@ -512,7 +299,6 @@ def run(inp, is_real):
 
         n_cycle_begin = n_rock
         ic(n_cycle_begin)
-
         tracked = dict()
 
         for n_rock, (rock_index, rock) in zip(range(n_cycle_begin, all_rocks_count), rocks_iter):

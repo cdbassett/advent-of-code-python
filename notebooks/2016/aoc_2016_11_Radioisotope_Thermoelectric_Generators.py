@@ -43,6 +43,9 @@ import utils.seq_extensions as seq_extensions # when running standalone, apparen
 
 # %%
 def parse_line(line):
+    if "contains nothing relevant" in line:
+        return []
+    
     pieces = line.strip(".").replace("-compatible microchip", "M").replace(" generator", "G").replace(", and a", ", a").replace(" and a", ", a").split("contains a ")[1].split(", a ")
     return pieces
 
@@ -305,7 +308,7 @@ def part2(inp):
 
 # %%
 insert_sample_functions(False, globals())
-if 0: # samples from aocd don't work yet, replaced from hardcoded to put on github
+if 1:
     if "example" not in dir() or not example:
         example = get_aocd_example()
 

@@ -28,7 +28,7 @@ def run(inp, is_real):
         counts = [Counter(line) for line in transposed]
         #    print_list("counts", counts)
         most_common = [count.most_common() for count in counts]
-        print_list("most_common", most_common)
+        # ic(most_common)
         return most_common
 
 
@@ -48,6 +48,7 @@ def run(inp, is_real):
 
     def find_rating(idx):
         matches = inp[:]
+        ic(len(matches), len(matches[0]))
 
         for n_pos in range(position_count):
             if not is_real:
@@ -55,9 +56,9 @@ def run(inp, is_real):
 
             most_common = get_most_common(matches)
             mce = most_common[n_pos]
-            ic(mce)
-            mc = mce[idx][0] if len(mce) > 1 and mce[0][1] > mce[1][1] else "10"[idx]
-            ic(n_pos, mc)
+                # if there's more than one match and they're equal counts, pick the matched value
+                # otherwise pick the most or least coomon
+            mc = "10"[idx] if len(mce) > 1 and mce[0][1] == mce[1][1] else mce[idx][0]
             matches = [match for match in matches if match[n_pos] == mc]
 
             if len(matches) == 1:
@@ -77,7 +78,7 @@ def run(inp, is_real):
     part2()
 
 def main():
-    if 0: # samples from aocd don't work yet, replaced from hardcoded to put on github
+    if 1: # samples from aocd don't work yet, replaced from hardcoded to put on github
         example = get_aocd_example()
         samp_inps = split_example(example)
 
@@ -88,6 +89,7 @@ def main():
     if 1:
         print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
         real_inp = get_aocd_data()
+        #ic(real_inp.split("\n")[:5])
         run(real_inp, True)
 
 main()

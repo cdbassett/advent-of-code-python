@@ -5,20 +5,16 @@ from math import *
 from statistics import *
 from dataclasses import dataclass
 from builtins import pow
-import pyperclip
-from icecream import ic
 import numpy as np
 from utils.timer_utils import timefunction
 from construct import *
 
 from functional import seq
-from mini_lambda import x, s, _, InputVar
-l = InputVar('l')
-
 import scipy
+from icecream import ic
 
 
-from utils.aoc_utils import * # this includes adding c:\ut to sys.path
+from utils.aoc_utils import * 
 from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 

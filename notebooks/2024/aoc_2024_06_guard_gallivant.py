@@ -295,35 +295,3 @@ insert_sample_functions(True, globals())
 part1(real_inp)
 part2(real_inp)
 
-# %%
-# diagnostics to realize bug in ComplexIndexedList - was only checking for negative with real part twice and not imaginary
-real_inp = get_aocd_data()
-insert_sample_functions(True, globals())
-
-parsed = parse_data(real_inp)
-grida = ComplexIndexedList(parsed)
-gridb = build_complex_points_dict(parsed)
-guard_pos = first(build_complex_points(parsed, sig_char="^"))
-org_ob_positions = seq(build_complex_points(parsed, sig_char="#")).map(complex_to_tuple).list()
-ob_pos = 8+4j
-
-infinitea, new_positionsa = plot_routea(grida, guard_pos, -1j, ob_pos)
-new_positionsa = seq(pos_and_dir_to_pos(new_positionsa)).map(complex_to_tuple).set()
-infiniteb, new_positionsb = plot_routea(gridb, guard_pos, -1j, ob_pos)
-new_positionsb = seq(pos_and_dir_to_pos(new_positionsb)).map(complex_to_tuple).set()
-#ic(infinitea, infiniteb, new_positionsa - new_positionsb, new_positionsb - new_positionsa)
-#ic(seq(new_positionsb).where(lambda p: not isinstance(p, complex)).first())
-#assert all(isinstance(p, complex) for p in new_positionsb)
-#assert all(isinstance(p, complex) for p in new_positionsa)
-xs, ys = xs_and_ys(new_positionsa)
-stra = get_vis_map_multiline_str(xs, ys, special_chars=[("*", x, y) for x, y in new_positionsa] + [("O",) + complex_to_tuple(ob_pos), ("^",) + complex_to_tuple(guard_pos)] + [("#",) + p for p in org_ob_positions])
-#stra = get_vis_map_multiline_str(xs, ys, min_val=0, special_chars=[("*", x, y) for x, y in new_positionsa] + [("O",) + complex_to_tuple(ob_pos), ("^",) + complex_to_tuple(guard_pos)] + [("#",) + p for p in org_ob_positions])
-print_lines("a", stra)
-#pyperclip.copy("a\n" + stra)
-
-xs, ys = xs_and_ys(new_positionsb)
-strb = get_vis_map_multiline_str(xs, ys, special_chars=[("*", x, y) for x, y in new_positionsb] + [("O",) + complex_to_tuple(ob_pos), ("^",) + complex_to_tuple(guard_pos)] + [("#",) + p for p in org_ob_positions])
-print_lines("b", strb)
-#time.sleep(1000)
-pyperclip.copy("b\n" + strb)
-""

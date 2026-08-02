@@ -189,17 +189,17 @@ def process2(parsed):
     if 0:
         special_chars = [(graph_char_circle_cross, x, y) for x, y, *_ in path] + [(graph_char_bullseye, current[0], current[1])]
         print(get_vis_map_multiline_str([], [], special_chars=special_chars, filled_char=graph_char_light_block, blank_char=graph_char_small_dot))
-
+    # TODO: this was for a specific input, need to generalize
     A = "R,12,L,8,R,12"
     B = "R,8,R,6,R,6,R,8"
     C = "R,8,L,8,R,8,R,4,R,4"
 
-    if 1: # check to make sure what we're using matches what was calcualted
+    if 0: # check to make sure what we're using matches what was calculated
         needed = [A, B, A, B, C, C, B, C, B, A]
         full = ",".join(needed)
         calced_full = ",".join(str(c) for t in turns for c in t)
-        print(calced_full)
-        print(full)
+        ic(calced_full)
+        ic(full)
         assert full == calced_full
 
     memory = list(parsed)
@@ -244,16 +244,9 @@ def part2(inp):
 # %% [markdown]
 # # Actual data
 
-# %% editable=true slideshow={"slide_type": ""}
-real_inp = get_aocd_data()
-insert_sample_functions(True, globals())
-part1(real_inp)
-part2(real_inp)
-
-# %% [markdown]
-# # Sample data processing
-
 # %%
+real_inp = get_aocd_data()
 insert_sample_functions(False, globals())
+real_inp = get_aocd_data()
 part1(real_inp)
-part2(real_inp)
+part2(real_inp) # not 10
