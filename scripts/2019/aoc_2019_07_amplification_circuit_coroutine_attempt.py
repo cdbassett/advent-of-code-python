@@ -19,6 +19,10 @@ from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 from utils.quicklambda import _1, _2
 
+
+# https://adventofcode.com/2019/day/7
+
+
 # doesn't seem to work with generators because each call to send returns the next yield value,
 # and we need to send two values (phase and input) before outputting anything
 # got it working by queueing inputs that we receive when outputting

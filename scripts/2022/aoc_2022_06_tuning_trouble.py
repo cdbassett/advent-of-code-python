@@ -11,6 +11,10 @@ from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
+
+# https://adventofcode.com/2022/day/6
+
+
 def run(inp, is_real):
     ics = nothing if is_real else ic
     print_result = partial(print_result_aoc, is_real)

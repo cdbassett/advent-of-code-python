@@ -23,6 +23,8 @@ import utils.seq_extensions # these extend PyFunctional seq objects, don't need 
 from utils.quicklambda import _1
 
 
+# https://adventofcode.com/2020/day/10
+
 
 @timefunction
 def run(inp, is_real):

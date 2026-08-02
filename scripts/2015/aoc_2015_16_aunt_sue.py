@@ -23,6 +23,10 @@ from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 from mini_lambda import s, _, x
 
+
+# https://adventofcode.com/2015/day/16
+
+
 aunt_attrs = seq("""
 children: 3
 cats: 7

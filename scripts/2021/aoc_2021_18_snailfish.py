@@ -17,6 +17,9 @@ from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 
+# https://adventofcode.com/2021/day/18
+
+
 @dataclass
 class RegNum: # actually used
     v: int

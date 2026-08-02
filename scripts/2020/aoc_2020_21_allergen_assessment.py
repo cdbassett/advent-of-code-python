@@ -23,6 +23,10 @@ import utils.seq_extensions # these extend PyFunctional seq objects, don't need 
 from utils.quicklambda import _1, _2
 from mini_lambda import s, _, x
 
+
+# https://adventofcode.com/2020/day/21
+
+
 icf = ic.format
 
 @timefunction

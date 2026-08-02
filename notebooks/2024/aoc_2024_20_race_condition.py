@@ -1,4 +1,5 @@
 # ---
+
 # jupyter:
 #   jupytext:
 #     formats: ipynb,py:percent
@@ -12,6 +13,9 @@
 #     language: python
 #     name: python3
 # ---
+
+# %% [markdown]
+# [Advent of Code 2024 - Day 20](https://adventofcode.com/2024/day/20)
 
 # %% editable=false
 from utils.aoc_utils import *

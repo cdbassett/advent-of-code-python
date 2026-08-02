@@ -20,6 +20,10 @@ from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
+
+# https://adventofcode.com/2015/day/5
+
+
 @timefunction
 def run(inp1, inp2, is_real):
     insert_sample_functions(is_real, globals())

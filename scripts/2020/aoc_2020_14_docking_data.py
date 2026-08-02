@@ -17,6 +17,9 @@ import utils.seq_extensions # these extend PyFunctional seq objects, don't need 
 from mini_lambda import s, _
 
 
+# https://adventofcode.com/2020/day/14
+
+
 def and_mask(mask):
     return int(mask.replace("X", "1"), base=2)
 

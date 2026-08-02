@@ -1,5 +1,6 @@
 from operator import itemgetter
 # ---
+
 # jupyter:
 #   jupytext:
 #     formats: ipynb,py:percent
@@ -13,6 +14,9 @@ from operator import itemgetter
 #     language: python
 #     name: python3
 # ---
+
+# %% [markdown]
+# [Advent of Code 2016 - Day 24](https://adventofcode.com/2016/day/24)
 
 # %% editable=false jupyter={"source_hidden": true}
 from utils.aoc_utils import *

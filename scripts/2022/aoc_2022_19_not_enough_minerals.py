@@ -16,6 +16,10 @@ from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
+
+# https://adventofcode.com/2022/day/19
+
+
 Materials = namedtuple("Materials", "ore,clay,obsidian,geodes")
 Blueprint = namedtuple("Blueprint", "ore_robot_cost,clay_robot_cost,obsidian_robot_cost,geode_robot_cost,max_costs,index")
 

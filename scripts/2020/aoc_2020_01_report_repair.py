@@ -18,6 +18,9 @@ from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 
+# https://adventofcode.com/2020/day/1
+
+
 @timefunction
 def run(inp, is_real):
     ics = nothing if is_real else ic

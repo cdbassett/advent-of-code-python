@@ -15,6 +15,9 @@ from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 
+# https://adventofcode.com/2021/day/21
+
+
 @dataclass
 class Player:
     name: str

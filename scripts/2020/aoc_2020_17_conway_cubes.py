@@ -23,6 +23,9 @@ import utils.seq_extensions # these extend PyFunctional seq objects, don't need 
 from mini_lambda import s, _
 
 
+# https://adventofcode.com/2020/day/17
+
+
 @timefunction
 def run(inp1, inp2, is_real):
     ics = nothing if is_real else ic

@@ -20,6 +20,9 @@ import utils.seq_extensions # these extend PyFunctional seq objects, don't need 
 from utils.quicklambda import _1, _2
 
 
+# https://adventofcode.com/2015/day/12
+
+
 @timefunction
 def run(inp1, inp2, is_real):
     insert_sample_functions(is_real, globals())

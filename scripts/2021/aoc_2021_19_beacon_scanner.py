@@ -23,6 +23,8 @@ from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 
+# https://adventofcode.com/2021/day/19
+
 
 rotations = scipy.spatial.transform.Rotation.create_group("O").as_matrix().astype(int)
 #ic(rotations)

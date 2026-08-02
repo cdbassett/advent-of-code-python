@@ -21,6 +21,9 @@ import utils.seq_extensions # these extend PyFunctional seq objects, don't need 
 from utils.aoc_2019_intcode import process_intcodes, parse_intcodes
 
 
+# https://adventofcode.com/2019/day/11
+
+
 @timefunction
 def run(inp1, inp2, is_real):
     icsd = nothing if is_real else ic

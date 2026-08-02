@@ -12,6 +12,10 @@ from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
+
+# https://adventofcode.com/2021/day/10
+
+
 open_chars = "([{<"
 open_chars_set = set(open_chars)
 close_chars = ")]}>"

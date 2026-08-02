@@ -16,6 +16,10 @@ from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 from utils.quicklambda import _1, _2
 
+
+# https://adventofcode.com/2020/day/20
+
+
 icf = ic.format
 
 

@@ -21,6 +21,10 @@ from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 from utils.quicklambda import _1, _2
 
+
+# https://adventofcode.com/2015/day/21
+
+
 shop = """
 Weapons:    Cost  Damage  Armor
 Dagger        8     4       0

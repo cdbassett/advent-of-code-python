@@ -33,6 +33,10 @@ def run(inp1, inp2, is_real):
 
     import hashlib
 
+
+# https://adventofcode.com/2015/day/4
+
+
     ics(hashlib.md5("abcdef609043".encode()).hexdigest())
     ics(len(hashlib.md5("abcdef609043".encode()).hexdigest()))
 

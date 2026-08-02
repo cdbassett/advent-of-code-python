@@ -1,4 +1,5 @@
 # ---
+
 # jupyter:
 #   jupytext:
 #     formats: ipynb,py:percent
@@ -12,6 +13,9 @@
 #     language: python
 #     name: python3
 # ---
+
+# %% [markdown]
+# [Advent of Code 2025 - Day 3](https://adventofcode.com/2025/day/3)
 
 # %% editable=false jupyter={"source_hidden": true}
 from utils.aoc_utils import *

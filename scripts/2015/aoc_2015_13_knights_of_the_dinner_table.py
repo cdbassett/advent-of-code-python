@@ -23,6 +23,7 @@ import utils.seq_extensions # these extend PyFunctional seq objects, don't need 
 from mini_lambda import s, _, x
 
 
+# https://adventofcode.com/2015/day/13
 
 
 @timefunction

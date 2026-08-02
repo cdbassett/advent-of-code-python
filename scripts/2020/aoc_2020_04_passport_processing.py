@@ -16,6 +16,10 @@ from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 from utils.quicklambda import _1
 
+
+# https://adventofcode.com/2020/day/4
+
+
 required_fields = "ecl pid eyr hcl byr iyr hgt".split()
 required_keys = set(required_fields)
 Passport = namedtuple('Passport', required_fields)

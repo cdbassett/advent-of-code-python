@@ -17,6 +17,10 @@ from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
+
+# https://adventofcode.com/2022/day/16
+
+
 Valve = namedtuple("Valve", "key,rate,conns")
 
 def to_num(a):

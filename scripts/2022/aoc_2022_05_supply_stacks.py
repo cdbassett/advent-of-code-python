@@ -12,6 +12,9 @@ from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 
+# https://adventofcode.com/2022/day/5
+
+
 def main(inp, is_real):
     insert_sample_functions(is_real, globals())
     print_preface(is_real)

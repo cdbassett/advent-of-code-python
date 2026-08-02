@@ -17,6 +17,9 @@ from utils.utilities import *
 import utils.seq_extensions # these extend PyFunctional seq objects, don't need to directly use anything in it
 
 
+# https://adventofcode.com/2019/day/4
+
+
 # accidentally overwrote solution - but it was simple
 # this solves prevoius day's problem
 

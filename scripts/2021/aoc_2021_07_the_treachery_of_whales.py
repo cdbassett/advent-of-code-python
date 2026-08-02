@@ -10,6 +10,9 @@ from utils.aoc_utils import * # this includes adding c:\ut to sys.path
 from utils.utilities import *
 
 
+# https://adventofcode.com/2021/day/7
+
+
 def run(inp, is_real):
     insert_sample_functions(is_real, globals())
     print_preface(is_real)
