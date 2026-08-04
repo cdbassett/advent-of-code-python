@@ -23,7 +23,8 @@ import utils.seq_extensions # these extend PyFunctional seq objects, don't need 
 
 
 rotations = scipy.spatial.transform.Rotation.create_group("O").as_matrix().astype(int)
-#ic(rotations)
+# ic(rotations)
+ic(len(rotations))
 print("Generated {} rotation matrices".format(len(rotations)))
 
 
@@ -47,14 +48,9 @@ class ScannerData:
     by_dist: dict
     index: int
     location: tuple = (0,0,0)
-#    linked: object = None
-#    shared: list = field(default_factory=list)
-
 
 
 def Scanner(n, beacons):
-#    return ScannerTuple(beacons, by_dist)
-#    return ScannerTuple(np.array(beacons).transpose(), by_dist, n)
     beacons = np.array(beacons).T
     by_dist = build_by_dist(beacons)
     return ScannerData(beacons, by_dist, n)
@@ -65,63 +61,52 @@ def get_beacons_by_dist(base_scanner, scanner):
     return base_beacons
 
 def beacons_tuples(beacons):
-#    return sorted(seq(beacons.transpose()).map(tuple))
     return seq(beacons.T).map(tuple)
 
 def beacons_tuples_sorted(beacons):
-#    return sorted(seq(beacons.transpose()).map(tuple))
     return sorted(seq(beacons.T).map(tuple))
 
-
-
 def get_rotation_and_translation(base_beacons, scanner_beacons):
-#    for scanner_beacon, base_beacon in product(scanner_beacons, base_beacons):
-#        for rot in rotations:
-#            pass
     # each beacon should be in each list, so we should be able to grab any beacon, try a rotation, determine translation between it and one base beacon at a time,
     # then apply that rotation and translation to every other beacon and they will all match
-
-    # when dealing with and individual point, we have to reshape to be like list of beacons (3, 1)
-    test_scanner_beacon, other_scanner_beacons = scanner_beacons.T[0].reshape(3, 1), scanner_beacons.T[1:].T
-#    ic(test_scanner_beacon)
     base_beacons_set = set(beacons_tuples(base_beacons))
-#    ic(base_beacons_set)
 
-    for rot in rotations:
-#        ic(rot)
-        rotated_test_beacon = (rot @ test_scanner_beacon).reshape(3, 1)
-#        ic(rotated_test_beacon)
+    for test_scanner_beacon in scanner_beacons.T:
+            # when dealing with an individual point, we have to reshape to be like list of beacons (3, 1)
+        test_scanner_beacon = test_scanner_beacon.reshape(3, 1)
+    #    ic(test_scanner_beacon)
+    #    ic(base_beacons_set)
 
-        for base_beacon in base_beacons.T:
-            base_beacon = base_beacon.reshape(3, 1)
-#            translation = (rotated_test_beacon - base_beacon).reshape(3, 1)
-#            ic(base_beacon)
-            translation = base_beacon - rotated_test_beacon
-#            ic(translation.shape)
-#            ic(translation)
-#            ic(translation.T)
-            translated_scanner_beacons = set(beacons_tuples(rot @ scanner_beacons + translation))
-#            ic(tuple(base_beacon.T))
-#            ic(tuple((rotated_test_beacon + translation).T))
-#            ic(tuple((rotated_test_beacon + translation)))
-            assert ((rotated_test_beacon + translation) == base_beacon).all()
-#            assert tuple(base_beacon) in translated_scanner_beacons
+        for rot in rotations:
+    #        ic(rot)
+            rotated_test_beacon = (rot @ test_scanner_beacon).reshape(3, 1)
+    #        ic(rotated_test_beacon)
 
-#            if translated_scanner_beacons == base_beacons_set:
-            if len(translated_scanner_beacons.intersection(base_beacons_set)) >= 12:
-                return rot, translation
+            for base_beacon in base_beacons.T:
+                base_beacon = base_beacon.reshape(3, 1)
+    #            ic(base_beacon)
+                translation = base_beacon - rotated_test_beacon
+                assert ((rotated_test_beacon + translation) == base_beacon).all()
+    #            ic(translation.shape)
+    #            ic(translation)
+    #            ic(translation.T)
+                translated_scanner_beacons = tuple(beacons_tuples(rot @ scanner_beacons + translation))
+    #            ic(tuple(base_beacon.T))
+    #            ic(tuple((rotated_test_beacon + translation).T))
+    #            ic(tuple((rotated_test_beacon + translation)))
 
-    assert False, "Couldn't find rotation and translation"
+                if len(base_beacons_set.intersection(translated_scanner_beacons)) >= 12:
+                    return rot, translation
 
+    return None, None
+    # assert False, "Couldn't find rotation and translation"
 
 
 @timefunction
 def run(inp, is_real):
     insert_sample_functions(is_real, globals())
     inp = inp.strip().split('\n')
-
     scanner_chunks = list(split_iterable(inp, ""))
-#    scanners = [Scanner(n, [arithtuple(map(int, line.split(","))) for line in scanner_chunk[1:]]) for n, scanner_chunk in enumerate(scanner_chunks)]
     scanners = [Scanner(n, [tuple(map(int, line.split(","))) for line in scanner_chunk[1:]]) for n, scanner_chunk in enumerate(scanner_chunks)]
 #    ics(scanners[:2])
     base_scanners, other_scanners = scanners[0:1], scanners[1:]
@@ -141,35 +126,35 @@ def run(inp, is_real):
                 distances = sorted(dist for dist in base_scanner_keys if dist in scanner.by_dist)
                 beacon_count = len(distances)
 
+                    # If two scanners detect 12 identical beacons in common, the pairwise Euclidean distances between those 12 beacons (12 × 11 / 2 = 66) will match regardless of the scanners' rotations or orientations.
                 if beacon_count >= 66:
-                    print(f"    scanner {scanner.index} shares {beacon_count} beacons with {base_scanner.index}")
+                    print(f"    scanner {scanner.index} potentially shares {beacon_count} beacons with {base_scanner.index}")
                     new_base_scanners.append(scanner)
-#                    scanner.linked = base_scanner
-#                    scanner.shared = distances
                     base_beacons = get_beacons_by_dist(base_scanner, scanner)
 #                    ics(beacons_tuples_sorted(base_beacons))
                     scanner_beacons = get_beacons_by_dist(scanner, base_scanner)
 #                    ics(beacons_tuples_sorted(scanner_beacons))
                     R, t = get_rotation_and_translation(base_beacons, scanner_beacons)
-#                    ics(R, t, t.shape)
-#                    ics(tuple(t.T[0]))
-                    scanner.beacons = R @ scanner.beacons + t
-                    scanner.by_dist = build_by_dist(scanner.beacons)
-                    scanner.location = subtract_tuple((0,0,0), t.T[0])
-#                    ics(beacons_tuples_sorted(scanner.beacons))
+
+                    if R is not None:
+    #                    ics(R, t, t.shape)
+    #                    ics(tuple(t.T[0]))
+                        scanner.beacons = R @ scanner.beacons + t
+                        scanner.by_dist = build_by_dist(scanner.beacons)
+                        scanner.location = subtract_tuple((0,0,0), t.T[0])
+    #                    ics(beacons_tuples_sorted(scanner.beacons))
+                    else:   
+                        remaining_other_scanners.append(scanner)
                 else:
 #                    print(f"    scanner {scanner.index} doesn't share beacons with {base_scanner.index}")
-#                    print(f"scanner {n} doesn't share beacons with base scanner")
                     remaining_other_scanners.append(scanner)
 
             other_scanners = remaining_other_scanners
-#        break
+
     unique_beacons = sorted(sets_union(seq(s.beacons.transpose()).map(tuple) for s in scanners))
 #    ics(unique_beacons)
 
-    """
-    """
-
+    
     @timefunction
     def part1():
         result = len(unique_beacons)
@@ -179,20 +164,17 @@ def run(inp, is_real):
         print_result(result)
 
 
-
     @timefunction
     def part2():
-#        result = max(manhattan(p1, p2) for p1, p2 in combinations(unique_beacons, 2))
         result = int(max(manhattan(s1.location, s2.location) for s1, s2 in combinations(scanners, 2)))
         print_result(result)
 
-#    ics(manhattan((1105,-1205,1229), (-92,-2380,-20)))
 
-    part1()
+    part1() # not 462. 552 is too high
     part2()
 
 def main():
-    if 0: # samples from aocd don't work yet, replaced from hardcoded to put on github
+    if 1: # samples from aocd don't work yet, replaced from hardcoded to put on github
         example = get_aocd_example()
         samp_inps = split_example(example)
 

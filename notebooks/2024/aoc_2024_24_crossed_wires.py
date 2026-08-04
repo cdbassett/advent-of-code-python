@@ -57,33 +57,25 @@ if "example" not in dir() or not example:
 # ic(example)    
 
 # %%
-sample_data1s = split_example(example)
-sample_data2 = """x00: 0
-x01: 1
-x02: 0
-x03: 1
-x04: 0
-x05: 1
-y00: 0
-y01: 0
-y02: 1
-y03: 1
-y04: 0
-y05: 1
-
-x00 AND y00 -> z05
-x01 AND y01 -> z02
-x02 AND y02 -> z01
-x03 AND y03 -> z03
-x04 AND y04 -> z04
-x05 AND y05 -> z00"""
+*sample_data1s, sample_data2 = split_example(example)
 
 # %% [markdown]
 # # Parse
 
 # %%
 Wire = namedtuple("Wire","name,val")
-Gate = namedtuple("Gate","a,b,op,out")
+Gate = namedtuple("Gate","a,b,op,out,aval,bval,inp_lvl")
+re_wire_val = re.compile(r"-?\d+")
+
+def gate_repr(g):
+    # return f"{g.out}={g.a} ({g.aval}) {g.op} {g.b} ({g.bval})"
+    return f"{g.out}={g.a} {g.op} {g.b} {g.inp_lvl}"
+
+def wire_val(wire):
+    if (m := re_wire_val.search(wire)):    
+        return int(m.group(0))
+    
+    return None
 
 def parse_line1(line):
     parts = line.split(": ")
@@ -91,7 +83,9 @@ def parse_line1(line):
 
 def parse_line2(line):
     a, op, b, _, out = line.split()
-    return Gate(a,b,op,out)
+    a, b = sorted((a, b)) # this make analysize easier on input wires
+    va, vb = wire_val(a), wire_val(b)
+    return Gate(a, b, op, out, va, vb, va or vb)
 
 def parse_data(inp):
     parts = inp.strip().split("\n\n")
@@ -143,171 +137,294 @@ def part1(inp):
 # # Process2
 
 # %%
+step = namedtuple("Step","name,op,sub")
+bad_wire = namedtuple("BadWire","op,exp_op,lvl,il")
+
+def out_wire(n):
+    return f"z{n:0>2d}"
+
 # looking at data, it appears that any gate with an original input wire has both inputs as original inputs
 # different inputs have different depths to resolution
 # determine which bit are wrong
 # theory: each output zn should only be affected by inputs yn and xn where xn <= zn and yn <= zn
-#     every output's first gate is XOR
+#     every output's first gate is XOR (except last which is cary and thus OR)
 # z09 z21, and z45 are wrong
-# each putput is 
-def gate_repr(g):
-    return f"{g.out}={g.a} {g.op} {g.b}"
-    
+# actually, highest should be an OR from the carry
+# each output is 
+
+# 1 bit full adder:
+# Sum = A XOR B XOR Cin
+# Cout = A AND B OR (Cin AND (A XOR B))
+
+progression = {
+    "sumx": ("XOR", "carry", 0, "xori", 0),
+    "carry": ("OR", "andi", -1, "andcx", -1),
+    "andi": ("AND", "inp", 0, "inp", 0),
+    "andcx": ("AND", "xori", 0, "carry", 0),
+    "xori": ("XOR", "inp", 0, "inp", 0),
+    "z1": ("XOR", "andi", -1, "xori", 0),
+    "z2": ("AND", "andi", 0, "xori", 0),
+}
+
+ic_null = lambda *a: None if not a else (a[0] if len(a) == 1 else a)
+
+    # 8 wires bad, 4 pairs to swap
 def process2(parsed, oper=operator.add):
+        # special cases: first has no carry, last only has carry
+    def validate(gates_by_out, just_check):
+        validated = set()            
+        bad_wires = dict()  
+        icd = ic_null if just_check else ic
+        # icd = ic
+        # icd(validate)
+
+            #check the next level
+        def probe(out, lvl, prog_key, disp=False):
+            op, inpa, alc, inpb, blc = progression[prog_key]
+            g = gates_by_out[out]
+            gr = gate_repr(g)
+
+            if op != g.op:
+                if disp: icd("  probe wrong op", op, gr)
+                return False
+
+            if inpa == inpb == "inp": # both are first level inputs
+                if g.a not in in_wires and g.b not in in_wires:
+                    if disp: icd("  probe wires not inputs", gr)
+                    return False
+            else:
+                if g.a in in_wires and g.b in in_wires:
+                    if disp: icd("  probe wires both inputs", gr)
+                    return False
+                
+            return True
+
+        def expected_op(prog_key):        
+            op, inpa, alc, inpb, blc = progression[prog_key]
+            return op
+
+        def val_recur(out, lvl, prog_key, last_prog = None):
+            if out in validated:
+                return True
+
+                # special gates for the beginning to account for no carry input for z0
+            if lvl == 1:
+                if prog_key == "sumx":
+                    # icd("switched validate 1", out, gate_repr(gates_by_out[out]))
+                    prog_key = "z1"
+                elif prog_key == 'andcx':
+                    # icd("switched validate 2", out, gate_repr(gates_by_out[out]))
+                    prog_key = "z2"
+            
+            op, inpa, alc, inpb, blc = progression[prog_key]
+            g = gates_by_out[out]
+            gr = gate_repr(g)
+            aop = (t := gates_by_out.get(g.a)) and t.op # will be none if input
+            bop = (t := gates_by_out.get(g.b)) and t.op
+
+            if op != g.op:
+                icd("unexpected op", op, gr, prog_key, lvl, last_prog)                    
+                bad_wires[out] = bad_wire(g.op, op, lvl, g.inp_lvl)
+                return False
+
+            if inpa == inpb == "inp": # both are first level inputs
+                if not g.a in in_wires and not g.b in in_wires:
+                    bad_wires[out] = bad_wire(",".join((g.a, g.b)), "inp", lvl, g.inp_lvl)
+                    icd("double not in", gr, lvl)
+                    if just_check: return False
+
+                if g.a not in in_wires:
+                    bad_wires[g.a] = bad_wire(aop, "inp", lvl, g.inp_lvl)
+                    icd("not in", gr.a, gr, lvl)
+                    if just_check: return False
+                
+                if g.b not in in_wires:
+                    bad_wires[g.b] = bad_wire(bop, "inp", lvl, g.inp_lvl)
+                    icd("not in", gr.b, gr, lvl)
+                    if just_check: return False
+
+                assert g.inp_lvl is not None
+
+                if g.inp_lvl != lvl:
+                    icd("wrong in level", gr, lvl, op, prog_key, last_prog)
+                    if just_check: return False
+            else:
+                if g.a in in_wires and g.b in in_wires:
+                    bad_wires[out] = bad_wire("inp", ",".join((g.a, g.b)), lvl, g.inp_lvl)
+                    icd("double in", inpa, inpb, gr, lvl)
+                    if just_check: return False
+                elif inpa == "inp" or inpb == "inp":
+                    raise Exception("shouldn't have only single projected input!")
+                else:
+                        # check for swapped
+                    if probe(g.b, lvl, inpa) and probe(g.a, lvl, inpb):
+                        inpa, inpb = inpb, inpa
+
+                    aa = probe(g.a, lvl, inpa)
+                    bb = probe(g.b, lvl, inpb)
+
+                    if aa or bb:
+                        res = val_recur(g.a, lvl + alc, inpa, prog_key)
+                        if just_check and not res: return False
+                        res = val_recur(g.b, lvl + blc, inpb, prog_key)
+                        if just_check and not res: return False
+                    else:
+                        # if we get here one or both sub-ops don't match
+                        if aa or (ab := probe(g.a, lvl, inpb)):
+                            inp = inpb if aa else inpa
+                            # probe(g.b, lvl, inp, True)
+                            eop = expected_op(inp)
+                            bad_wires[g.b] = bad_wire(bop, eop, lvl, g.inp_lvl)
+                            icd("bad next op", g.b, op, bop, eop, gr, prog_key, lvl, last_prog)
+                            if just_check: return False
+                        elif bb or probe(g.b, lvl, inpa):
+                            inp = inpa if bb else inpb
+                            # probe(g.a, lvl, inp, True)
+                            eop = expected_op(inp)
+                            bad_wires[g.a] = bad_wire(aop, eop, lvl, g.inp_lvl)
+                            icd("bad next op", g.a, op, aop, eop, gr, prog_key, lvl, last_prog)
+                            if just_check: return False
+                        else: # neither one matched either
+                            icd("both bad", inpa, inpb, gr, lvl)
+                            bad_wires[out] = bad_wire(g.op, op, lvl, g.inp_lvl)
+                            if just_check: return False
+
+            validated.add(out)
+            return True
+
+        for n in range(1, out_wire_count-1):
+            res = val_recur(out_wire(n), n, "sumx")
+            if just_check and not res: return False
+
+        res = val_recur(out_wire(0), 0, "xori") # first output includes no carry
+        if just_check and not res: return False
+        res = val_recur(last_wire, out_wire_count-1, "carry") # last output is only carry
+        if just_check and not res: return False
+        return True if just_check else bad_wires            
+
+
     wires, gates = parsed
     ic(len(gates))
-    gates_dict = dict((g.out, g) for g in gates)
+    gates_by_out = dict((g.out, g) for g in gates)
+    gates_by_in = defaultdict(set)
+
+    for g in gates:
+         gates_by_in[g.a].add(g)
+         gates_by_in[g.b].add(g)
+
+        # input wires start with x or y, output wires with z
     out_wires = sorted(g.out for g in gates if g.out.startswith("z"))
-    wire_count = len(out_wires)
-    ics(out_wires)
-    max_val = 1 << wire_count
-    ic(wire_count, max_val)
+    in_wires = set(wire.name for wire in wires)
+    out_wire_count = len(out_wires)
+    last_wire = out_wire(out_wire_count-1)
+    max_val = 1 << out_wire_count
+    ic(out_wire_count, max_val)
+    bad_wires = validate(gates_by_out, False)
+    ic(len(bad_wires), bad_wires)
+
+    def collect_need(op):
+        return list(i[0] for i in bad_wires.items() if i[1].exp_op==op)
+
+    def collect_have(op):
+        return list(i[0] for i in bad_wires.items() if i[1].op==op)
+
+    need_xor_wires = collect_need("XOR")
+    need_and_wires = collect_need("AND")
+    need_or_wires = collect_need("OR")
+    have_xor_wires = collect_have("XOR")
+    have_and_wires = collect_have("AND")
+    have_or_wires = collect_have("OR")
+    ic(need_xor_wires, have_xor_wires)
+    ic(need_and_wires, have_and_wires)
+    ic(need_or_wires, have_or_wires)
+
+    def validate_with_swaps(swaps):
+        test_gates = gates_by_out.copy()
+
+        for a, b in swaps:
+            test_gates[a] = gates_by_out[b]
+            test_gates[b] = gates_by_out[a]
+
+        return validate(test_gates, True)
+
+    def do_swap_tests():
+        # cnter = iter(count())
+        
+        for xor_permutations in itertools.permutations(need_xor_wires):
+            test_xors = tuple(zip(have_xor_wires, xor_permutations))
+
+            for and_permutations in itertools.permutations(need_and_wires):
+                test_and = tuple(zip(have_and_wires, and_permutations))
+
+                for or_permutations in itertools.permutations(need_or_wires):
+                    test_ors = tuple(zip(have_or_wires, or_permutations))
+
+                    swap_wires = test_xors + test_and + test_ors
+
+                    # if (n := next(cnter)) < 5:
+                    #     ic(swap_wires)
+
+                    if validate_with_swaps(swap_wires):  
+                        return swap_wires
+                
+    result = do_swap_tests()
+    ic(result)
+
+    if result:
+        return ",".join(sorted(bad_wires))
 
     if 0: # analysis
-        def get_conn(out):
-            g = gates_dict.get(out)
+        in_gates = set()
+        for w in wires:
+            in_gates.update(gates_by_in[w.name])
+        ic(sorted(in_gates)[:3])
+        # def get_good_bad_gates(out):
+
+        def get_conn_out(out, depth=1000):
+            g = gates_by_out.get(out)
     
-            if not g:
+            if not g or not depth:
                 return [out]
             #return f"{out}={get_conn(g.a)} {g.op} {get_conn(g.b)}"
-            return [gate_repr(g), get_conn(g.a), get_conn(g.b)]
+            # return gate_repr(g)
+            return [gate_repr(g), get_conn_out(g.a, depth-1), get_conn_out(g.b, depth-1)]
+            #  return [gate_repr(g), get_conn(g.a), get_conn(g.b)]
+
+        def get_conn_in(in_, depth=1000):
+            in_gates = gates_by_in.get(in_)
+    
+            if not in_gates or not depth:
+                return [in_]
+            #return f"{out}={get_conn(g.a)} {g.op} {get_conn(g.b)}"
+            # return gate_repr(g)
+            return [(gate_repr(g), get_conn_in(g.out, depth-1)) for g in in_gates]
+            # return [(gate_repr(g := gates_by_out[gi]), get_conn_in(g.out)) for gi in in_gates]
+            #  return [gate_repr(g), get_conn(g.a), get_conn(g.b)]
             
-        connections = []
+        ic(get_conn_out("z00"))
+        ic(get_conn_out("z01"))
+        ic(get_conn_out("z02"))
+        ic(get_conn_out("z03"))
+        # ic(get_conn_out("z12", 4))
+        # ic(get_conn_out("z13", 4))
+        # ic(get_conn_out("z14", 4))
+        ic(get_conn_out(out_wire(out_wire_count-2), 5))
+        ic(get_conn_out(last_wire, 5))
+        # ic(get_conn_out("z02"))
+        # ic(get_conn_in("y44"))
+        # ic(get_conn_in("y43"))
+        # ic(get_conn_in("x44"))
+        # ic(get_conn_in("x01"))
 
-        for out_wire in out_wires:   
-            connections.append(get_conn(out_wire))
-        
-        ic(connections)
-        
-    def value(wire_values, wire):
-        v = wire_values.get(wire)
-        
-        if v is None:
-            g = gates_dict[wire]
-            v = ops[g.op](value(wire_values, g.a), value(wire_values, g.b))
-        return v            
+        if 0:
+            connections = []
 
-    def val_to_wire_vals(val, prefix):
-        return dict((f"{prefix}{n:02}", (val >> n) & 1) for n in range(wire_count))
-
-    def final_value(x_val, y_val):
-        wire_values = val_to_wire_vals(x_val, "x")
-        wire_values.update(val_to_wire_vals(y_val, "y"))
-        pv = partial(value, wire_values)
-        return int(sjoin(str(pv(w)) for w in out_wires), 2)
-                    
-
-    def gate_is_input(g):
-        return g.a[0] in "xy" or g.b[0] in "xy"
-        
-
-    if 0:
-        for n in range(10):
-            x, y = random.randint(0, max_val), random.randint(0, max_val)
-            ics(x, y, final_value(x, y), oper(x, y)) 
-
-    if 0:
-        wrong_bits = set()
-        wrong_bits_set = 0
-        wrong_bits_clear = 0
-        
-        for n in range(100):
-            x, y = random.randint(0, max_val), random.randint(0, max_val)
-            expected = oper(x, y)
-            actual = final_value(x, y)
-            ics(x, y, expected, actual) 
-            #num.bit_count()
-            wrong_bits_set |= (expected ^ actual)
-        
-        #num.bit_count()
-        ic(bin(wrong_bits_set))
-
-    #ic(list((out, gates_dict[out].op) for out in out_wires))
-    #ic(list(gate_repr(gates_dict[out]) for out in out_wires))
-    #ic(list(gate_repr(gates_dict[out]) for out in out_wires if gates_dict[out].op != "XOR"))
-    #ic(list(gate_repr(g) for g in gates if (g.a[0] in "xy" or g.b[0] in "xy") and g.op == "XOR"))
-    right_entry_gates = set(out for out in out_wires if gates_dict[out].op == "XOR")
-    #wrong_entry_gates = list(gates_dict[out] for out in out_wires if gates_dict[out].op != "XOR")
-    wrong_entry_gates = list(gates_dict[out] for out in out_wires if out not in right_entry_gates)
-    ic(map_list(gate_repr, wrong_entry_gates))
-    xor_gates = list(g for g in gates if g.op == "XOR" and g.out not in right_entry_gates)
-    #ic(len(xor_gates), xor_gates)
-    #reduced_xor_gates = list(g for g in xor_gates if not gate_is_input(g)) 
-    #ic(len(reduced_xor_gates), reduced_xor_gates)
-
-    if 0:
-        possibles = []
-    
-        for chk_gates in permutations(xor_gates, 4):
-            old_gates_dict = gates_dict
-            gates_dict = dict(gates_dict)
-    
-            for gb, gn in zip(wrong_entry_gates, chk_gates):
-                gates_dict[gb.out], gates_dict[gn.out] = gates_dict[gn.out], gates_dict[gb.out]
-    
-            try:
-                if all(oper(x, y) == final_value(x, y) for x, y in product((0, max_val-1), repeat = 2)):
-                    possibles.append(gb, gn)
-                    ic(possibles)
-            except RecursionError:
-                pass
-        
-            gates_dict = old_gates_dict
-    
-        ic(possibles)
-
-
-    def validate(g, n):
-        a, b = gates_dict[g.a], gates_dict[g.b]
-
-        #     every output's first gate is XOR
-        def cond1(a, b):
-            return gate_is_input(a) and a.op == "XOR" and b.op == "OR" and not gate_is_input(b)
-        
-        if not ((f:=cond1(a, b)) or (s:=cond1(b, a))):
-            ic(n, "Expected XOR of input and OR of non-input", gate_repr(g), gate_repr(a), gate_repr(b))
-            return
-
-        c = b if f else a
-        assert c.op == "OR"
-        d, e = gates_dict[c.a], gates_dict[c.b]
-        
-        def cond2(a, b):
-            return gate_is_input(a) and a.op == "AND" and not gate_is_input(b) and b.op == "AND"
+            for wire in out_wires:   
+                connections.append(get_conn_out(wire, 1))
             
-        if not ((f:=cond2(d, e)) or (s:=cond2(e, d))):
-            ic(n-1, "Expected AND of input and AND of non-input", gate_repr(c), gate_repr(d), gate_repr(e))
-            return
-
-        return
-        h = e if f else d
-        assert h.op == "AND"
-        i, j = gates_dict[h.a], gates_dict[h.b]
+            ic(connections)
         
-        def cond3(a, b):
-            return gate_is_input(a) and a.op == "XOR" and b.op == "OR"
-            
-        if not ((f:=cond3(i, j)) or (s:=cond3(i, j))):
-            ic(n-2, "Expected XOR of input and OR", gate_repr(c), gate_repr(d), gate_repr(e))
-            return
 
-    
-
-    def swap(a, b):
-        gates_dict[a], gates_dict[b] = gates_dict[b], gates_dict[a]
-    # TODO: this was for a specific input, need to generalize
-    swap("z39", "jct")
-    swap("z21", "rcb")
-    swap("z09", "gwh")
-    swap("wbw", "wgb")
-    
-    for n, out in enumerate(out_wires[3:], 3):
-        g = gates_dict[out]
-
-        if g.op == "XOR":
-            validate(g, n)
-    
-    return ",".join(sorted(["z39", "jct", "z21", "rcb", "z09", "gwh","wbw", "wgb"])) # right answer
 
 
 # %%
