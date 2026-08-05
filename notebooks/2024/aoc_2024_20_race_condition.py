@@ -88,6 +88,9 @@ def parse_data(inp):
 #         
 
 # %%
+
+
+
 def setup(parsed):
     W, H = width_height(parsed)
     start_pos = first(get_char_coords(parsed, "S"))
@@ -108,7 +111,7 @@ def process(parsed, min_skip=100):
         return path_length - cost_so_far[end_pos]
     
     def neighbors(p, *skip):
-        return [pn for movement in movements if (pn := add_tuple(p, movement)) not in skip]
+        return [pn for movement in movements if (pn := add_tuple2(p, movement)) not in skip]
     
     start_pos, end_pos, grid, inner_walls, came_from, path, point_indices = setup(parsed)
     walls = grid.walls
@@ -150,11 +153,11 @@ def process2(parsed, min_skip=100):
     e_path = list(enumerate(path))
     counts_by_skip = defaultdict(set)
 
-    # approximately same tiem either way, thinks it's slow bc tuples isntead of compelx
+    # approximately same time either way, think it's slow bc tuples isntead of complex
     if 1:
         for n1, p1 in e_path:
             for n2, p2 in e_path[n1 + min_skip + 1:]:
-                if (md := manhattan(p1, p2)) <= 20 and (skip := n2 - n1 - md) >= min_skip:
+                if (md := manhattan2(p1, p2)) <= 20 and (skip := n2 - n1 - md) >= min_skip:
                     counts_by_skip[skip].add((p1, p2))
     else:
         for n1, p1 in e_path:
@@ -180,11 +183,8 @@ def part2(inp, min_skip=100):
 
 # %%
 insert_sample_functions(False, globals())
-
-for sample_data1 in sample_data1s:
-    part1(sample_data1, min_skip=1)
-
-part2(sample_data2, min_skip=50)
+part1(sample_data1, min_skip=1) # sample is 44
+part2(sample_data2, min_skip=50) # sample is 285
 
 # %% [markdown]
 # # Actual data
@@ -193,4 +193,4 @@ part2(sample_data2, min_skip=50)
 real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 part1(real_inp)
-part2(real_inp) # 982425
+part2(real_inp)

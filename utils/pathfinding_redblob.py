@@ -649,6 +649,52 @@ def breadth_first_search_all_paths(graph: Graph, start: Location, goal: Location
     return final_paths # start is included
 
 # =======================================================
+# if goal is provided, all paths returned end at goal
+# otherwise all paths to anywhere are returned, ending when there are no more neighbors
+# TODO: may be able to implement with just custom goal function
+def breadth_first_search_all_paths_gen(graph: Graph, start: Location, goal: Location, is_goal = None, check_visited = None, callback_step: int=1, callback=None):
+    #ic("breadth_first_search_all_paths", start, goal)
+    frontier = Queue()
+    frontier.put((start, [start]))
+    final_paths = []
+    current: Location
+    iterations = 0
+    is_goal = is_goal or (lambda c, _, g: c == g) # can't use standard is_goal from base class of Graph as we're usign different params
+    #is_goal = is_goal or getattr(graph, "is_goal", None) or (lambda c, g, _: c == g)
+    check_visited = check_visited or (lambda next, path_set: next in path_set)
+#    ic(goal)
+
+    while not frontier.empty():
+        iterations += 1
+        current, path = frontier.get()
+
+        if (goal_res := is_goal(current, path, goal)) == GOAL_RES_SKIP:
+            continue
+        elif goal_res:
+            #ic("Reached goal", current, goal)
+            yield tuple(path)
+
+        neighbors = list(graph.neighbors(current, None))
+
+        if callback and not (iterations % callback_step):
+            if callback(SearchCallBackInfo(None, None, current, iterations, len(frontier.elements), neighbors, path)):
+                break
+
+        if neighbors:
+            path_set = set(path) if len(path) > 4 else path
+
+        neighbors = list(next for next in neighbors if not check_visited(next, path_set))
+
+        if not neighbors and not goal:
+#            ic("appending")
+            yield tuple(path)
+
+        for next in neighbors:
+            frontier.put((next, path + [next]))
+
+
+
+# =======================================================
 
 
 def breadth_first_search_multi_goals(graph: Graph, start: Location, goals: set[Location], first_reach_of_goals_only=False):

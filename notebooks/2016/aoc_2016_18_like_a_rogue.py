@@ -80,8 +80,13 @@ def calc_char(s):
     return "^" if sjoin(s) in trap_strings else "."
 
 def calc_row(in_row):
-    #return in_row
-    return seq(list("."+in_row+".")).sliding(3).map(calc_char).make_string("")
+    if 0:
+        # unfortunately the clearer seq method took 9 times as long
+        return seq(list("."+in_row+".")).sliding(3).map(calc_char).make_string("")
+    else:
+        sequence = "."+in_row+"."
+        return sjoin(map(calc_char, (sequence[i : i + 3] for i in range(len(sequence) - 3 + 1))))
+
 
 def process(parsed, rows):
     ics(parsed)
@@ -104,9 +109,12 @@ def part1(inp, rows):
 # # Process2
 
 # %%
+def count_periods(s):
+    return s.count(".")
+
 def process2(parsed, rows):
     ics(parsed)
-    cnt = seq(it_ut.applyfunc(calc_row, parsed)).pad_front(parsed).take(rows).map(lambda s: s.count(".")).sum()
+    cnt = seq(it_ut.applyfunc(calc_row, parsed)).pad_front(parsed).take(rows).map(count_periods).sum()
     return cnt
 
 def part2(inp, rows):

@@ -123,11 +123,10 @@ def run(inp1, inp2, is_real):
 
 def main():
     example = get_aocd_example()
-    samp_inps = split_example(example)
+    samp_inp1, _, samp_inp2, *_ = split_example(example)
 
-    for n, samp_inp in enumerate(samp_inps, 1):
-        print(f"{Fore.BLUE}{Style.BRIGHT}Sample {n}:{Style.RESET_ALL}")
-        run(samp_inp, samp_inp, False)
+    print(f"{Fore.BLUE}{Style.BRIGHT}Sample:{Style.RESET_ALL}")
+    run(samp_inp1, samp_inp2, False)
 
     if 1:
         print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")

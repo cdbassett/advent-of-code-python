@@ -54,6 +54,7 @@ sample_data1 = sample_data1s[0]
 sample_data2 = sample_data1
 
 # %%
+print("Sample data:")
 print(sample_data1)
 
 
@@ -71,8 +72,8 @@ def parse(inp):
 # %%
 # either hit a cubed rock or top of grid
 def min_y(p, cube_rocks):
-    for y in range(p.y-1, -1, -1):
-        next_p = (p.x, y)
+    for y in range(p[1]-1, -1, -1):
+        next_p = (p[0], y)
 
         if next_p in cube_rocks:
             return y+1
@@ -81,10 +82,15 @@ def min_y(p, cube_rocks):
 
 def move_rock_north(p, cube_rocks, round_rocks):
     earliest_row = min_y(p, cube_rocks)
-    same_column_ys = [p2.y for p2 in round_rocks if p2.x == p.x and p2.y >= earliest_row]
-    min_row = max(same_column_ys)+1 if same_column_ys else earliest_row
+    if 0:
+        same_column_ys = [p2[1] for p2 in round_rocks if p2[0] == p[0] and p2[1] >= earliest_row]
+        min_row = max(same_column_ys)+1 if same_column_ys else earliest_row
+    else:
+        max_y = max((p2[1] for p2 in round_rocks if p2[0] == p[0] and p2[1] >= earliest_row), default = None)
+        min_row = max_y+1 if max_y is not None else earliest_row
+
     #ics(min_row)
-    return Point2D(p.x, min_row)
+    return (p[0], min_row)
 
 def move_round_rocks_north(cube_rocks, round_rocks):
     new_round_positions = set()
@@ -93,32 +99,31 @@ def move_round_rocks_north(cube_rocks, round_rocks):
     for p in sorted(round_rocks, key = itemgetter(1)):
         new_p = move_rock_north(p, cube_rocks, new_round_positions)
         #ics(new_round_positions, new_p)
-        #ics(new_p)
         new_round_positions.add(new_p)
 
     return new_round_positions
 
 def determine_load(parsed, new_round_positions):
     def calc_load(p):
-        return H - p.y
+        return H - p[1]
 
     H = height(parsed)
     return seq(new_round_positions).map(calc_load).sum()
 
 def print_map(cube_rocks, round_rocks):
     #xs, ys = xs_and_ys(cube_rocks)
-    #print(get_vis_map_multiline_str(xs, ys, special_chars=[("O", p.x, p.y) for p in round_rocks]))
+    #print(get_vis_map_multiline_str(xs, ys, special_chars=[("O", p[0], p[1]) for p in round_rocks]))
     xs, ys = xs_and_ys(cube_rocks)
-    (round_rock_min_x, round_rock_max_x), (round_rock_min_y, round_rock_max_y) = get_point_set_bounds(round_rocks)
+    (round_rock_min_x, round_rock_max_x), (round_rock_min_y, round_rock_max_y) = get_xy_bounds(*xs_and_ys(round_rocks))
     min_val = min(min(xs), min(ys), round_rock_min_x, round_rock_min_y)
     max_val = max(max(xs), max(ys), round_rock_max_x, round_rock_max_y)
-    print(get_vis_map_multiline_str(xs, ys, min_val=min_val, max_val=max_val, special_chars=[("O", p.x, p.y) for p in round_rocks]))
+    print(get_vis_map_multiline_str(xs, ys, min_val=min_val, max_val=max_val, special_chars=[("O", p[0], p[1]) for p in round_rocks]))
 
 def process(parsed):
     H = height(parsed)
     W = width(parsed)
     ic(W, H)
-    ics(parsed)
+    # ics(parsed)
     cube_rocks = build_points(parsed)
     round_rocks = build_points(parsed, "O")
     ic(len(cube_rocks), len(round_rocks))
@@ -146,12 +151,10 @@ def hashable(points):
     return tuple(sorted(map(tuple, points)))
 
 def rotate_neg_90(points, W):
-    return [Point2D(W-p.y, W-p.x) for p in points]
-    #return [Point2D(p.y, W-p.x) for p in points]
+    return [(W-p[1], W-p[0]) for p in points]
 
 def rotate_90(points, W):
-    return [Point2D(W-p.y-1, p.x) for p in points]
-    #return [Point2D(p.y, W-p.x) for p in points]
+    return [(W-p[1]-1, p[0]) for p in points]
 
 def print_cuberock_map(cube_rocks):
     if is_sample:
@@ -271,8 +274,8 @@ def part2(inp):
 
 # %%
 insert_sample_functions(False, globals())
-part1(sample_data1)
-part2(sample_data2)
+part1(sample_data1) # 136
+part2(sample_data2) # 64
 
 # %% [markdown]
 # # Actual data
@@ -281,4 +284,5 @@ part2(sample_data2)
 real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 part1(real_inp)
+# TODO: doubled speed, but still take more than 30 seconds
 part2(real_inp)

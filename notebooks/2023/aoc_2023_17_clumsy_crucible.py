@@ -53,15 +53,7 @@ if "example" not in dir() or not example:
 
 # %%
 sample_data1s = split_example(example)
-sample_data1 = sample_data1s[0]
-sample_data2 = """
-111111111111
-999999999991
-999999999991
-999999999991
-999999999991
-""".strip()
-
+sample_data1, sample_data2 = sample_data1s
 
 # %% [markdown]
 # # Parse
@@ -69,49 +61,6 @@ sample_data2 = """
 # %%
 def parse(inp):
     return inp.strip().split("\n")
-
-
-# %% editable=true slideshow={"slide_type": ""}
-# location is x, y, direction to current (we add dir as part of location because for this puzzle the same coordinates can be reused (crossed))
-if 0:
-    class MaxLengthGrid(pathfinding_redblob.GridWithWeights):
-        def __init__(self, width: int, height: int, max_run: int, min_run: int, goal):
-            super().__init__(width, height)
-            self.max_run = max_run
-            self.min_run = min_run
-            self.goal = goal
-
-        def cost(self, from_node: pathfinding_redblob.GridLocation, to_node: pathfinding_redblob.GridLocation) -> float:
-            return self.weights.get(to_node[:2], 1)
-
-        def neighbors(self, id: pathfinding_redblob.GridLocation, came_from: dict[pathfinding_redblob.Location, Optional[pathfinding_redblob.Location]]) -> Iterator[pathfinding_redblob.GridLocation]:
-            def acceptable(id2: pathfinding_redblob.GridLocation):
-                #ics("acceptable", id, id2)
-                    # max run length, min run length without turning, and no reversal
-                return id2[-1] <= self.max_run and (id2[2] == id[2] or id2[-1] >= self.min_run) and id2[2] != reverse_arrow_lookup[id[2]]
-
-            def gen(x, y, dir, old_dir, consec):
-                return x, y, dir, (1 if old_dir != dir else consec + 1)
-
-            x, y, dir, consec = id
-            neighbors = [gen(xn, yn, dn, dir, consec) for xn, yn, dn in [(x+1, y, ">"), (x-1, y, "<"), (x, y-1, "^"), (x, y+1, "v")] \
-                            # max run length without turning, min run length without turning or stopping, and no reversal
-                         if (dn != dir or consec < self.max_run) # max run length without turning
-                                 # continuing in straight line OR (turning OR stopping) IF have met minimumn
-                             # if stopping or turning, must meet minimum
-#                         and ((xn, yn) != self.goal or dn == dir or consec >= self.min_run) and dn == dir or ( or dn != dir) and consec >= self.min_run) # min run length without turning or stopping
-                             #and ((xn, yn) != self.goal and dn == dir or consec >= self.min_run) # min run length without turning or stopping
-                             #and ((xn, yn) == self.goal and consec-1 >= self.min_run and dn == dir) or dn == dir or consec >= self.min_run) # min run length without turning or stopping
-                             #and (((xn, yn) != self.goal or self.min_run < 2 or dn == dir and consec >= self.min_run-1) and (dn == dir or consec >= self.min_run)) # min run length without turning or stopping
-                             and (((xn, yn) != self.goal or self.min_run < 2 or dn == dir and consec >= self.min_run-1) and (dn == dir or consec >= self.min_run or (xn, yn) == self.goal and consec >= self.min_run-1)) # min run length without turning or stopping
-                             and dn != reverse_arrow_lookup[dir]] # no reversal
-            results = filter(self.in_bounds, neighbors)
-            results = filter(self.passable, results)
-            #results = filter(acceptable, results)
-
-            #ics(id, doors, results)
-            results = list(results)
-            return results
 
 
 # %% [markdown]
@@ -230,9 +179,9 @@ def part2(inp):
 # %%
 insert_sample_functions(False, globals())
 print_preface_notebook()
-part1(sample_data1)
-part2(sample_data1)
-part2(sample_data2)
+part1(sample_data1) # 102
+part2(sample_data1) # 94
+part2(sample_data2) # 71
 
 # %% [markdown]
 # # Actual data

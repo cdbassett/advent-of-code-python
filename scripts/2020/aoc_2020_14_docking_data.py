@@ -3,12 +3,10 @@ from collections import *
 from itertools import *
 from math import *
 from statistics import *
-from builtins import pow
 from utils.timer_utils import timefunction
 
 from functional import seq # https://github.com/EntilZha/PyFunctional
 import iteration_utilities as it_ut # https://pypi.org/project/iteration-utilities/
-import pyperclip
 from icecream import ic
 
 from utils.aoc_utils import * # this includes adding c:\ut to sys.path
@@ -40,14 +38,12 @@ def build_floating_masks(mask):
     return tuple(reversed(x_indexes)), or_mask(mask)
 
 
-
 @timefunction
 def run(inp, is_real):
     ics = nothing if is_real else ic
     print_result = partial(print_result_aoc, is_real)
 
     lines = inp.strip().split('\n')
-#    lines = inp.strip("\n").split('\n')
     splitter = partial(str.split, sep=" = ")
     ic(len(lines))
     instructions = seq(lines).map(splitter).groupby_no_key(_(s[0] =="mask")).grouped(2)
@@ -114,12 +110,14 @@ def run(inp, is_real):
                 for possible_address in possible_addresses(mask, floating_mask, addr):
                     memory[possible_address] = val
 
-#        ics(memory)
         result = sum(memory.values())
         print_result( result)
 
-    part1()
-    part2()
+    part1() # sample is 165
+
+        # aocd example retrieval doesn't work for part 2 for this puzzle.
+    if is_real:
+        part2() 
 
 def main():
     example = get_aocd_example()
@@ -131,7 +129,6 @@ def main():
 
     if 1:
         print(f"{Fore.BLUE}{Style.BRIGHT}Actual:{Style.RESET_ALL}")
-        # needs env var AOC_SESSION
         real_inp = get_aocd_data()
         run(real_inp, True)
 #        aocd.submit(my_answer)

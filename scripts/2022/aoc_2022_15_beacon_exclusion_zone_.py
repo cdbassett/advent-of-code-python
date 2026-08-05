@@ -46,10 +46,10 @@ def run(inp, is_real):
 
     # determine all points at that distance from the sensor
 
-    sensor_beacon_distances = [(sensor, beacon, manhattan(sensor, beacon)) for sensor, beacon in sensor_beacons]
+    sensor_beacon_distances = [(sensor, beacon, manhattan2(sensor, beacon)) for sensor, beacon in sensor_beacons]
 
+    @timefunction
     def part1():
-
         check_y = 2000000 if is_real else 10
         row = [0] * (max_x - min_x + 1)
 
@@ -80,6 +80,7 @@ def run(inp, is_real):
         print_result(result)
 
         # works but takes too much memory (16 trillion elements)
+    @timefunction
     def part2():
         max_mag = 4000000 if is_real else 20
 #        hits = [[0] * (max_mag +1) for n in range(max_mag + 1)]
@@ -106,6 +107,7 @@ def run(inp, is_real):
         print_result(result)
 
 
+    @timefunction
     def part2():
         max_mag = (4000000 if is_real else 20) + 1
 #        hits = [[0] * (max_mag +1) for n in range(max_mag + 1)]

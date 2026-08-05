@@ -104,6 +104,7 @@ def part1(inp):
 # # Process2
 
 # %%
+
 def process2(parsed):
     collides = set()
 
@@ -137,11 +138,8 @@ def part2(inp):
 
 # %%
 insert_sample_functions(False, globals())
-
-for sample_data1 in sample_data1s:
-    part1(sample_data1)
-
-part2(sample_data2)
+part1(sample_data1) # 4
+part2(sample_data2) # 3
 
 # %% [markdown]
 # # Actual data

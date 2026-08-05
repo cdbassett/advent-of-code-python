@@ -147,7 +147,7 @@ def part1(inp):
 from utils.pathfinding_redblob import *
 
 def calc_cost(path, junctions):
-    return seq(path).sliding(2).starmap(lambda a, b: junctions[a][b]).sum()
+    return sum(junctions[a][b] for a, b in pairwise(path))
 
 def process2(parsed):
     def callback(cbi):
@@ -163,6 +163,7 @@ def process2(parsed):
     grid = pathfinding_redblob.SquareGrid(W, H)
     relevant_points = dict(((x, y), c) for x, y in product(range(W), range(H)) if (c := parsed[y][x]) != ".")
     grid.walls = set(p for p, c in relevant_points.items() if c == "#")
+    ic(H*W-len(grid.walls))
     test_walls = [(4,5)]
     test_walls = []
     grid.walls = grid.walls.union(test_walls)
@@ -192,13 +193,50 @@ def process2(parsed):
     ic(len(junction_nodes))
     ics(junction_nodes)
     reduced_grid = ReducedGraph(junction_nodes)
-    final_paths = pathfinding_redblob.breadth_first_search_all_paths(reduced_grid, start, goal, callback_step=100000, callback=callback if is_sample else None)
-    ic(len(final_paths))
-    #ics(final_paths)
-    lengths = [calc_cost(p, junction_nodes) for p in final_paths]
-    ic(len(lengths))
-    ics(lengths)
-    return max(lengths)
+
+    nodes = set(map(itemgetter(0), keep_nodes))
+    nodes.update(map(itemgetter(1), keep_nodes))
+
+    # analyze connections per node
+    if 0:
+        ctr = Counter()
+
+        for node in nodes:
+            ctr[node] += len(junction_nodes[node])
+
+        ic(ctr)
+
+    def reduce_node(end):
+        end_cost = 0
+        use_end = end
+        end_junct = junction_nodes[end]
+        ic(end, end_junct)
+
+        if len(end_junct) == 1:
+            use_end, end_cost = list(end_junct.items())[0]
+            ic(use_end, end_cost)
+
+        return use_end, end_cost            
+
+    # remove start and end nodes if they only connect to one node to reduce calculations
+    use_start, start_cost = reduce_node(start)
+    use_goal, goal_cost = reduce_node(goal)
+
+    if 1:
+        max_len = 0
+
+        for final_path in pathfinding_redblob.breadth_first_search_all_paths_gen(reduced_grid, use_start, use_goal, callback_step=100000, callback=callback if is_sample else None):
+            max_len = max(max_len, calc_cost(final_path, junction_nodes))
+
+        return max_len + start_cost + goal_cost
+    else:
+        final_paths = pathfinding_redblob.breadth_first_search_all_paths(reduced_grid, start, goal, callback_step=100000, callback=callback if is_sample else None)
+        ic(len(final_paths))
+        #ics(final_paths)
+        lengths = [calc_cost(p, junction_nodes) for p in final_paths]
+        ic(len(lengths))
+        ics(lengths)
+        return max(lengths) + start_cost + goal_cost
 
 
 # %%

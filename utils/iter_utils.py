@@ -357,13 +357,22 @@ def add_tuple(*iterables):
 #    ic(list(iterables))
     return tuple(sum(p) for p in zip(*iterables))
 
+# size-specific for speed
+def add_tuple2(t1, t2):
+    return (t1[0] + t2[0], t1[1] + t2[1])
 
 def add_scalar(a, b):
     return tuple(aa + b for aa in a)
 
+# WARNING! This is slow! aoc_2022_23_unstable_diffusion.py part 2 was 4x faster by usign a tuiple-size sepecifi fucntion instead!
 def subtract_tuple(a, b):
 #    return tuple(aa - bb for aa, bb in zip(a, b))
     return tuple(starmap(operator.sub, zip(a, b)))
+
+# tuple-size specific functions for speed
+def subtract_tuple2(t1, t2):
+    return (t1[0] - t2[0], t1[1] - t2[1])
+
 
 products = math.prod
 
@@ -578,6 +587,23 @@ def sliding_window(iterable, n):
     for x in it:
         window.append(x)
         yield tuple(window)
+
+# alternate method
+def sliding_window2(iterable, n):
+    # sliding_window('ABCDEFG', 4) → ABCD BCDE CDEF DEFG
+    iterator = iter(iterable)
+    window = tuple(itertools.islice(iterator, n))
+
+    if len(window) == n:
+        yield window
+
+    for item in iterator:
+        window = window[1:] + (item,)
+        yield window
+
+# alternate method for collection
+def sliding_window_collection(sequence, n):
+    return (sequence[i : i + n] for i in range(len(sequence) - n + 1))
 
 def roundrobin(*iterables):
     "roundrobin('ABC', 'D', 'EF') --> A D E B F C"

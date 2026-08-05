@@ -56,14 +56,7 @@ if "example" not in dir() or not example:
 
 # %%
 sample_data1s = split_example(example)
-sample_data1 = sample_data1s[0]
-sample_data2 = \
-"""pos=<10,12,12>, r=2
-pos=<12,14,12>, r=2
-pos=<16,12,12>, r=4
-pos=<14,14,14>, r=6
-pos=<50,50,50>, r=200
-pos=<10,10,10>, r=5"""
+sample_data1, sample_data2 = sample_data1s
 
 # %% [markdown]
 # # Parse
@@ -212,16 +205,13 @@ def process2(parsed):
     origin = 0,0,0
     position = x, y, z
     bot_vars = [Int("b"+str(n)) for n, bot in enumerate(parsed)]
-    bot_constraints = [ ]
-    in_range_cnt = Int("in_range_cnt")
 
     for bot, bot_var in zip(parsed, bot_vars):
         opt.add(bot_var == If(z3_dist(bot.pos, position) <= bot.radius, 1, 0))
 
     dist_from_origin = Int("dist")
     opt.add(dist_from_origin == z3_dist(origin, position))
-    opt.add(in_range_cnt == sum(bot_vars))
-    opt.maximize(in_range_cnt)
+    opt.maximize(sum(bot_vars))
     d = opt.minimize(dist_from_origin)
 
     ics(opt.check())
@@ -229,7 +219,6 @@ def process2(parsed):
     model = opt.model()
     #ics(model)
     ics(model[dist_from_origin])
-    ics(model[in_range_cnt])
     return model[dist_from_origin].as_long()
 
 
@@ -245,11 +234,8 @@ def part2(inp):
 
 # %%
 insert_sample_functions(False, globals())
-
-for sample_data1 in sample_data1s:
-    part1(sample_data1)
-
-part2(sample_data2)
+part1(sample_data1) # 7
+part2(sample_data2) # 36
 
 # %% [markdown]
 # # Actual data
@@ -258,5 +244,5 @@ part2(sample_data2)
 real_inp = get_aocd_data()
 insert_sample_functions(True, globals())
 part1(real_inp)
-part2(real_inp) # 99832660 is too low 112997634
+part2(real_inp)
 

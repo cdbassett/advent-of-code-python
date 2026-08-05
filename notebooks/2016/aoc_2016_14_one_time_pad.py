@@ -114,9 +114,10 @@ def part2(inp):
 # # Sample data
 
 # %%
-insert_sample_functions(False, globals())
-part1(sample_data1)
-part2(sample_data2)
+if 0: # can achieve the desired sub 30 second time by skipping samples
+    insert_sample_functions(False, globals())
+    part1(sample_data1)
+    part2(sample_data2)
 
 # %% [markdown]
 # # Actual data

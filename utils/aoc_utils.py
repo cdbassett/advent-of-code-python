@@ -370,35 +370,7 @@ def z3_abs(x):
 
 __MATH__ = ""
 
-# inputs just need to be iterable, output is tuple
-def add_tuple(*iterables):
-#    ic(list(iterables))
-    return tuple(sum(p) for p in zip(*iterables))
-
-
-def add_scalar(a, b):
-    return tuple(aa + b for aa in a)
-
-def subtract_tuple(a, b):
-#    return tuple(aa - bb for aa, bb in zip(a, b))
-    return tuple(starmap(operator.sub, zip(a, b)))
-
 products = math.prod
-
-#def multiply_tuple(a, b):
-#    return tuple(aa * bb for (aa, bb) in zip(a, b))
-
-def multiply(*iterables):
-    return (products(p) for p in zip(*iterables))
-
-
-# this version should allow multiplying elements of more than 2 iterables
-def multiply_tuple(*iterables):
-    return tuple(products(p) for p in zip(*iterables))
-
-
-def multiply_scalar_tuple(a, b):
-    return tuple(aa * b for aa in a)
 
 def count_integer_digits(n):
     return int(log10(n)) + 1
@@ -414,9 +386,6 @@ def get_state_sequence(came_from, final_state):
 
     return list(reversed(state_seq))
 
-
-#def products(seq):
-#    return functools.reduce(operator.mul, seq)
 
     # split a sequence into two parts, head and tail
     # works for strings too
@@ -755,9 +724,11 @@ distance = math.dist
 #def distance(a, b):
 #    return math.sqrt(distance_sq(a, b))
 
-
 def manhattan(a, b=(0,0,0)):
     return sum(abs(d) for d in subtract_tuple(a, b))
+
+def manhattan2(a, b=(0,0)):
+    return sum(abs(d) for d in subtract_tuple2(a, b))
 
 def manhattan_c(a, b=0j):
     diff = a - b
@@ -892,6 +863,9 @@ def complex_to_tuple(z):
 def tuple_to_complex(t):
     return t[0] + t[1] * 1j
 
+def tuples_to_points(it):
+    return starmap_list(Point2D, it)
+
 def get_char_coords(lines, find_c="#", build_point = make_tuple, x_start=0, y_start=0):
 #    ic(width(lines), height(lines))
 
@@ -994,15 +968,14 @@ def analyze_points(points):
 #    ic(W, H, W*H, min_x, max_x, min_y, max_y)
     return W, H, min_x, min_y, max_x, max_y
 
+def get_xy_bounds(xs, ys):
+    return (min(xs), max(xs)), (min(ys), max(ys))
+
 def get_point_set_bounds(dots):
     assert(dots)
     xs = list(p.x for p in dots)
     ys = list(p.y for p in dots)
-    return (min(xs), max(xs)), (min(ys), max(ys))
-
-def get_xy_bounds(xs, ys):
-    return (min(xs), max(xs)), (min(ys), max(ys))
-
+    return get_xy_bounds(xs, ys)
 
 # returns generator of tuples that are points in a square
 def square_boundary_points(x1, y1, x2, y2):

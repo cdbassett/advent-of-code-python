@@ -170,8 +170,8 @@ def run(inp, is_real):
         print_result(result)
 
 
-    part1() # not 462. 552 is too high
-    part2()
+    part1() # 79
+    part2() # 3621
 
 def main():
     if 1: # samples from aocd don't work yet, replaced from hardcoded to put on github

@@ -49,9 +49,7 @@ if "example" not in dir() or not example:
     example = get_aocd_example()
 
 # %%
-sample_data1s = split_example(example)
-sample_data1 = sample_data1s[0]
-sample_data2 = "dabAcCaCBAcCcaDA"
+*sample_data1s, sample_data2 = split_example(example)
 
 # %%
 for sample in sample_data1s:
@@ -92,30 +90,37 @@ def pairs(l, ofs = 0):
     if remainder:
         yield [l[-1]]
 
-
+# remove pairs (upper and lower case of same char next to each other) from the string
 def char_reduce(l):
-    if 0:
-        # excessive list deletions meant I quit trying after 10 monutes, new method took 3 seconds
-        new_chars = l[:]
-        n = 0
+    new_chars = [None] * 50000
+    i_new = n = 0
+    end = len(l)
+    l = list(l) + ["_"]
 
-        while n < len(new_chars)-1:
-            if is_pair(new_chars[n], new_chars[n+1]):
-                del new_chars[n:n+2]
-                n -= 1
+    try:
+        # for n in range(len(l)-1):
+        while n < end:                
+        # for n in range(len(l)-1):
+            c = l[n]
+
+            if is_pair(c, l[n+1]):
+                n += 2
                 continue
+
+            if i_new and is_pair(c, new_chars[i_new-1]):
+                i_new -= 1
+                n += 1
+                continue
+
+            new_chars[i_new] = c
+            i_new += 1
             n += 1
-    else:
-        inter_chars = list(flatten(p for p in pairs(l) if len(p) == 1 or not is_pair(*p)))
-        #ics(l, inter_chars)
+    except IndexError:
+        ic(len(l), i_new)
+        raise
 
-        if inter_chars:
-            new_chars = list(flatten(p for p in pairs(inter_chars, 1) if len(p) == 1 or not is_pair(*p)))
-            #ics(inter_chars, new_chars)
-        else:
-            new_chars = inter_chars
+    return sjoin(new_chars[:i_new])
 
-    return new_chars
 
 def full_reduce(chars):
     old_len = len(chars)
@@ -123,10 +128,9 @@ def full_reduce(chars):
 
     while (new_len := len(new_chars := char_reduce(chars))) < old_len:
         iterations += 1
-        #ic(iterations, len(chars), len(new_chars))
-        #ics(chars, new_chars)
         old_len = new_len
         chars = new_chars
+        
     return new_chars
 
 def process(parsed):
@@ -161,6 +165,19 @@ def process2(parsed):
 
     return min(lengths)
 
+def process2(parsed):
+    base_lower = ord("a")
+    base_upper = ord("A")
+    min_length = 10e6 
+
+    for nc in range(26):
+        chars = list(replace_multi(parsed, chr(nc + base_lower)+chr(nc + base_upper)))
+        #ics(nc, chars)
+        new_chars = full_reduce(chars)
+        min_length = min(min_length, len(new_chars))
+
+    return min_length
+
 
 # %%
 def part2(inp):
@@ -176,9 +193,9 @@ def part2(inp):
 insert_sample_functions(False, globals())
 
 for sample_data1 in sample_data1s:
-    part1(sample_data1)
+    part1(sample_data1) # 0, 0, 4 , 6
 
-part2(sample_data2)
+part2(sample_data2) # 4
 
 # %% [markdown]
 # # Actual data

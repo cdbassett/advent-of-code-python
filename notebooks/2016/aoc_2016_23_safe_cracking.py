@@ -145,8 +145,8 @@ def part2(inp):
 
 # %%
 insert_sample_functions(False, globals())
-part1(sample_data1)
-part2(sample_data2)
+part1(sample_data1) # 3
+part2(sample_data2) # 3
 
 # %% [markdown]
 # # Actual data
